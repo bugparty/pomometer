@@ -1,0 +1,22 @@
+variables:
+
+image: bowmanhan/node:10.11.0-alpine
+
+cache:
+  paths:
+  - node_modules/
+stages:
+- test
+
+
+test_stage:
+  stage: test
+  environment: staging
+  only:
+  - master
+  artifacts:
+    paths:
+    - dist/
+  script:
+  - yarn install
+  - yarn test
