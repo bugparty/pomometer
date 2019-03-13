@@ -6,7 +6,8 @@ export class Settings extends React.Component {
         this.handleTickingSound = this.handleTickingSound.bind(this);
     }
     handleTickingSound(event) {
-        this.props.setTickingSound(event.target.value === 'on' ? true : false);
+        debugger;
+        this.props.setTickingSound(event.target.checked);
     }
     render() {
         let modalClass = classnames('modal', {'is-active': this.props.isOpenSettings});

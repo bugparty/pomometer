@@ -1,3 +1,16 @@
+html,body {
+    height:100%;
+}
+.App ,#root, .AppWrapper{
+    min-height:100%;
+    height:100% !important;;
+}
+.AppWrapper {
+    margin-bottom:-6em;
+}
+.footer {
+    padding-bottom: 1em;
+}
 .navbar-item {
     color:#323232;
     font-weight:600;
@@ -29,6 +42,17 @@
 .fill-space {
     height:auto;
 }
-#setting-body{
-    background-color:#fff;
+
+#clockContainer{
+    padding-bottom:0;
+}
+.introduce {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top:0;
+}
+.introduce article {
+    max-width:800px;
 }

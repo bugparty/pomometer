@@ -9,11 +9,11 @@ stages:
 - test
 
 
-test_stage:
+dev_test:
   stage: test
-  environment: staging
+  environment: dev
   only:
-  - master
+  - dev
   artifacts:
     paths:
     - dist/

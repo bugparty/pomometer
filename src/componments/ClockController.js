@@ -52,7 +52,7 @@ export class ClockController extends React.Component {
     }
 
     handleShortReset() {
-        this.setDuration(5);
+        this.setDuration(60*5);
         this.timeBegin();
     }
     render() {

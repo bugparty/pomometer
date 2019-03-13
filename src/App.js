@@ -4,7 +4,7 @@ import {Navbar} from './componments/Navbar';
 import {ClockController} from './componments/ClockController';
 import {AudioController} from "./componments/AudioController";
 import {Footer} from './componments/Footer';
-
+import {Introduce} from "./componments/Introduce";
 
 class App extends Component {
     constructor(props) {
@@ -37,18 +37,17 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+            <div className="AppWrapper">
                 <Navbar enableTickingSound={this.state.enableTickingSound} setTickingSound={this.setTickingSound}/>
 
 
                 <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset}/>
-                <article className="section">
-                    <h2 >番茄工作法说明</h2>
-                    <p>111</p><wbr/>
-                    <p>2222</p>
-                </article>
-                <Footer/>
-                <AudioController status={this.state.status}/>
+                <Introduce/>
 
+                <AudioController status={this.state.status} enableTickingSound={this.state.enableTickingSound}/>
+
+            </div>
+                <Footer/>
             </div>
         );
     }

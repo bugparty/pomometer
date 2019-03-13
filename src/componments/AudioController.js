@@ -30,6 +30,9 @@ export class AudioController extends React.Component{
     }
     render() {
         if (isMounted){
+            if(!this.props.enableTickingSound){
+                this.stopTic();
+            }
             switch (this.props.status) {
                 case 'reset':
                     this.stopTic();
@@ -57,3 +60,4 @@ export class AudioController extends React.Component{
         )
     }
 }
+
