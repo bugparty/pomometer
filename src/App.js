@@ -10,17 +10,20 @@ class App extends Component {
     constructor(props) {
         super(props);
         let tickingSound = localStorage.getItem('enableTickingSound');
-        if (tickingSound == null){
+        if (tickingSound == null) {
             tickingSound = true;
         }
-        this.state = {'status': 'reset', 'enableTickingSound': tickingSound,
-        'pomodoro_duration': 25*60, 'short_break_duration': 5*60, 'long_break_duration': 15*60};
+        this.state = {
+            'status': 'reset', 'enableTickingSound': tickingSound,
+            'pomodoro_duration': 25 * 60, 'short_break_duration': 5 * 60, 'long_break_duration': 15 * 60
+        };
         this.setBegin = this.setBegin.bind(this);
         this.setEnd = this.setEnd.bind(this);
         this.setReset = this.setReset.bind(this);
         this.setTickingSound = this.setTickingSound.bind(this);
-        this.resetDefault = this.resetDefault.bind(this);
+        this.saveOptions = this.saveOptions.bind(this);
     }
+
     setBegin() {
         this.setState({'status': 'begin'})
     }
@@ -28,33 +31,39 @@ class App extends Component {
     setEnd() {
         this.setState({'status': 'end'})
     }
+
     setReset() {
         this.setState({'status': 'reset'})
     }
+
     setTickingSound(isEnable) {
         localStorage.setItem('enableTickingSound', isEnable);
-        this.setState({'enableTickingSound':isEnable});
+        this.setState({'enableTickingSound': isEnable});
     }
-    resetDefault() {
-        this.setState({'pomodoro_duration': 25*60, 'short_break_duration': 5*60, 'long_break_duration': 15*60,
-        'enableTickingSound': true});
+
+    saveOptions(options) {
+        this.setState(options);
     }
 
     render() {
         return (
             <div className="App">
-            <div className="AppWrapper">
-                <Navbar enableTickingSound={this.state.enableTickingSound} setTickingSound={this.setTickingSound}
-                   pomodoro_duration={this.state.pomodoro_duration} short_break_duration={this.state.short_break_duration}
-                 long_break_duration={this.state.long_break_duration}/>
+                <div className="AppWrapper">
+                    <Navbar enableTickingSound={this.state.enableTickingSound} setTickingSound={this.setTickingSound}
+                            pomodoro_duration={this.state.pomodoro_duration}
+                            short_break_duration={this.state.short_break_duration}
+                            long_break_duration={this.state.long_break_duration} saveOptions={this.saveOptions}/>
 
 
-                <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset} />
-                <Introduce/>
+                    <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset}
+                                     pomodoro_duration={this.state.pomodoro_duration}
+                                     short_break_duration={this.state.short_break_duration}
+                                     long_break_duration={this.state.long_break_duration}/>
+                    <Introduce/>
 
-                <AudioController status={this.state.status} enableTickingSound={this.state.enableTickingSound}/>
+                    <AudioController status={this.state.status} enableTickingSound={this.state.enableTickingSound}/>
 
-            </div>
+                </div>
                 <Footer/>
             </div>
         );

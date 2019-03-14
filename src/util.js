@@ -12,3 +12,8 @@ export function secondsToMinutesString(_seconds) {
     let minute = Math.floor(_seconds / 60);
     return ''+minute;
 }
+
+export function secondsToMinutes(_seconds) {
+    let minute = Math.floor(_seconds / 60);
+    return minute;
+}
