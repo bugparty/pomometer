@@ -14,9 +14,6 @@ dev_test:
   environment: dev
   only:
   - dev
-  artifacts:
-    paths:
-    - dist/
   script:
   - yarn install
   - yarn test
