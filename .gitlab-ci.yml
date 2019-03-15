@@ -29,8 +29,9 @@ deploy_production:
     - dist/
   script:
   - yarn install
+  - yarn build
   - yarn postbuild
   - cd build/
   - sshpass -V
   - export SSHPASS=$USER_PASS
-  - sshpass -e scp  -o stricthostkeychecking=no -r . root@97.64.18.168:/var/www/pomometer/
+  - sshpass -e scp  -o stricthostkeychecking=no -r . root@b1.calm.gq:/var/www/pomometer/
