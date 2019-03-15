@@ -18,7 +18,7 @@ export  class Navbar extends React.Component {
         return (
             <div>
             <nav className="navbar is-spaced has-shadow">
-                <div className="navbar-item">极简番茄钟</div>
+                <div className="navbar-item">AA番茄钟</div>
                 <div className=" navbar-end">
                     <div className="navbar-item " onClick={this.openSettings}>设置</div>
                 </div>
