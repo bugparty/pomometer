@@ -41,5 +41,6 @@ deploy:
     - cd build/
     - sshpass -V
     - export SSHPASS=$USER_PASS
+    - find ./ -name '*.map' -delete
     - sshpass -e scp  -o stricthostkeychecking=no -r . root@b1.calm.gq:/var/www/pomometer/
     - sshpass -e ssh root@b1.calm.gq 'chown -R root:nginx /var/www/pomometer/'
