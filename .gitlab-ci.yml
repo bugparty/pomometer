@@ -30,7 +30,6 @@ deploy_production:
   script:
   - yarn install
   - yarn build
-  - yarn postbuild
   - cd build/
   - sshpass -V
   - export SSHPASS=$USER_PASS
