@@ -1,6 +1,7 @@
 variables:
   DOCKER_DRIVER: overlay2
-  image: bowmanhan/node-chrome:latest
+
+image: bowmanhan/node-chrome:latest
 
 cache:
   paths:
@@ -12,7 +13,7 @@ stages:
 - deploy
 
 
-dev_test:
+test:
   stage: test
   environment: dev
   script:
