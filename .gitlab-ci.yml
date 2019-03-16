@@ -14,6 +14,7 @@ stages:
 
 
 test:
+  image: bowmanhan/node:10.11.0-alpine
   stage: test
   environment: dev
   script:
@@ -31,6 +32,7 @@ build:
   - yarn build
 
 deploy:
+  image: bowmanhan/node:10.11.0-alpine
   stage: deploy
   environment: production
   only:
