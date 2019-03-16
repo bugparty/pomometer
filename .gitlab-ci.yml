@@ -7,30 +7,22 @@ cache:
   - node_modules/
 stages:
 - test
-- deploy
+- build
 
 
 dev_test:
   stage: test
   environment: dev
-  only:
-  - dev
   script:
   - yarn install
   - yarn test
 
-deploy_production:
-  stage: deploy
+build:
+  stage: build
   environment: production
-  only:
-  - master
   artifacts:
     paths:
-    - dist/
+    - build/
   script:
   - yarn install
   - yarn build
-  - cd build/
-  - sshpass -V
-  - export SSHPASS=$USER_PASS
-  - sshpass -e scp  -o stricthostkeychecking=no -r . root@b1.calm.gq:/var/www/pomometer/
