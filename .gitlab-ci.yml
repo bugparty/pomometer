@@ -1,6 +1,6 @@
 variables:
 
-image: bowmanhan/node:10.11.0-alpine
+image: bowmanhan/node-chrome:latest
 
 cache:
   paths:
