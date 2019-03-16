@@ -1,13 +1,15 @@
 variables:
-
-image: bowmanhan/node-chrome:latest
+  DOCKER_DRIVER: overlay2
+  image: bowmanhan/node-chrome:latest
 
 cache:
   paths:
   - node_modules/
+  - build/
 stages:
-- test
 - build
+- test
+- deploy
 
 
 dev_test:
@@ -26,3 +28,15 @@ build:
   script:
   - yarn install
   - yarn build
+
+deploy:
+  stage: deploy
+  environment: production
+  only:
+   - master
+  script:
+    - cd build/
+    - sshpass -V
+    - export SSHPASS=$USER_PASS
+    - sshpass -e scp  -o stricthostkeychecking=no -r . root@b1.calm.gq:/var/www/pomometer/
+    - sshpass -e ssh root@b1.calm.gq 'chown -R root:nginx /var/www/pomometer/'
