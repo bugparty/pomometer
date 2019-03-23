@@ -13,7 +13,8 @@ export class AudioController extends React.Component{
         alarm.play();
     }
     playTic() {
-        if(this.props.enableTickingSound){
+        if( (this.props.enableTickingSound && this.mode ==="pomodoro")
+            || (this.props.enableRestTickingSound && this.mode !== "pomodoro")){
             const  audioTicTac = document.getElementById('tictac');
             audioTicTac.play();
         }

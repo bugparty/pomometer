@@ -18,7 +18,20 @@ export class Settings extends React.Component {
     }
 
     handleTickingSound(event) {
-        this.props.setTickingSound(event.target.checked);
+        const target = event.target;
+        const name = target.name;
+
+        switch (name) {
+            case "sound":
+                this.props.setTickingSound(event.target.checked);
+                break;
+            case "restSound":
+                this.props.setRestTickingSound(event.target.checked);
+                break;
+            default:
+                break;
+        }
+
     }
 
     handleInputChange(event) {
@@ -75,11 +88,27 @@ export class Settings extends React.Component {
                             <button className="delete" aria-label="close" onClick={this.props.closeModal}></button>
                         </header>
                         <section className="modal-card-body">
-                            <section><label className="checkbox">
-                                <input type="checkbox" onChange={this.handleTickingSound}
-                                       defaultChecked={this.props.enableTickingSound}/>
-                                开启时钟声音
-                            </label>
+                            <section>
+                                <div className="columns">
+                                    <div className="column">
+                                        <label className="checkbox">
+                                            <input name="sound" type="checkbox" onChange={this.handleTickingSound}
+                                                   defaultChecked={this.props.enableTickingSound}/>
+                                            开启时钟滴答声音
+                                        </label>
+                                    </div>
+
+                                    <div className="column">
+                                        <label className="checkbox">
+                                            <input name="restSound" type="checkbox" onChange={this.handleTickingSound}
+                                                   defaultChecked={this.props.enableRestTickingSound}/>
+                                            开启休息时钟滴答声音
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
                                 <div className="field">
                                     <label className="label">番茄钟时长</label>
                                     <div className="control">

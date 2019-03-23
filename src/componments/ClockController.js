@@ -43,15 +43,18 @@ export class ClockController extends React.Component {
     }
 
     handleLong() {
+        this.props.setMode("pomodoro");
         this.setDuration(this.props.pomodoro_duration);
         this.timeBegin();
     }
     handleLongReset() {
+        this.props.setMode("longRest");
         this.setDuration(this.props.long_break_duration);
         this.timeBegin();
     }
 
     handleShortReset() {
+        this.props.setMode("shortRest");
         this.setDuration(this.props.short_break_duration);
         this.timeBegin();
     }

@@ -26,7 +26,8 @@ export  class Navbar extends React.Component {
                 <Settings
                     saveOptions={this.props.saveOptions}
                     isOpenSettings={this.state.isOpenSettings} closeModal={this.closeSettingModal}
-                enableTickingSound={this.props.enableTickingSound} setTickingSound={this.props.setTickingSound}
+                enableTickingSound={this.props.enableTickingSound} enableRestTickingSound={this.props.enableRestTickingSound}
+                    setTickingSound={this.props.setTickingSound} setRestTickingSound={this.props.setRestTickingSound}
                           pomodoro_duration={this.props.pomodoro_duration} short_break_duration={this.props.short_break_duration}
                           long_break_duration={this.props.long_break_duration} resetDefault={this.props.resetDefault}/>
             </div>
