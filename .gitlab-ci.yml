@@ -28,6 +28,7 @@ build:
     paths:
     - build/
   script:
+  - rm -f yarn.lock
   - yarn install
   - yarn build
 
