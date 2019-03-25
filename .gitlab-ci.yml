@@ -14,8 +14,6 @@ stages:
 
 
 test:
-  cache:
-    policy: pull
   image: bowmanhan/node:10.11.0-alpine
   stage: test
   environment: dev
