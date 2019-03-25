@@ -26,8 +26,8 @@ export class AudioController extends React.Component{
 
     }
     playTic() {
-
-        if( (this.props.enableTickingSound && this.mode ==="pomodoro")
+        debugger;
+        if( (this.props.enableTickingSound && this.state.mode ==="pomodoro")
             || (this.props.enableRestTickingSound && this.state.mode !== "pomodoro")){
             const  audioTicTac = document.getElementById('tictac');
             audioTicTac.play();
