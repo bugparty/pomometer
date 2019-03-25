@@ -14,10 +14,13 @@ stages:
 
 
 test:
+  cache:
+    policy: pull
   image: bowmanhan/node:10.11.0-alpine
   stage: test
   environment: dev
   script:
+  - rm -f yarn.lock
   - yarn install
   - yarn test
 
@@ -33,6 +36,8 @@ build:
   - yarn build
 
 deploy:
+  cache:
+    policy: pull
   image: bowmanhan/node:10.11.0-alpine
   stage: deploy
   environment: production
