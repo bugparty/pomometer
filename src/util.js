@@ -17,3 +17,6 @@ export function secondsToMinutes(_seconds) {
     let minute = Math.floor(_seconds / 60);
     return minute;
 }
+let id, ua = navigator.userAgent;
+export var isSafari = (ua.match(/safari/i) && !ua.match(/chrome/i));
+

@@ -1,4 +1,6 @@
 import React from 'react';
+import {isSafari} from "../util";
+
 let isMounted = false;
 export class AudioController extends React.Component{
 
@@ -7,14 +9,26 @@ export class AudioController extends React.Component{
         this.playAlarm = this.playAlarm.bind(this);
         this.playTic = this.playTic.bind(this);
         this.stopTic = this.stopTic.bind(this);
+        this.state = {
+            alarm:"/asserts/80sAlarm.mp3"
+        }
     }
     playAlarm() {
-        let alarm = document.getElementById('80alarm');
-        alarm.play();
+
+        if (false) {
+            let audio = new Audio(this.state.alarm);
+            audio.load();
+            audio.play();
+        } else {
+            let alarm = document.getElementById('80alarm');
+            alarm.play();
+        }
+
     }
     playTic() {
+
         if( (this.props.enableTickingSound && this.mode ==="pomodoro")
-            || (this.props.enableRestTickingSound && this.mode !== "pomodoro")){
+            || (this.props.enableRestTickingSound && this.state.mode !== "pomodoro")){
             const  audioTicTac = document.getElementById('tictac');
             audioTicTac.play();
         }
@@ -51,7 +65,7 @@ export class AudioController extends React.Component{
         }
         return (
             <div>
-                <audio id="80alarm"><source src="/asserts/80sAlarm.mp3" preload="auto" type="audio/mpeg"/>
+                <audio id="80alarm"><source src={this.state.alarm} preload="auto" type="audio/mpeg"/>
                     Your browser does not support the audio element.
                 </audio>
                 <audio id="tictac" loop={true}><source src="/asserts/tictac.mp3" preload="auto" type="audio/mpeg"/>

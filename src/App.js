@@ -21,7 +21,7 @@ class App extends Component {
             status: 'reset',
             mode: 'pomodoro',
             enableTickingSound: tickingSound,
-            restTickingSound: restTickingSound,
+            enableRestTickingSound: restTickingSound,
             pomodoro_duration: 25 * 60, short_break_duration: 5 * 60, long_break_duration: 15 * 60
         };
         this.setBegin = this.setBegin.bind(this);
