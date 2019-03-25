@@ -20,7 +20,6 @@ test:
   stage: test
   environment: dev
   script:
-  - rm -f yarn.lock
   - yarn install
   - yarn test
 
@@ -31,7 +30,6 @@ build:
     paths:
     - build/
   script:
-  - rm -f yarn.lock
   - yarn install
   - yarn build
 
