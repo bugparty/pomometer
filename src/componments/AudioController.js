@@ -15,7 +15,7 @@ export class AudioController extends React.Component{
     }
     playAlarm() {
 
-        if (false) {
+        if (false && isSafari) {
             let audio = new Audio(this.state.alarm);
             audio.load();
             audio.play();
