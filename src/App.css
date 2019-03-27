@@ -33,7 +33,7 @@ html,body {
 
 }
 #clock {
-    width:60%;
+
     font-size: 200px;
     font-weight:800;
     text-align:center;
@@ -55,4 +55,34 @@ html,body {
 }
 .introduce article {
     max-width:800px;
+}
+/*navbar always flex */
+@media only screen and (max-width: 1280px) {
+    .navbar {
+        display: flex;
+    }
+    .navbar-item, .navbar-link {
+        display:flex;
+        align-items: center;
+    }
+    .navbar-end {
+        justify-content: flex-end;
+        margin-left:auto;
+        display:flex;
+    }
+}
+@media only screen and (max-width: 480px) {
+    #clock {
+
+        font-size: 120px;
+        font-weight:800;
+        text-align:center;
+        color:hsl(171, 100%, 41%);
+    }
+
+    #clockContainer{
+        padding: 1rem;
+    }
+
+
 }

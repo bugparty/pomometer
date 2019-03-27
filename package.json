@@ -11,7 +11,7 @@
     "soundmanager2": "^2.97.20170602"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --host 192.168.2.22",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
