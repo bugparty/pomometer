@@ -3,12 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {IntlProvider} from 'react-intl';
+import en_US from "./locales/en-US"
+import zh_CN from "./locales/zh-CN"
+import {addLocaleData} from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import zh from 'react-intl/locale-data/zh';
+addLocaleData([...en, ...zh]);
+function getMessages() {
+    switch (navigator.language.split('-')[0]) {
+        case 'en':
+            return en_US.messages
+        case 'zh':
+            return zh_CN.messages
+        default:
+            return en_US.messages
+    }
+}
 
 const rootElement = document.getElementById("root");
 if (rootElement.hasChildNodes()) {
-    ReactDOM.hydrate(<App />, rootElement);
+    ReactDOM.hydrate(<IntlProvider locale={navigator.language} messages={getMessages()}><App/>
+    </IntlProvider>, rootElement);
 } else {
-    ReactDOM.render(<App />, rootElement);
+    ReactDOM.render(<IntlProvider locale={navigator.language} messages={getMessages()}><App/>
+    </IntlProvider>, rootElement);
 }
 
 
