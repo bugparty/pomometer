@@ -6,7 +6,18 @@ const messages = {
     'clock.button.short': '短休息',
     'clock.button.reset': '重置',
     'navi.title': 'AA番茄钟',
-    'navi.settings': '设置'
+    'navi.settings': '设置',
+    'settings.title': '设置',
+    'settings.enableTickingSound': '开启时钟滴答声音',
+    'settings.enableRestTickingSound':'开启休息时钟滴答声音',
+    'settings.button.save':'保存',
+    'settings.button.reset': '重置',
+    'settings.field.pomodoro_duration': '番茄钟时长',
+    'settings.field.short_break_duration': '短休息时长',
+    'settings.field.long_break_duration': '长休息时长'
+
+
+
 }
 const zh_CN = {
     locale: 'zh-CN',
