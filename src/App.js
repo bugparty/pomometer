@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from './componments/Navbar';
-import {ClockController} from './componments/ClockController';
+import {ClockController} from './componments/clock/ClockController';
 import {AudioController} from "./componments/AudioController";
 import {Footer} from './componments/Footer';
 import {Introduce} from "./componments/Introduce";

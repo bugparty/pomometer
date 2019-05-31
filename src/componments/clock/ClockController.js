@@ -1,7 +1,7 @@
 import React from 'react';
 import {Clock} from './Clock';
 import {ClockButtons} from './ClockButtons';
-import {formatSeconds} from "../util";
+import {formatSeconds} from "../../util";
 
 export class ClockController extends React.Component {
     constructor(props) {

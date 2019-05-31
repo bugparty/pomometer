@@ -84,7 +84,7 @@ export class Settings extends React.Component {
         return (
             <div>
                 <div className={modalClass}>
-                    <div className="modal-background" onClick={this.props.closeModal}></div>
+                    <div className="modal-background" onClick={this.props.closeModal}/>
                     <div className="modal-card">
                         <header className="modal-card-head">
                             <p className="modal-card-title"><FormattedMessage id="settings.title"
