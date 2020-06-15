@@ -78,6 +78,7 @@ class App extends Component {
                             long_break_duration={this.state.long_break_duration} saveOptions={this.saveOptions}/>
                     <div className="columns">
                         <div className="TodoContainer column is-one-fifth">
+                            <h2 className="h2">Todo list</h2>
                             <AddTodo/>
                             <VisibleTodoList/>
                             <TodoFooter/>

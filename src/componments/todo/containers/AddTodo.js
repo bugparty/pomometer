@@ -6,19 +6,18 @@ let AddTodo = ({ dispatch }) => {
     let input
     return (
         <div>
-            <form onSubmit={e => {
+            <form className="field has-addons" onSubmit={e => {
                 e.preventDefault()
                 if (!input.value.trim()) {
                     return
                 }
                 dispatch(addTodo(input.value))
                 input.value = ''
-            }}
-                  >
-                <input ref={node => {
+            }}>
+                <p className="control"><input className="input" ref={node => {
                     input = node
-                }}/>
-                <button type="submit">Add Todo</button>
+                }}/></p>
+                <p className="control"><button type="submit" className="button">Add Todo</button></p>
             </form>
         </div>
     )

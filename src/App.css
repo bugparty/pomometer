@@ -83,6 +83,8 @@ html,body {
     #clockContainer{
         padding: 1rem;
     }
+}
 
-
+.TodoContainer {
+    min-width: 400px;
 }

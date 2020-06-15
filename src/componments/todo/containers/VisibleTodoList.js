@@ -4,7 +4,6 @@ import TodoList from "../TodoList"
 import { VisibilityFilters} from "../../actions";
 
 const getVisibleTodos = (todos, filter) => {
-    debugger
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
             return todos
@@ -18,7 +17,6 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const mapStateToProps = state => {
-    debugger
     return {
         todos: getVisibleTodos(state.todos, state.visibilityFilter)
     }
