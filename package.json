@@ -5,18 +5,20 @@
   "dependencies": {
     "bulma-start": "^0.0.3",
     "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-intl": "^2.8.0",
+    "react-redux": "^7.2.0",
     "react-scripts": "2.1.5",
+    "redux": "^4.0.5",
     "soundmanager2": "^2.97.20170602"
   },
   "scripts": {
-    "start": "react-scripts start --host 192.168.2.22",
+    "start": "react-scripts start ",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postbuild": "react-snap"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,13 +28,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "react-snap": "^1.23.0"
-  },
-  "reactSnap": {
-    "puppeteerArgs": [
-      "--no-sandbox"
-    ]
-  }
+  ]
 }

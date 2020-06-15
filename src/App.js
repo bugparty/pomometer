@@ -5,6 +5,9 @@ import {ClockController} from './componments/clock/ClockController';
 import {AudioController} from "./componments/AudioController";
 import {Footer} from './componments/Footer';
 import {Introduce} from "./componments/Introduce";
+import AddTodo from "./componments/todo/containers/AddTodo";
+import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
+import TodoFooter from "./componments/todo/TodoFooter";
 
 class App extends Component {
     constructor(props) {
@@ -73,15 +76,22 @@ class App extends Component {
                             pomodoro_duration={this.state.pomodoro_duration}
                             short_break_duration={this.state.short_break_duration}
                             long_break_duration={this.state.long_break_duration} saveOptions={this.saveOptions}/>
-
-
-                    <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset}
-                                     pomodoro_duration={this.state.pomodoro_duration}
-                                     short_break_duration={this.state.short_break_duration}
-                                     long_break_duration={this.state.long_break_duration}
-                                     setMode={this.setMode}
-                    />
-                    <Introduce/>
+                    <div className="columns">
+                        <div className="TodoContainer column is-one-fifth">
+                            <AddTodo/>
+                            <VisibleTodoList/>
+                            <TodoFooter/>
+                        </div>
+                        <div className="ClockContainer column">
+                            <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset}
+                                             pomodoro_duration={this.state.pomodoro_duration}
+                                             short_break_duration={this.state.short_break_duration}
+                                             long_break_duration={this.state.long_break_duration}
+                                             setMode={this.setMode}
+                            />
+                            <Introduce/>
+                        </div>
+                    </div>
 
                     <AudioController status={this.state.status} mode={this.state.mode}
                                      enableTickingSound={this.state.enableTickingSound}

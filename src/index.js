@@ -9,6 +9,13 @@ import zh_CN from "./locales/zh-CN"
 import {addLocaleData} from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
+import { createStore } from 'redux'
+import todoApp from './componments/reducers'
+import {Provider} from 'react-redux'
+// redux
+const store = createStore(todoApp)
+console.log(store)
+//intl
 addLocaleData([...en, ...zh]);
 function getMessages() {
     switch (navigator.language.split('-')[0]) {
@@ -26,8 +33,13 @@ if (rootElement.hasChildNodes()) {
     ReactDOM.hydrate(<IntlProvider locale={navigator.language} messages={getMessages()}><App/>
     </IntlProvider>, rootElement);
 } else {
-    ReactDOM.render(<IntlProvider locale={navigator.language} messages={getMessages()}><App/>
-    </IntlProvider>, rootElement);
+    ReactDOM.render(
+        <Provider store={store}>
+            <IntlProvider locale={navigator.language} messages={getMessages()}>
+                <App/>
+            </IntlProvider>
+        </Provider>
+        , rootElement);
 }
 
 
