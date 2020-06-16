@@ -9,11 +9,10 @@ import zh_CN from "./locales/zh-CN"
 import {addLocaleData} from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
-import { createStore } from 'redux'
-import todoApp from './componments/reducers'
+import store from "./componments/store";
 import {Provider} from 'react-redux'
 // redux
-const store = createStore(todoApp)
+
 console.log(store)
 //intl
 addLocaleData([...en, ...zh]);
