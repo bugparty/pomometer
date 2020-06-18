@@ -80,8 +80,9 @@ class App extends Component {
                         <div className="TodoContainer column is-one-fifth">
                             <h2 className="h2">Todo list</h2>
                             <AddTodo/>
-                            <VisibleTodoList/>
                             <TodoFooter/>
+                            <VisibleTodoList/>
+
                         </div>
                         <div className="ClockContainer column">
                             <ClockController setBegin={this.setBegin} setEnd={this.setEnd} setReset={this.setReset}

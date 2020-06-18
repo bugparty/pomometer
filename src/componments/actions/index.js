@@ -24,7 +24,8 @@ export const addTodo = text=> {
     return {
         type: ADD_TODO,
             id: uuidv4(),
-        text
+        text,
+        createdDate:(new Date()).toJSON()
     }
 }
 export const increaseId = ()=>(

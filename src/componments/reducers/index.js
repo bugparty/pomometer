@@ -11,6 +11,7 @@ function todos(state = [], action) {
                 {
                     id: action.id,
                     text: action.text,
+                    createdDate: action.createdDate,
                     completed: false
                 }
             ]
