@@ -48,6 +48,6 @@ jobs:
       with:
           personal_token: ${{ secrets.ACCESS_TOKEN }}
           external_repository: bugparty/pomotodo_page
-          publish_branch: master # The branch the action should deploy to.
+          publish_branch: gh-pages # The branch the action should deploy to.
           publish_dir: build # The folder the action should deploy.
           disable_nojekyll: true
