@@ -1,7 +1,4 @@
 class Storage{
-    constructor() {
-
-    }
     loadState(){
         try {
             const serializedState = localStorage.getItem('state');

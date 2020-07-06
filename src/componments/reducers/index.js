@@ -25,7 +25,7 @@ function todos(state = [], action) {
                 return todo
             })
         case DELETE_TODO:
-            return state.filter( todo => todo.id != action.id)
+            return state.filter( todo => todo.id !== action.id)
         default:
             return state
     }

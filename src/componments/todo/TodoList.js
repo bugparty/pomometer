@@ -12,7 +12,7 @@ const TodoList = ({todos, onTodoClick, onTodoClickDelete}) => (
                       onTodoClickDelete(todo.id)
                   }} />
         ))}
-        {todos.length == 0 && <p>No todo item</p>}
+        {todos.length === 0 && <p>No todo item</p>}
     </ul>
 )
 

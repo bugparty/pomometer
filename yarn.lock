@@ -1773,6 +1773,11 @@ browserslist@^4.0.0, browserslist@^4.3.4, browserslist@^4.3.5, browserslist@^4.4
     electron-to-chromium "^1.3.116"
     node-releases "^1.1.11"
 
+bs-platform@7.3.2:
+  version "7.3.2"
+  resolved "https://registry.npm.taobao.org/bs-platform/download/bs-platform-7.3.2.tgz#301f5c9b4e8cf5713cb60ca22e145e56e793affe"
+  integrity sha1-MB9cm06M9XE8tgyiLhReVueTr/4=
+
 bser@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/bser/download/bser-2.0.0.tgz#9ac78d3ed5d915804fd87acb158bc797147a1719"
@@ -7129,6 +7134,11 @@ realpath-native@^1.0.0:
   resolved "http://registry.npm.taobao.org/realpath-native/download/realpath-native-1.1.0.tgz#2003294fea23fb0672f2476ebe22fcf498a2d65c"
   dependencies:
     util.promisify "^1.0.0"
+
+reason-react@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npm.taobao.org/reason-react/download/reason-react-0.9.1.tgz#30a887158200b659aa03e2d75ff4cc54dc462bb0"
+  integrity sha1-MKiHFYIAtlmqA+LXX/TMVNxGK7A=
 
 recursive-readdir@2.2.2:
   version "2.2.2"

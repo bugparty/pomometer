@@ -6,7 +6,6 @@ export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const DELETE_TODO = 'DELETE_TODO'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBLITY_FILTER'
-export const INCREASE_ID = 'INCREASE_ID'
 
 /*
 * other constants
@@ -28,11 +27,6 @@ export const addTodo = text=> {
         createdDate:(new Date()).toJSON()
     }
 }
-export const increaseId = ()=>(
-    {
-        type: INCREASE_ID
-    }
-)
 
 export const deleteTodo = id => ({
     type: DELETE_TODO,

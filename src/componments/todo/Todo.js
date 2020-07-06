@@ -7,7 +7,7 @@ const Todo = ({ onClick,onClickDelete,  completed, text, createdDate}) => (
             <p className="card-header-title" onClick={onClick}  style={{textDecoration: completed ? 'line-through' : 'none'}}>
                {text}
             </p>
-            <a href="#" className="card-header-icon" aria-label="more options">
+            <a href="_blank" className="card-header-icon" aria-label="more options">
       <span className="icon">
         <i className="fas fa-angle-down" aria-hidden="true"></i>
       </span>
@@ -21,10 +21,10 @@ const Todo = ({ onClick,onClickDelete,  completed, text, createdDate}) => (
             </div>
         </div>
         <footer className="card-footer">
-            <a href="#" className="card-footer-item" onClick={onClick} >Done</a>
-            <a href="#" className="card-footer-item"  >Focus</a>
-            <a href="#" className="card-footer-item">Edit</a>
-            <a href="#" className="card-footer-item" onClick={onClickDelete}>Delete</a>
+            <a href="_blank" className="card-footer-item" onClick={onClick} >Done</a>
+            <a href="_blank" className="card-footer-item"  >Focus</a>
+            <a href="_blank" className="card-footer-item">Edit</a>
+            <a href="_blank" className="card-footer-item" onClick={onClickDelete}>Delete</a>
         </footer>
     </div>
 )

@@ -1,7 +1,6 @@
 import Storage from "./storage";
-import {createStore, applyMiddleware} from "redux";
+import {createStore} from "redux";
 import todoApp from './reducers'
-import {ADD_TODO} from "./actions";
 
 let storage = new Storage()
 const persistedState = storage.loadState()
