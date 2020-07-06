@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "re:build": "bsb -make-world -clean-world",
     "re:watch": "bsb -make-world -clean-world -w",
-    "pages": "GENERATE_SOURCEMAP=false react-scripts build"
+    "pages": "GENERATE_SOURCEMAP=false PUBLIC_URL=https://bugparty.github.io/pomotodo_page/ react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
