@@ -44,10 +44,10 @@ jobs:
       run: npm run build
       
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@3.5.7
+      uses: peaceiris/actions-gh-pages@v3.6.1
       with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY_NAME: bugparty/pomotodo_page
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
-
+          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          external_repository: bugparty/pomotodo_page
+          publish_branch: gh-pages # The branch the action should deploy to.
+          publish_dir: build # The folder the action should deploy.
+          disable_nojekyll: true
