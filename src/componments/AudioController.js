@@ -64,10 +64,10 @@ export class AudioController extends React.Component{
         }
         return (
             <div>
-                <audio id="80alarm"><source src={this.state.alarm} preload="auto" type="audio/mpeg"/>
+                <audio id="80alarm"><source src={process.env.PUBLIC_URL + this.state.alarm} preload="auto" type="audio/mpeg"/>
                     Your browser does not support the audio element.
                 </audio>
-                <audio id="tictac" loop={true}><source src="/asserts/tictac.mp3" preload="auto" type="audio/mpeg"/>
+                <audio id="tictac" loop={true}><source src={process.env.PUBLIC_URL + "/asserts/tictac.mp3"} preload="auto" type="audio/mpeg"/>
                     Your browser does not support the audio element.
                 </audio>
             </div>
