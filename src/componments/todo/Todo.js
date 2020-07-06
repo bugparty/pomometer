@@ -15,7 +15,7 @@ const Todo = ({ onClick,onClickDelete,  completed, text, createdDate}) => (
         </header>
         <div className="card-content">
             <div className="content">
-                <a href="_blank">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                <a href="_blank">@bulmaio</a>. <a href="_blank">#css</a> <a href="_blank">#responsive</a>
                 <br/>
                     <time dateTime={createdDate}>{(new Date(createdDate)).toLocaleString()}</time>
             </div>
