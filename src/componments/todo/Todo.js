@@ -7,7 +7,7 @@ const Todo = ({ onClick,onClickDelete,  completed, text, createdDate}) => (
             <p className="card-header-title" onClick={onClick}  style={{textDecoration: completed ? 'line-through' : 'none'}}>
                {text}
             </p>
-            <a href="_blank" className="card-header-icon" aria-label="more options">
+            <a  href="#" className="card-header-icon" aria-label="more options">
       <span className="icon">
         <i className="fas fa-angle-down" aria-hidden="true"></i>
       </span>
@@ -15,16 +15,16 @@ const Todo = ({ onClick,onClickDelete,  completed, text, createdDate}) => (
         </header>
         <div className="card-content">
             <div className="content">
-                <a href="_blank">@bulmaio</a>. <a href="_blank">#css</a> <a href="_blank">#responsive</a>
+                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
                 <br/>
                     <time dateTime={createdDate}>{(new Date(createdDate)).toLocaleString()}</time>
             </div>
         </div>
         <footer className="card-footer">
-            <a href="_blank" className="card-footer-item" onClick={onClick} >Done</a>
-            <a href="_blank" className="card-footer-item"  >Focus</a>
-            <a href="_blank" className="card-footer-item">Edit</a>
-            <a href="_blank" className="card-footer-item" onClick={onClickDelete}>Delete</a>
+            <a href="#" className="card-footer-item" onClick={onClick} >Done</a>
+            <a href="#" className="card-footer-item"  >Focus</a>
+            <a href="#" className="card-footer-item">Edit</a>
+            <a href="#" className="card-footer-item" onClick={onClickDelete}>Delete</a>
         </footer>
     </div>
 )
