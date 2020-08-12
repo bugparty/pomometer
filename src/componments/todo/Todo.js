@@ -8,7 +8,12 @@ const SubTodo = ({onTodoClickSub, onTodoClickDeleteSub, completed, text, created
         <Button onClick={onTodoClickDeleteSub}>Delete</Button>
     </div>
 )
-const Todo = ({onTodoClickSub, onTodoClickDeleteSub, onTodoClickAddSub, id, completed, text, createdDate, subItems}) =>{
+const DefaultSubTodo = ({onTodoClick, completed, text}) => (
+    <div>
+        <Checkbox onClick={onTodoClick} checked={completed}>{text}</Checkbox>
+    </div>
+)
+const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub, id, completed, text, createdDate, subItems}) =>{
     let input
     return (
         <div>
@@ -29,7 +34,7 @@ const Todo = ({onTodoClickSub, onTodoClickDeleteSub, onTodoClickAddSub, id, comp
                 ))
                 }
                 {
-                    subItems.length === 0 && <p>No Items</p>
+                    subItems.length === 0 && <DefaultSubTodo text={"default subtask"} completed={completed} onTodoClick={()=>onTodoClick(id)}/>
                 }
 
             </div>
