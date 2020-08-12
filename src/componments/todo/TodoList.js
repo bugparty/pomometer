@@ -29,12 +29,13 @@ class TodoList extends React.Component{
     }
     handleOk = e => {
         console.log(e);
+        this.props.onTodoClickDelete(this.state.deleteId)
         this.setState({
             deleteVisible: false,
         });
     };
 
-    handleCancel = e => {
+    handleCancel =todo =>  e => {
         console.log(e);
         this.setState({
             deleteVisible: false,
@@ -65,7 +66,7 @@ class TodoList extends React.Component{
             >
                 {this.props.todos.length > 0 && this.props.todos.map((todo, index) => (
                     <Panel header={todo.text} key={todo.id} extra={genExtra(this, todo.id)}>
-                        <Todo key={todo.id} {...todo} onClick={() => this.props.onTodoClick(todo.id)}
+                        <Todo key={todo.id} {...todo} {...this.props} onClick={() => this.props.onTodoClick(todo.id)}
                               createdDate={todo.createdDate}
                               onClickDelete={e => {
                                   e.stopPropagation()
@@ -84,12 +85,22 @@ class TodoList extends React.Component{
 TodoList.propTypes = {
     todos: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            completed: PropTypes.bool.isRequired,
-            text: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired,
-    onTodoClick: PropTypes.func.isRequired
+                completed: PropTypes.bool.isRequired,
+                text: PropTypes.string.isRequired,
+                createdDate: PropTypes.string.isRequired,
+                subItems: PropTypes.arrayOf(PropTypes.shape({
+                    id: PropTypes.string.isRequired,
+                    completed: PropTypes.bool.isRequired,
+                    text: PropTypes.string.isRequired,
+                    createdDate: PropTypes.string.isRequired,
+                })).isRequired
+        }
+        )).isRequired,
+    onTodoClick: PropTypes.func.isRequired,
+    onTodoClickDelete: PropTypes.func.isRequired,
+    onTodoClickSub: PropTypes.func.isRequired,
+    onTodoClickDeleteSub: PropTypes.func.isRequired,
+    onTodoClickAddSub: PropTypes.func.isRequired,
 }
 
 export default TodoList

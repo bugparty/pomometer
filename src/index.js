@@ -3,19 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {IntlProvider} from 'react-intl';
 import en_US from "./locales/en-US"
 import zh_CN from "./locales/zh-CN"
-import {addLocaleData} from 'react-intl';
-import en from 'react-intl/locale-data/en';
-import zh from 'react-intl/locale-data/zh';
+import {IntlProvider} from 'react-intl';
 import store from "./componments/store";
 import {Provider} from 'react-redux'
 // redux
 
 console.log(store)
 //intl
-addLocaleData([...en, ...zh]);
 function getMessages() {
     switch (navigator.language.split('-')[0]) {
         case 'en':
@@ -29,12 +25,12 @@ function getMessages() {
 
 const rootElement = document.getElementById("root");
 if (rootElement.hasChildNodes()) {
-    ReactDOM.hydrate(<IntlProvider locale={navigator.language} messages={getMessages()}><App/>
+    ReactDOM.hydrate(<IntlProvider locale={navigator.language} defaultLocale="en" messages={getMessages()}><App/>
     </IntlProvider>, rootElement);
 } else {
     ReactDOM.render(
         <Provider store={store}>
-            <IntlProvider locale={navigator.language} messages={getMessages()}>
+            <IntlProvider locale={navigator.language}  messages={getMessages()}>
                 <App/>
             </IntlProvider>
         </Provider>

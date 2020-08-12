@@ -1,5 +1,13 @@
-import appLocaleData from "react-intl/locale-data/zh";
 
+if (!Intl.PluralRules) {
+    require('@formatjs/intl-pluralrules/polyfill');
+    require('@formatjs/intl-pluralrules/locale-data/zh'); // Add locale data for de
+}
+
+if (!Intl.RelativeTimeFormat) {
+    require('@formatjs/intl-relativetimeformat/polyfill');
+    require('@formatjs/intl-relativetimeformat/locale-data/zh'); // Add locale data for de
+}
 const messages = {
     'clock.button.standard': "标准番茄钟", //键值在组件进行国际化时对应的就是id,具体见组件如何使用
     'clock.button.long': '长休息',
@@ -24,7 +32,6 @@ const messages = {
 }
 const zh_CN = {
     locale: 'zh-CN',
-    data: appLocaleData,
     messages: messages
 };
 

@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux'
-import {ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, DELETE_TODO,
-    VisibilityFilters} from "../actions";
+import {
+    ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, DELETE_TODO,
+    VisibilityFilters, ADD_SUB_TODO, TOGGLE_SUB_TODO, DELETE_SUB_TODO
+} from "../actions";
 
 function todos(state = [], action) {
-    console.log("action", action.type, "obj", action)
+    // console.log("action", action.type, "obj", action)
     switch (action.type) {
         case ADD_TODO:
             return [
@@ -11,10 +13,28 @@ function todos(state = [], action) {
                 {
                     id: action.id,
                     text: action.text,
+                    subItems: [],
                     createdDate: action.createdDate,
                     completed: false
                 }
             ]
+        case ADD_SUB_TODO:
+            return state.map((todo, index) => {
+                if (todo.id === action.id) {
+                    return Object.assign({}, todo, {
+                        subItems : [
+                            ...todo.subItems,
+                            {
+                                id: action.subId,
+                                text: action.subText,
+                                createdDate: action.createdDate,
+                                completed: false
+                            }
+                        ]
+                    })
+                }
+                return todo
+            })
         case TOGGLE_TODO:
             return state.map((todo, index) => {
                 if (todo.id === action.id) {
@@ -24,8 +44,33 @@ function todos(state = [], action) {
                 }
                 return todo
             })
+        case TOGGLE_SUB_TODO:
+            return state.map((todo, index) => {
+                if (todo.id === action.id) {
+                    return Object.assign({}, todo, {
+                        subItems : todo.subItems.map((subtodo, index)=> {
+                            if (subtodo.id === action.subId){
+                                return Object.assign({}, subtodo, {
+                                    completed: !subtodo.completed
+                                })
+                            }
+                            return subtodo
+                        })
+                    })
+                }
+                return todo
+            })
         case DELETE_TODO:
             return state.filter( todo => todo.id !== action.id)
+        case DELETE_SUB_TODO:
+            return state.map((todo, index) => {
+                if (todo.id === action.id) {
+                    return Object.assign({}, todo, {
+                        subItems : todo.subItems.filter(subtodo => subtodo.id !== action.subId)
+                    })
+                }
+                return todo
+            })
         default:
             return state
     }
@@ -41,14 +86,10 @@ function visibilityFilter(state= SHOW_ALL, action) {
             return state
     }
 }
-function nextId(state = 0, action) {
-    return state
-}
 
-const todoApp = combineReducers( {
+const todoAppReducers = combineReducers( {
         visibilityFilter,
-        todos,
-    nextId
+        todos
     })
 
-export default todoApp
+export default todoAppReducers

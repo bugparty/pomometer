@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Button} from "antd";
 
 const Link = ({active, children, onClick}) => {
     return (
-        <button className="button" onClick={onClick}
+        <Button onClick={onClick}
                 disabled={active}
                 style={{ marginLeft: '4px'}}
         >
             {children}
-        </button>
+        </Button>
     )
 }
 

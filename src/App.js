@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Button } from 'antd';
 import './App.css';
 import {Navbar} from './componments/Navbar';
 import {ClockController} from './componments/clock/ClockController';
@@ -78,7 +77,7 @@ class App extends Component {
                             short_break_duration={this.state.short_break_duration}
                             long_break_duration={this.state.long_break_duration} saveOptions={this.saveOptions}/>
                     <div className="columns">
-                        <div className="TodoContainer column is-one-fifth">
+                        <div className="TodoContainer column is-one-quarter">
                             <h2 className="h2">Todo list</h2>
                             <AddTodo/>
                             <TodoFooter/>
