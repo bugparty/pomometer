@@ -11,7 +11,7 @@ export const todoSlice = createSlice({
                     id: action.payload.id,
                     text: action.payload.text,
                     subItems: [],
-                    createdDate: action.createdDate,
+                    createdDate: action.payload.createdDate,
                     completed: false
                 })
             },

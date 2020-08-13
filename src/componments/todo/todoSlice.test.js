@@ -1,36 +1,34 @@
 import expect from 'expect';
-import {setVisibilityFilter, VisibilityFilters} from "./visibilityFilterSlice"
-import {
-    addTodo, addSubTodo, deleteTodo, deleteSubTodo,  toggleSubTodo,
-    toggleTodo
-} from "./todoSlice";
-import todos from './todoSlice'
-import visibilityFilter from './visibilityFilterSlice'
+import visibilityFilter, {VisibilityFilters} from "./visibilityFilterSlice"
+import todos, {addSubTodo, addTodo, deleteSubTodo, deleteTodo, toggleSubTodo, toggleTodo} from "./todoSlice";
 import {combineReducers} from "redux";
-const todoAppReducers = combineReducers( {
+
+const todoAppReducers = combineReducers({
     visibilityFilter,
     todos
 })
 describe('Reducer', () => {
     it('returns the initial state', () => {
         expect(todoAppReducers(undefined, {})).toEqual({
-            todos:[],
+            todos: [],
             visibilityFilter: VisibilityFilters.SHOW_ALL
         });
     });
 
     it('handles the addTodo action', () => {
         const text = "hello"
-        expect(todoAppReducers(undefined, addTodo(text))).toMatchObject({
-            todos:[
+        let ret = todoAppReducers(undefined, addTodo(text))
+        expect(ret).toMatchObject({
+            todos: [
                 {
                     completed: false,
                     text: text,
-                    subItems:[]
+                    subItems: []
                 }
             ],
             visibilityFilter: VisibilityFilters.SHOW_ALL
         })
+        ret.todos.forEach(todo => expect(todo.createdDate).toBeDefined())
     });
 
     it('handles the toggleTodo action', () => {
@@ -72,12 +70,13 @@ describe('Reducer', () => {
         let state = todoAppReducers(undefined, addTodo(text))
         let id = state.todos[0].id
         const subtext = "sub hello"
-        expect(todoAppReducers(state, addSubTodo(id, subtext))).toMatchObject({
-            todos:[
+        let ret = todoAppReducers(state, addSubTodo(id, subtext))
+        expect(ret).toMatchObject({
+            todos: [
                 {
                     completed: false,
                     text: text,
-                    subItems:[{
+                    subItems: [{
                         completed: false,
                         text: subtext
                     }]
@@ -85,6 +84,7 @@ describe('Reducer', () => {
             ],
             visibilityFilter: VisibilityFilters.SHOW_ALL
         })
+        ret.todos.forEach(todo => todo.subItems.forEach(subtodo => expect(subtodo.createdDate).toBeDefined()))
     });
 
     it('handles the toggleSubTodo action', () => {
