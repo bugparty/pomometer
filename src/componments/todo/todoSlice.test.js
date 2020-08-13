@@ -1,11 +1,16 @@
 import expect from 'expect';
-import todoAppReducers from "../reducers";
-
+import {setVisibilityFilter, VisibilityFilters} from "./visibilityFilterSlice"
 import {
-    addTodo, addSubTodo, deleteTodo, deleteSubTodo, setVisibilityFilter, VisibilityFilters, toggleSubTodo,
+    addTodo, addSubTodo, deleteTodo, deleteSubTodo,  toggleSubTodo,
     toggleTodo
-} from "../actions";
-
+} from "./todoSlice";
+import todos from './todoSlice'
+import visibilityFilter from './visibilityFilterSlice'
+import {combineReducers} from "redux";
+const todoAppReducers = combineReducers( {
+    visibilityFilter,
+    todos
+})
 describe('Reducer', () => {
     it('returns the initial state', () => {
         expect(todoAppReducers(undefined, {})).toEqual({
