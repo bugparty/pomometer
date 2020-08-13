@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -40,6 +40,8 @@ jobs:
     - name: Install Dependencies
       run: npm ci
 
+    - name: Run tests
+      run: npm run test
     - name: Build
       run: npm run pages
       
