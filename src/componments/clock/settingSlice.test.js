@@ -7,7 +7,7 @@ import settingReducer, {
     set_ticking_sound
 } from './settingSlice'
 
-describe('VisibilityFilterReducer', () => {
+describe('settingSlice', () => {
     it('returns the initial state', () => {
         expect(settingReducer(undefined, {})).toEqual({
             short_break_duration: 5 * 60,
