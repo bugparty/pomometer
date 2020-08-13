@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Form, Input, Checkbox, Button} from 'antd';
+import {Button, Checkbox, Form, Input} from 'antd';
 
 const SubTodo = ({onTodoClickSub, onTodoClickDeleteSub, completed, text, createdDate, id}) => (
     <div>
@@ -13,17 +13,19 @@ const DefaultSubTodo = ({onTodoClick, completed, text}) => (
         <Checkbox onClick={onTodoClick} checked={completed}>{text}</Checkbox>
     </div>
 )
-const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub, id, completed, text, createdDate, subItems}) =>{
+const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub, id, completed, text, createdDate, subItems}) => {
     let input
     return (
         <div>
             <div>
                 <Form layout="inline">
                     <Form.Item>
-                        <Input onChange={e =>input = e.target.value} value={input}/>
+                        <Input onChange={e => input = e.target.value} value={input}/>
                     </Form.Item>
                     <Form.Item>
-                        <Button onClick={() => {if(input!=null) onTodoClickAddSub(id, input)}}>Add SubTask</Button>
+                        <Button onClick={() => {
+                            if (input != null) onTodoClickAddSub(id, input)
+                        }}>Add SubTask</Button>
                     </Form.Item>
                 </Form>
                 {subItems.length > 0 && subItems.map((subtodo, index) => (
@@ -34,7 +36,8 @@ const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAdd
                 ))
                 }
                 {
-                    subItems.length === 0 && <DefaultSubTodo text={"default subtask"} completed={completed} onTodoClick={()=>onTodoClick(id)}/>
+                    subItems.length === 0 &&
+                    <DefaultSubTodo text={"default subtask"} completed={completed} onTodoClick={() => onTodoClick(id)}/>
                 }
 
             </div>

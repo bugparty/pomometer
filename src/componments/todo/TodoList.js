@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from './Todo'
-import { Collapse } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
-const { Panel } = Collapse;
+import {Collapse, Modal} from 'antd';
+import {DeleteOutlined} from '@ant-design/icons';
+
+const {Panel} = Collapse;
 const genExtra = (that, id) => (
     <DeleteOutlined
         onClick={event => {
@@ -35,7 +35,7 @@ class TodoList extends React.Component{
         });
     };
 
-    handleCancel =todo =>  e => {
+    handleCancel = todo => e => {
         console.log(e);
         this.setState({
             deleteVisible: false,
@@ -80,7 +80,6 @@ class TodoList extends React.Component{
         </div>
     )}
 }
-
 
 TodoList.propTypes = {
     todos: PropTypes.arrayOf(
