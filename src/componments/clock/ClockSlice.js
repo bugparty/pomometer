@@ -19,17 +19,28 @@ export const ClockSlice = createSlice({
         status: ClockStatus.RESET,
         timeInterval: 25 * 60,
         timeLeft: 25 * 60,
+        playingTick: false,
+        playingAlarm: false
     },
     reducers: {
         set_status: (state, action) => {
             state.status = action.payload
         },
+        set_mode: (state, action) => {
+            state.mode = action.payload
+        },
         set_time_interval: (state, action) => {
             state.timeInterval = action.payload
+        },
+        set_play_tick: (state, action) => {
+            state.playingTick = action.payload
+        },
+        set_play_alarm: (state, action) => {
+            state.playingAlarm = action.payload
         }
     }
 })
 
-export const {set_status, set_time_interval} = ClockSlice.actions
+export const {set_status, set_time_interval, set_play_alarm, set_mode, set_play_tick} = ClockSlice.actions
 export default ClockSlice.reducer
 
