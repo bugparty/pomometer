@@ -1,6 +1,6 @@
 import React from 'react'
 import FilterLink from './containers/FilterLink'
-import { VisibilityFilters} from "./visibilityFilterSlice";
+import {VisibilityFilters} from "./visibilityFilterSlice";
 
 const TodoFooter = () => (
     <p>

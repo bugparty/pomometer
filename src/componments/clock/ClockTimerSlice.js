@@ -14,7 +14,7 @@ const ClockTimerSlice = createSlice({
                 state.startedAt = state.startedAt ? action.payload.now : undefined
                 state.stoppedAt = state.stoppedAt ? action.payload.now : undefined
             },
-            prepare: state => ({now: new Date().getTime()})
+            prepare: state => ({payload: {now: new Date().getTime()}})
         },
         start_timer: {
             reducer: (state, action) => {
@@ -22,7 +22,9 @@ const ClockTimerSlice = createSlice({
                 state.startedAt = action.payload.now
                 state.stoppedAt = undefined
             },
-            prepare: (baseTime = 0) => ({now: new Date().getTime(), baseTime})
+            prepare: (baseTime = 0) => (
+                {payload: {now: new Date().getTime(), baseTime}}
+            )
         },
         stop_timer: (state) => {
             state.stoppedAt = new Date().getTime()

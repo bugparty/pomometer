@@ -1,8 +1,11 @@
-import { configureStore, getDefaultMiddleware  } from '@reduxjs/toolkit'
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import Storage from "./storage";
 import todoSlice from './todo/todoSlice'
+import clockTimerSlice from './clock/ClockTimerSlice'
+import clockSlice from './clock/ClockSlice'
 import visibilityFilterSlice from './todo/visibilityFilterSlice'
 import {combineReducers} from "redux";
+
 let storage = new Storage()
 const persistedState = storage.loadState()
 console.log('loaded state', persistedState)
@@ -18,7 +21,9 @@ console.log(todoSlice)
 const store =  configureStore({
     reducer: combineReducers({
         todos: todoSlice,
-        visibilityFilter: visibilityFilterSlice
+        visibilityFilter: visibilityFilterSlice,
+        clock: clockSlice,
+        clockTimer: clockTimerSlice
     }),
     middleware: [...getDefaultMiddleware(), logger],
     preloadedState: persistedState

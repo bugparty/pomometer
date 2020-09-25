@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {reset_timer} from './ClockTimerSlice'
 // Helper function that takes store state
 // and returns the current elapsed time
 function getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
@@ -20,6 +21,7 @@ class ClockTimer extends Component {
         // here, getTimeRemaining is a helper function that returns an
         // object with { total, seconds, minutes, hours, days }
         this.state = {timeLeft: getTimeRemaining(props.baseTime, props.startedAt, props.timeInterval, props.stoppedAt)}
+        this.tick = this.tick.bind(this)
     }
 
     // Wait until the component has mounted to start the animation frame
@@ -56,16 +58,29 @@ class ClockTimer extends Component {
     }
 
     render() {
-        return this.props.children(this.state);
+        if (this.props.children) {
+            return <div>{this.props.children}</div>
+        } else {
+            return <p>Need pass a child to me</p>
+        }
+
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(state)
     return {
-        active: ownProps.filter === state.visibilityFilter
+        baseTime: state.clockTimer.baseTime,
+        startedAt: undefined,
+        timeInterval: state.clock.timeInterval,
+        stoppedAt: state.clockTimer.stoppedAt
     }
 }
 
-const mapDispatchToProps = dispatch => (dispatch)
+const mapDispatchToProps = dispatch => {
+    return {
+        reset_timer: dispatch(reset_timer())
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClockTimer);
