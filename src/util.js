@@ -4,8 +4,8 @@ export function formatSeconds(_seconds) {
     return wrapTimeDigit(minute)+":"+wrapTimeDigit(seconds);
 }
 
-function wrapTimeDigit(timeDigit) {
-    return timeDigit > 9 ? ""+timeDigit : "0"+timeDigit;
+export function wrapTimeDigit(timeDigit) {
+    return timeDigit > 9 ? "" + timeDigit : "0" + timeDigit;
 }
 
 export function secondsToMinutesString(_seconds) {

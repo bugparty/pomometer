@@ -1,6 +1,6 @@
 import React from 'react';
 import {Clock} from './Clock';
-import {ClockButtons} from './ClockButtons';
+import ClockButtons from './ClockButtons2';
 import ClockTimer from './ClockTimer'
 
 export class ClockController extends React.Component {
@@ -61,10 +61,8 @@ export class ClockController extends React.Component {
     render() {
         return (<div>
 
-                <ClockTimer><Clock time={this.state.timeLeft}/></ClockTimer>
-                <ClockButtons handleLong={this.handleLong} handleLongReset={this.handleLongReset}
-                              handleShortReset={this.handleShortReset}
-                              timeReset={this.timeReset}/>
+                <ClockTimer><Clock/></ClockTimer>
+                <ClockButtons/>
 
 
             </div>

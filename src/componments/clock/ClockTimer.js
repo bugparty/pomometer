@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {reset_timer} from './ClockTimerSlice'
+import {reset_timer} from './ClockSlice'
+import {Clock} from "./Clock";
 // Helper function that takes store state
 // and returns the current elapsed time
 function getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
@@ -12,7 +13,10 @@ function getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
 }
 
 function getTimeRemaining(baseTime, startedAt, timeInterval, stoppedAt = new Date().getTime()) {
-    return timeInterval - getElapsedTime(baseTime, startedAt, stoppedAt)
+
+    let elapsed = getElapsedTime(baseTime, startedAt, stoppedAt)
+
+    return timeInterval - elapsed
 }
 
 class ClockTimer extends Component {
@@ -43,8 +47,8 @@ class ClockTimer extends Component {
     }
 
     tick() {
-        const timeLeft = getTimeRemaining(this.props.baseTime, this.props.startedAt, this.props.timeInterval,
-            this.props.stoppedAt)
+
+        const timeLeft = getTimeRemaining(this.props.baseTime, this.props.startedAt, this.props.timeInterval)
         if (timeLeft.total <= 0) {
             this.stop()
             // dispatch any other actions to do on expiration
@@ -58,21 +62,16 @@ class ClockTimer extends Component {
     }
 
     render() {
-        if (this.props.children) {
-            return <div>{this.props.children}</div>
-        } else {
-            return <p>Need pass a child to me</p>
-        }
+        return <Clock time={this.state.timeLeft}/>
 
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state)
     return {
         baseTime: state.clockTimer.baseTime,
-        startedAt: undefined,
-        timeInterval: state.clock.timeInterval,
+        startedAt: state.clockTimer.startedAt,
+        timeInterval: state.clock.timeInterval * 1000,
         stoppedAt: state.clockTimer.stoppedAt
     }
 }
