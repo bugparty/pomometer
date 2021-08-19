@@ -41,6 +41,18 @@ export const ClockSlice = createSlice({
         },
         set_mode: (state, action) => {
             state.mode = action.payload
+            switch (state.mode){
+                case ClockMode.POMODORO:
+                    state.timeInterval = state.pomodoro_duration
+                    break
+                case ClockMode.LONG_BREAK:
+                    state.timeInterval = state.long_break_duration
+                    break
+                case ClockMode.SHORT_BREAK:
+                    state.timeInterval = state.short_break_duration
+                    break
+
+            }
         },
         set_time_interval: (state, action) => {
             state.timeInterval = action.payload
@@ -71,6 +83,7 @@ export const ClockSlice = createSlice({
                 state.baseTime = 0
                 state.startedAt = state.startedAt ? action.payload.now : undefined
                 state.stoppedAt = state.stoppedAt ? action.payload.now : undefined
+                state.status = ClockStatus.RESET
             },
             prepare: state => ({payload: {now: new Date().getTime()}})
         },
@@ -79,10 +92,14 @@ export const ClockSlice = createSlice({
                 state.baseTime = action.payload.baseTime
                 state.startedAt = action.payload.now
                 state.stoppedAt = undefined
+                state.status = ClockStatus.COUNTING_DOWN
             },
             prepare: (baseTime = 0) => (
                 {payload: {now: new Date().getTime(), baseTime}}
             )
+        },
+        set_stopped_at: (state, action) =>{
+            state.stoppedAt = action.payload
         },
         stop_timer: (state) => {
             state.stoppedAt = new Date().getTime()
@@ -93,7 +110,7 @@ export const ClockSlice = createSlice({
 export const {
     set_status, set_time_interval, set_play_alarm, set_mode, set_play_tick,
     set_long_break, set_pomodoro_break, set_short_break, set_rest_ticking_sound, set_ticking_sound,
-    reset_timer, start_timer, stop_timer
+    reset_timer, start_timer, stop_timer,set_stopped_at
 } = ClockSlice.actions
 export default ClockSlice.reducer
 

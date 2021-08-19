@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@formatjs/intl-pluralrules": "^3.2.4",
+    "@formatjs/intl-relativetimeformat": "^9.2.2",
     "@reduxjs/toolkit": "^1.4.0",
     "antd": "^4.4.1",
     "bulma-start": "^0.0.3",
@@ -12,7 +13,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-intl": "^5.4.7",
+    "react-intl": "^2.8.0",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.3",
     "react-sound": "^1.2.0",
