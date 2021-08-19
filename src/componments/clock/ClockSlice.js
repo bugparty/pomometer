@@ -51,6 +51,9 @@ export const ClockSlice = createSlice({
                 case ClockMode.SHORT_BREAK:
                     state.timeInterval = state.short_break_duration
                     break
+                default:
+                    state.timeInterval = state.pomodoro_duration
+                
 
             }
         },

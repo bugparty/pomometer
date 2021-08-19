@@ -73,7 +73,7 @@ class ClockTimer extends Component {
                     () => this.frameId = requestAnimationFrame(this.tick)
                 )
             }
-        }else if (this.props.clockState == ClockStatus.RESET){
+        }else if (this.props.clockState === ClockStatus.RESET){
             this.setState({timeLeft: this.props.timeInterval})
         }
 
