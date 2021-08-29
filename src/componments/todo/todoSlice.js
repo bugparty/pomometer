@@ -15,6 +15,8 @@ export const todoSlice = createSlice({
         todos: [{
             id: 'default',
             text: 'default',
+            completed: false,
+            focus: false,
             createdDate: (new Date()).toJSON(),
             subItems: []
         }]

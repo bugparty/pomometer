@@ -10,16 +10,18 @@ const todoAppReducers = combineReducers({
 
 describe('VisibilityFilterReducer', () => {
     it('returns the initial state', () => {
-        expect(todoAppReducers(undefined, {})).toEqual({
-            todos: [],
+        expect(todoAppReducers(undefined, {})).toMatchObject({
+            todos: {
+
+            },
             visibilityFilter: VisibilityFilters.SHOW_ALL
         });
     });
     // build a test state
     let state = todoAppReducers(undefined, addTodo("abc"))
     state = todoAppReducers(state, addTodo("bcd"))
-    let id1 = state.todos[0].id
-    let id2 = state.todos[1].id
+    let id1 = state.todos.todos[1].id
+    let id2 = state.todos.todos[2].id
 
     it('handles the SHOW_ALL action', () => {
         expect(todoAppReducers(state, setVisibilityFilter(VisibilityFilters.SHOW_ALL))).toMatchObject({

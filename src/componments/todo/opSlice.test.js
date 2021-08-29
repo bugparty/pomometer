@@ -13,7 +13,7 @@ describe('Reducer', () => {
         });
     });
 
-    it('handles the addTodo action', () => {
+    it('handles the addOp action', () => {
         let ret = opLogsReducer(undefined, addOp("abc","hello", 100))
         expect(ret).toMatchObject({
             oplogs: [{
@@ -23,7 +23,6 @@ describe('Reducer', () => {
             }],
 
         })
-        ret.todos.forEach(todo => expect(todo.createdDate).toBeDefined())
     });
 
 
