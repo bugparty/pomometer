@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import {Button, Checkbox, Form, Input} from 'antd';
 import { AimOutlined } from '@ant-design/icons';
@@ -19,13 +19,13 @@ const DefaultSubTodo = ({onTodoClick, completed, text, onFocus, onTodoClickFocus
 )
 const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub,onTodoClickFocus,
                   id, completed, text, createdDate, subItems, focusTodo, focusSubTodo}) => {
-    let input
+    let [input,setInput] = useState("")
     return (
         <div>
             <div>
                 <Form layout="inline">
                     <Form.Item>
-                        <Input onChange={e => input = e.target.value} value={input}/>
+                        <Input onChange={e => setInput(e.target.value)} value={input}/>
                     </Form.Item>
                     <Form.Item>
                         <Button onClick={() => {
