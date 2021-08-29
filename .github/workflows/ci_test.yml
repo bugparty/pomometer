@@ -44,7 +44,7 @@ jobs:
     - name: Rewrite yarn.lock
       run: sed 's/registry.nlark.com/regsitry.yarnpkg.com/' yarn.lock | sed 's/registry.npm.taobao.org/registry.yarnpkg.com/' -  > yarn.lock
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install
 
     - name: Run tests
       run: yarn test
