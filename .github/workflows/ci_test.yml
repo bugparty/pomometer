@@ -36,15 +36,10 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - name: Switch to default registry
-      run: |
-        yarn config set registry https://registry.yarnpkg.com
-        pwd
-        ls
-    - name: Rewrite yarn.lock
-      run: sed 's/registry.nlark.com/regsitry.yarnpkg.com/' yarn.lock | sed 's/registry.npm.taobao.org/registry.yarnpkg.com/' -  > yarn.lock
+ #   - name: Rewrite yarn.lock
+ #     run: sed 's/registry.nlark.com/regsitry.yarnpkg.com/' yarn.lock | sed 's/registry.npm.taobao.org/registry.yarnpkg.com/' -  > yarn.lock
     - name: Install Dependencies
-      run: yarn install
+      run: yarn install --registry https://registry.yarnpkg.com --frozen-lockfile
 
     - name: Run tests
       run: yarn test
