@@ -1,7 +1,7 @@
 import expect from "expect";
 import oplogs, { addOp } from "./opSlice";
 import { combineReducers } from "redux";
-
+import {Op} from "./opSlice"
 const opLogsReducer = combineReducers({
   oplogs,
 });
@@ -13,13 +13,15 @@ describe("Reducer", () => {
   });
 
   it("handles the addOp action", () => {
-    let ret = opLogsReducer(undefined, addOp("abc", "hello", 100));
+    let ret = opLogsReducer(undefined, addOp( "todoid", "subid", Op.start_pomodoro,"hello", 100));
     expect(ret).toMatchObject({
       oplogs: [
         {
+          todoId: 'todoid',
+          subTodoId: 'subid',
           duration: 100,
           text: "hello",
-          todoId: "abc",
+          op: Op.start_pomodoro
         },
       ],
     });

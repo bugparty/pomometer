@@ -128,7 +128,6 @@ class Settings extends React.Component {
                                     <div className="column">
                                         <label className="checkbox">
                                             <input
-                                                {...this.props}
                                                 name="restSound"
                                                 type="checkbox"
                                                 checked={this.props.enableRestTickingSound}

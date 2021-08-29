@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 
 console.log(store);
 //intl
-function getMessages() {
+export function getMessages() {
   switch (navigator.language.split("-")[0]) {
     case "en":
       return en_US.messages;
