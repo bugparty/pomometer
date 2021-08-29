@@ -1443,6 +1443,17 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@jest/types@^27.1.0":
+  version "27.1.0"
+  resolved "https://registry.nlark.com/@jest/types/download/@jest/types-27.1.0.tgz?cache=0&sync_timestamp=1630058501743&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ftypes%2Fdownload%2F%40jest%2Ftypes-27.1.0.tgz#674a40325eab23c857ebc0689e7e191a3c5b10cc"
+  integrity sha1-Z0pAMl6rI8hX68Bonn4ZGjxbEMw=
+  dependencies:
+    "@types/istanbul-lib-coverage" "^2.0.0"
+    "@types/istanbul-reports" "^3.0.0"
+    "@types/node" "*"
+    "@types/yargs" "^16.0.0"
+    chalk "^4.0.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1643,6 +1654,21 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
+"@types/istanbul-reports@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.nlark.com/@types/istanbul-reports/download/@types/istanbul-reports-3.0.1.tgz#9153fe98bba2bd565a63add9436d6f0d7f8468ff"
+  integrity sha1-kVP+mLuivVZaY63ZQ21vDX+EaP8=
+  dependencies:
+    "@types/istanbul-lib-report" "*"
+
+"@types/jest@^27.0.1":
+  version "27.0.1"
+  resolved "https://registry.nlark.com/@types/jest/download/@types/jest-27.0.1.tgz#fafcc997da0135865311bb1215ba16dba6bdf4ca"
+  integrity sha1-+vzJl9oBNYZTEbsSFboW26a99Mo=
+  dependencies:
+    jest-diff "^27.0.0"
+    pretty-format "^27.0.0"
+
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.5":
   version "7.0.9"
   resolved "https://registry.nlark.com/@types/json-schema/download/@types/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
@@ -1657,6 +1683,11 @@
   version "16.6.2"
   resolved "https://registry.nlark.com/@types/node/download/@types/node-16.6.2.tgz#331b7b9f8621c638284787c5559423822fdffc50"
   integrity sha1-Mxt7n4YhxjgoR4fFVZQjgi/f/FA=
+
+"@types/node@^16.7.5":
+  version "16.7.5"
+  resolved "https://registry.nlark.com/@types/node/download/@types/node-16.7.5.tgz#96142b243977b03d99c338fdb09241d286102711"
+  integrity sha1-lhQrJDl3sD2Zwzj9sJJB0oYQJxE=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -1673,6 +1704,13 @@
   resolved "https://registry.nlark.com/@types/q/download/@types/q-1.5.5.tgz?cache=0&sync_timestamp=1625678452535&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha1-daKo59irSyMEFFBdkjNdHctTpt8=
 
+"@types/react-dom@^17.0.9":
+  version "17.0.9"
+  resolved "https://registry.nlark.com/@types/react-dom/download/@types/react-dom-17.0.9.tgz?cache=0&sync_timestamp=1629709549226&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact-dom%2Fdownload%2F%40types%2Freact-dom-17.0.9.tgz#441a981da9d7be117042e1a6fd3dac4b30f55add"
+  integrity sha1-RBqYHanXvhFwQuGm/T2sSzD1Wt0=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@^7.1.16":
   version "7.1.18"
   resolved "https://registry.nlark.com/@types/react-redux/download/@types/react-redux-7.1.18.tgz?cache=0&sync_timestamp=1625792709822&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact-redux%2Fdownload%2F%40types%2Freact-redux-7.1.18.tgz#2bf8fd56ebaae679a90ebffe48ff73717c438e04"
@@ -1686,6 +1724,15 @@
 "@types/react@*":
   version "17.0.19"
   resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.19.tgz?cache=0&sync_timestamp=1629349455820&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
+  integrity sha1-jyqF6BgKQ7V5ZrI30mopSB2syZE=
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.19":
+  version "17.0.19"
+  resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.19.tgz?cache=0&sync_timestamp=1629708822048&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
   integrity sha1-jyqF6BgKQ7V5ZrI30mopSB2syZE=
   dependencies:
     "@types/prop-types" "*"
@@ -1711,6 +1758,13 @@
   version "13.0.12"
   resolved "https://registry.nlark.com/@types/yargs/download/@types/yargs-13.0.12.tgz?cache=0&sync_timestamp=1625520499197&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fyargs%2Fdownload%2F%40types%2Fyargs-13.0.12.tgz#d895a88c703b78af0465a9de88aa92c61430b092"
   integrity sha1-2JWojHA7eK8EZaneiKqSxhQwsJI=
+  dependencies:
+    "@types/yargs-parser" "*"
+
+"@types/yargs@^16.0.0":
+  version "16.0.4"
+  resolved "https://registry.nlark.com/@types/yargs/download/@types/yargs-16.0.4.tgz#26aad98dd2c2a38e421086ea9ad42b9e51642977"
+  integrity sha1-JqrZjdLCo45CEIbqmtQrnlFkKXc=
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -2068,6 +2122,11 @@ ansi-styles@^4.1.0:
   integrity sha1-7dgDYornHATIWuegkG7a00tkiTc=
   dependencies:
     color-convert "^2.0.1"
+
+ansi-styles@^5.0.0:
+  version "5.2.0"
+  resolved "https://registry.nlark.com/ansi-styles/download/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
+  integrity sha1-B0SWkK1Fd30ZJKwquy/IiV26g2s=
 
 antd@^4.4.1:
   version "4.16.12"
@@ -2978,7 +3037,7 @@ chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^4.1.0:
+chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.2"
   resolved "https://registry.nlark.com/chalk/download/chalk-4.1.2.tgz?cache=0&sync_timestamp=1627646734234&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fchalk%2Fdownload%2Fchalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha1-qsTit3NKdAhnrrFr8CqtVWoeegE=
@@ -3883,6 +3942,11 @@ diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.nlark.com/diff-sequences/download/diff-sequences-24.9.0.tgz?cache=0&sync_timestamp=1624900526129&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdiff-sequences%2Fdownload%2Fdiff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
   integrity sha1-VxXWJE4qpl9Iu6C8ly2wsLEelbU=
+
+diff-sequences@^27.0.6:
+  version "27.0.6"
+  resolved "https://registry.nlark.com/diff-sequences/download/diff-sequences-27.0.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdiff-sequences%2Fdownload%2Fdiff-sequences-27.0.6.tgz#3305cb2e55a033924054695cc66019fd7f8e5723"
+  integrity sha1-MwXLLlWgM5JAVGlcxmAZ/X+OVyM=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -6126,6 +6190,16 @@ jest-diff@^24.9.0:
     jest-get-type "^24.9.0"
     pretty-format "^24.9.0"
 
+jest-diff@^27.0.0:
+  version "27.1.0"
+  resolved "https://registry.nlark.com/jest-diff/download/jest-diff-27.1.0.tgz#c7033f25add95e2218f3c7f4c3d7b634ab6b3cd2"
+  integrity sha1-xwM/Ja3ZXiIY88f0w9e2NKtrPNI=
+  dependencies:
+    chalk "^4.0.0"
+    diff-sequences "^27.0.6"
+    jest-get-type "^27.0.6"
+    pretty-format "^27.1.0"
+
 jest-docblock@^24.3.0:
   version "24.9.0"
   resolved "https://registry.nlark.com/jest-docblock/download/jest-docblock-24.9.0.tgz?cache=0&sync_timestamp=1624900517083&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-docblock%2Fdownload%2Fjest-docblock-24.9.0.tgz#7970201802ba560e1c4092cc25cbedf5af5a8ce2"
@@ -6183,6 +6257,11 @@ jest-get-type@^24.9.0:
   version "24.9.0"
   resolved "https://registry.nlark.com/jest-get-type/download/jest-get-type-24.9.0.tgz?cache=0&sync_timestamp=1624900515245&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-get-type%2Fdownload%2Fjest-get-type-24.9.0.tgz#1684a0c8a50f2e4901b6644ae861f579eed2ef0e"
   integrity sha1-FoSgyKUPLkkBtmRK6GH1ee7S7w4=
+
+jest-get-type@^27.0.6:
+  version "27.0.6"
+  resolved "https://registry.nlark.com/jest-get-type/download/jest-get-type-27.0.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-get-type%2Fdownload%2Fjest-get-type-27.0.6.tgz#0eb5c7f755854279ce9b68a9f1a4122f69047cfe"
+  integrity sha1-DrXH91WFQnnOm2ip8aQSL2kEfP4=
 
 jest-haste-map@^24.9.0:
   version "24.9.0"
@@ -8622,6 +8701,11 @@ prepend-http@^1.0.0:
   resolved "https://registry.nlark.com/prepend-http/download/prepend-http-1.0.4.tgz?cache=0&sync_timestamp=1628547565904&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprepend-http%2Fdownload%2Fprepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
+prettier@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.nlark.com/prettier/download/prettier-2.3.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha1-7ygKBewlNxLkhiM9tcbyNEHnNC0=
+
 pretty-bytes@^5.1.0:
   version "5.6.0"
   resolved "https://registry.npm.taobao.org/pretty-bytes/download/pretty-bytes-5.6.0.tgz?cache=0&sync_timestamp=1613916423464&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpretty-bytes%2Fdownload%2Fpretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
@@ -8644,6 +8728,16 @@ pretty-format@^24.9.0:
     ansi-regex "^4.0.0"
     ansi-styles "^3.2.0"
     react-is "^16.8.4"
+
+pretty-format@^27.0.0, pretty-format@^27.1.0:
+  version "27.1.0"
+  resolved "https://registry.nlark.com/pretty-format/download/pretty-format-27.1.0.tgz?cache=0&sync_timestamp=1630058471312&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpretty-format%2Fdownload%2Fpretty-format-27.1.0.tgz#022f3fdb19121e0a2612f3cff8d724431461b9ca"
+  integrity sha1-Ai8/2xkSHgomEvPP+NckQxRhuco=
+  dependencies:
+    "@jest/types" "^27.1.0"
+    ansi-regex "^5.0.0"
+    ansi-styles "^5.0.0"
+    react-is "^17.0.1"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -9250,6 +9344,11 @@ react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1, react-
   version "16.13.1"
   resolved "https://registry.nlark.com/react-is/download/react-is-16.13.1.tgz?cache=0&sync_timestamp=1629303391515&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-is%2Fdownload%2Freact-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=
+
+react-is@^17.0.1:
+  version "17.0.2"
+  resolved "https://registry.nlark.com/react-is/download/react-is-17.0.2.tgz?cache=0&sync_timestamp=1630081143044&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-is%2Fdownload%2Freact-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
+  integrity sha1-5pHUqOnHiTZWVVOas3J2Kw77VPA=
 
 react-redux@^7.2.0:
   version "7.2.4"
@@ -10836,6 +10935,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.nlark.com/typescript/download/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
+  integrity sha1-bWGGQNQw41aaHftE99fmAM7T7oY=
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
