@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {addSubTodo, deleteSubTodo, deleteTodo, toggleSubTodo, toggleTodo} from "../todoSlice"
+import {addSubTodo, deleteSubTodo, deleteTodo, focusSubTodo, toggleSubTodo, toggleTodo} from "../todoSlice"
 import TodoList from "../TodoList"
 import {VisibilityFilters} from "../visibilityFilterSlice";
 
@@ -18,12 +18,17 @@ const getVisibleTodos = (todos, filter) => {
 
 const mapStateToProps = state => {
     return {
-        todos: getVisibleTodos(state.todos, state.visibilityFilter)
+        focusTodo: state.todos.focusTodo,
+        focusSubTodo: state.todos.focusSubTodo,
+        todos: getVisibleTodos(state.todos.todos, state.visibilityFilter)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        onTodoClickFocus: (id, subId)=>{
+            dispatch(focusSubTodo(id, subId))
+        },
         onTodoClick: id => {
             dispatch(toggleTodo(id))
         },

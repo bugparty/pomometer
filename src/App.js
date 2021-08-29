@@ -8,7 +8,7 @@ import {Introduce} from "./componments/Introduce";
 import AddTodo from "./componments/todo/containers/AddTodo";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFooter from "./componments/todo/TodoFooter";
-
+import OpLogList from "./componments/todo/containers/OpLogList";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -92,6 +92,11 @@ class App extends Component {
                                              setMode={this.setMode}
                             />
                             <Introduce/>
+                        </div>
+                        <div className="OpLogContainer column is-one-quarter">
+                            <h2 className="h2">Logs</h2>
+                            <OpLogList/>
+
                         </div>
                     </div>
 

@@ -1,19 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Checkbox, Form, Input} from 'antd';
-
-const SubTodo = ({onTodoClickSub, onTodoClickDeleteSub, completed, text, createdDate, id}) => (
-    <div>
+import { AimOutlined } from '@ant-design/icons';
+const SubTodo = ({onTodoClickSub, onTodoClickDeleteSub, onTodoClickFocus, completed, text, createdDate, id, onFocus}) => (
+    <div className='sub_todo'>
+        <AimOutlined style={{visibility: onFocus? "visible" : 'hidden'}}/>
         <Checkbox onClick={onTodoClickSub} checked={completed}>{text}</Checkbox>
         <Button onClick={onTodoClickDeleteSub}>Delete</Button>
+        <Button onClick={onTodoClickFocus}>Focus</Button>
     </div>
 )
-const DefaultSubTodo = ({onTodoClick, completed, text}) => (
+const DefaultSubTodo = ({onTodoClick, completed, text, onFocus, onTodoClickFocus}) => (
     <div>
+        <AimOutlined style={{visibility: onFocus? "visible" : 'hidden'}}/>
         <Checkbox onClick={onTodoClick} checked={completed}>{text}</Checkbox>
+        <Button onClick={onTodoClickFocus}>Focus</Button>
     </div>
 )
-const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub, id, completed, text, createdDate, subItems}) => {
+const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAddSub,onTodoClickFocus,
+                  id, completed, text, createdDate, subItems, focusTodo, focusSubTodo}) => {
     let input
     return (
         <div>
@@ -29,15 +34,18 @@ const Todo = ({onTodoClickSub, onTodoClick, onTodoClickDeleteSub, onTodoClickAdd
                     </Form.Item>
                 </Form>
                 {subItems.length > 0 && subItems.map((subtodo, index) => (
-                    <SubTodo key={subtodo.id} {...subtodo}
+                    <SubTodo key={subtodo.id} {...subtodo} onFocus={focusTodo === id && focusSubTodo === subtodo.id}
                              onTodoClickSub={() => onTodoClickSub(id, subtodo.id)}
                              onTodoClickDeleteSub={() => onTodoClickDeleteSub(id, subtodo.id)}
-                    ></SubTodo>
+                             onTodoClickFocus={() => onTodoClickFocus(id, subtodo.id)}
+                    />
                 ))
                 }
                 {
                     subItems.length === 0 &&
-                    <DefaultSubTodo text={"default subtask"} completed={completed} onTodoClick={() => onTodoClick(id)}/>
+                    <DefaultSubTodo text={"default subtask"} completed={completed} onTodoClick={() => onTodoClick(id)}
+                                    onTodoClickFocus={() => onTodoClickFocus(id, undefined)}
+                                    onFocus={focusTodo === id }/>
                 }
 
             </div>
@@ -50,6 +58,7 @@ Todo.protoTypes = {
     onTodoClickSub: PropTypes.func.isRequired,
     onTodoClickDeleteSub: PropTypes.func.isRequired,
     onTodoClickAddSub: PropTypes.func.isRequired,
+    onTodoClickFocus: PropTypes.func.isRequired,
     completed: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     createdDate: PropTypes.string.isRequired,
