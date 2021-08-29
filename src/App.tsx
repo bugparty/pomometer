@@ -1,25 +1,43 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Navbar } from "./componments/Navbar";
-import { ClockController } from "./componments/clock/ClockController";
 import { AudioController } from "./componments/AudioController";
+import { ClockController } from "./componments/clock/ClockController";
 import { Footer } from "./componments/Footer";
 import { Introduce } from "./componments/Introduce";
+import { Navbar } from "./componments/Navbar";
 import AddTodo from "./componments/todo/containers/AddTodo";
+import OpLogList from "./componments/todo/containers/OpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFooter from "./componments/todo/TodoFooter";
-import OpLogList from "./componments/todo/containers/OpLogList";
-class App extends Component {
-  constructor(props) {
+
+type AppMode = "pomodoro" | "longRest" | "shortRest";
+
+interface Options {
+  pomodoro_duration: number;
+  short_break_duration: number;
+  long_break_duration: number;
+}
+
+interface AppProps {}
+
+interface AppState extends Options {
+  status: "reset" | "begin" | "end";
+  mode: AppMode;
+  enableTickingSound: boolean;
+  enableRestTickingSound: boolean;
+}
+
+const isExist = (key: string) => {
+  return localStorage.getItem(key) !== null;
+};
+
+class App extends Component<AppProps, AppState> {
+  constructor(props: any) {
     super(props);
-    let tickingSound = localStorage.getItem("enableTickingSound");
-    if (tickingSound == null) {
-      tickingSound = true;
-    }
-    let restTickingSound = localStorage.getItem("enableRestTickingSound");
-    if (restTickingSound == null) {
-      restTickingSound = false;
-    }
+
+    const tickingSound = isExist("enableTickingSound") || true;
+    const restTickingSound = isExist("enableRestTickingSound") || false;
+
     this.state = {
       status: "reset",
       mode: "pomodoro",
@@ -29,6 +47,7 @@ class App extends Component {
       short_break_duration: 5 * 60,
       long_break_duration: 15 * 60,
     };
+
     this.setBegin = this.setBegin.bind(this);
     this.setEnd = this.setEnd.bind(this);
     this.setReset = this.setReset.bind(this);
@@ -50,20 +69,23 @@ class App extends Component {
     this.setState({ status: "reset" });
   }
 
-  setMode(mode) {
+  setMode(mode: AppMode) {
     this.setState({ mode: mode });
   }
 
-  setTickingSound(isEnable) {
-    localStorage.setItem("enableTickingSound", isEnable);
-    this.setState({ enableTickingSound: isEnable });
-  }
-  setRestTickingSound(isEnable) {
-    localStorage.setItem("enableRestTickingSound", isEnable);
-    this.setState({ enableRestTickingSound: isEnable });
+  setTickingSound(isEnable: boolean) {
+    this.setState({ enableTickingSound: isEnable }, () => {
+      localStorage.setItem("enableTickingSound", isEnable.toString());
+    });
   }
 
-  saveOptions(options) {
+  setRestTickingSound(isEnable: boolean) {
+    this.setState({ enableRestTickingSound: isEnable }, () => {
+      localStorage.setItem("enableRestTickingSound", isEnable.toString());
+    });
+  }
+
+  saveOptions(options: Options) {
     this.setState(options);
   }
 
@@ -84,6 +106,7 @@ class App extends Component {
           <div className="columns">
             <div className="TodoContainer column is-one-quarter">
               <h2 className="h2">Todo list</h2>
+              {/* @ts-expect-error */}
               <AddTodo />
               <TodoFooter />
               <VisibleTodoList />
