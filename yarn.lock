@@ -9120,7 +9120,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.7, prop-types@^15.7.2:
+prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -9788,14 +9788,6 @@ react-scripts@^4.0.3:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-sound@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.nlark.com/react-sound/download/react-sound-1.2.0.tgz#1bb7e1ec8494ecc57b03dbdecd1496b10f6541f2"
-  integrity sha1-G7fh7ISU7MV7A9vezRSWsQ9lQfI=
-  dependencies:
-    prop-types "^15.5.7"
-    soundmanager2 "^2.97.20170602"
-
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.nlark.com/react/download/react-17.0.2.tgz?cache=0&sync_timestamp=1630081041547&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact%2Fdownload%2Freact-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
@@ -9895,7 +9887,7 @@ redux-thunk@^2.3.0:
   resolved "https://registry.npm.taobao.org/redux-thunk/download/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha1-UcLBmhhe1Rh6qpotCLZm0NZGdiI=
 
-redux@^4.0.0, redux@^4.0.5, redux@^4.1.0:
+redux@^4.0.0, redux@^4.1.0, redux@^4.1.1:
   version "4.1.1"
   resolved "https://registry.nlark.com/redux/download/redux-4.1.1.tgz#76f1c439bb42043f985fbd9bf21990e60bd67f47"
   integrity sha1-dvHEObtCBD+YX72b8hmQ5gvWf0c=
@@ -10606,11 +10598,6 @@ sort-keys@^1.0.0:
   integrity sha1-RBttTTRnmPG05J6JIK37oOVD+a0=
   dependencies:
     is-plain-obj "^1.0.0"
-
-soundmanager2@^2.97.20170602:
-  version "2.97.20170602"
-  resolved "https://registry.nlark.com/soundmanager2/download/soundmanager2-2.97.20170602.tgz#fe3bc731bfc4d54c1364e71980263e6816981879"
-  integrity sha1-/jvHMb/E1UwTZOcZgCY+aBaYGHk=
 
 source-list-map@^2.0.0:
   version "2.0.1"

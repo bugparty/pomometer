@@ -1,8 +1,10 @@
 import React from "react";
 import { isSafari } from "../util";
+import {connect} from "react-redux";
+import {ClockStatus, ClockMode} from "./clock/ClockSlice";
 
 let isMounted = false;
-export class AudioController extends React.Component {
+class AudioController extends React.Component {
   constructor(props) {
     super(props);
     this.playAlarm = this.playAlarm.bind(this);
@@ -24,8 +26,8 @@ export class AudioController extends React.Component {
   }
   playTic() {
     if (
-      (this.props.enableTickingSound && this.props.mode === "pomodoro") ||
-      (this.props.enableRestTickingSound && this.props.mode !== "pomodoro")
+      (this.props.enableTickingSound && this.props.mode === ClockMode.POMODORO) ||
+      (this.props.enableRestTickingSound && this.props.mode !== ClockMode.POMODORO)
     ) {
       const audioTicTac = document.getElementById("tictac");
       audioTicTac.play();
@@ -47,13 +49,13 @@ export class AudioController extends React.Component {
         this.stopTic();
       }
       switch (this.props.status) {
-        case "reset":
+        case ClockStatus.RESET:
           this.stopTic();
           break;
-        case "begin":
+        case ClockStatus.COUNTING_DOWN:
           this.playTic();
           break;
-        case "end":
+        case ClockStatus.COUNTING_ENDED:
           this.stopTic();
           this.playAlarm();
           break;
@@ -83,3 +85,12 @@ export class AudioController extends React.Component {
     );
   }
 }
+function mapStateToProps(state){
+  return {
+    enableTickingSound: state.clock.ticking_sound_enabled,
+    enableRestTickingSound: state.clock.rest_ticking_sound_enabled,
+    mode: state.clock.mode,
+    status: state.clock.status,
+  }
+}
+export default connect(mapStateToProps)(AudioController)

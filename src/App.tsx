@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { AudioController } from "./componments/AudioController";
+import AudioController  from "./componments/AudioController";
 import { ClockController } from "./componments/clock/ClockController";
 import { Footer } from "./componments/Footer";
 import { Introduce } from "./componments/Introduce";
@@ -129,12 +129,7 @@ class App extends Component<AppProps, AppState> {
             </div>
           </div>
 
-          <AudioController
-            status={this.state.status}
-            mode={this.state.mode}
-            enableTickingSound={this.state.enableTickingSound}
-            enableRestTickingSound={this.state.enableRestTickingSound}
-          />
+          <AudioController/>
         </div>
         <Footer />
       </div>
