@@ -1721,16 +1721,7 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
-"@types/react@*":
-  version "17.0.19"
-  resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.19.tgz?cache=0&sync_timestamp=1629349455820&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
-  integrity sha1-jyqF6BgKQ7V5ZrI30mopSB2syZE=
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@^17.0.19":
+"@types/react@*", "@types/react@^17.0.19":
   version "17.0.19"
   resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.19.tgz?cache=0&sync_timestamp=1629708822048&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
   integrity sha1-jyqF6BgKQ7V5ZrI30mopSB2syZE=
