@@ -36,7 +36,8 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-          
+    - name: Switch to default registry
+      run: yarn config set registry https://registry.yarnpkg.com
     - name: Install Dependencies
       run: yarn
 
