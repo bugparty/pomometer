@@ -37,7 +37,10 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - name: Switch to default registry
-      run: yarn config set registry https://registry.yarnpkg.com
+      run: |
+        yarn config set registry https://registry.yarnpkg.com
+        sed 's/registry.nlark.com/regsitry.yarnpkg.com/' yarn.lock | sed 's/registry.npm.taobao.org/registry.yarnpkg.com/' -  > yarn
+        .lock
     - name: Install Dependencies
       run: yarn
 
