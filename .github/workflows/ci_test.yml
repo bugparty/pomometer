@@ -36,10 +36,8 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
- #   - name: Rewrite yarn.lock
- #     run: sed 's/registry.nlark.com/regsitry.yarnpkg.com/' yarn.lock | sed 's/registry.npm.taobao.org/registry.yarnpkg.com/' -  > yarn.lock
     - name: Install Dependencies
-      run: yarn install --registry https://registry.yarnpkg.com --frozen-lockfile
+      run: npm ci
 
     - name: Run tests
-      run: yarn test
+      run: npm run test
