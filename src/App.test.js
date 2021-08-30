@@ -5,20 +5,10 @@ import en_US from "./locales/en-US";
 import { IntlProvider } from "react-intl";
 import store from "./componments/store";
 import { Provider } from "react-redux";
+import {mockMatchMedia} from "./setupTests";
+
 beforeEach(() => {
-    Object.defineProperty(window, "matchMedia", {
-        writable: true,
-        value: jest.fn().mockImplementation((query) => ({
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn(),
-        })),
-    });
+    mockMatchMedia()
 });
 it("renders without crashing", () => {
   const div = document.createElement("div");
