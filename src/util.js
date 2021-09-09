@@ -3,7 +3,10 @@ export function formatSeconds(_seconds) {
   let seconds = Math.ceil(_seconds % 60);
   return wrapTimeDigit(minute) + ":" + wrapTimeDigit(seconds);
 }
+export function formatDate(date){
+  return (date.getMonth()+1)+ "/" + date.getDate() + ' '+ date.getHours() + ":" + date.getMinutes()
 
+}
 export function wrapTimeDigit(timeDigit) {
   return timeDigit > 9 ? "" + timeDigit : "0" + timeDigit;
 }

@@ -3,7 +3,7 @@ import OpLog from "../OpLog";
 import {set_mode, start_timer, stop_timer,reset_timer, set_status,set_short_break, set_pomodoro_break, set_long_break
     , ClockStatus} from "../../clock/ClockSlice";
 import {addTodo, addSubTodo, focusSubTodo, toggleSubTodo} from "../todoSlice";
-import {formatSeconds} from "../../../util";
+import {formatSeconds, formatDate} from "../../../util";
 import * as R from 'ramda'
 const hidden_types = [set_short_break.type, set_long_break.type, set_pomodoro_break.type, start_timer.type,
     reset_timer.type, stop_timer.type]
@@ -30,11 +30,12 @@ const mapOpLogToList = (todos, opLogs) => {
                     if (duration < 60){
                         continue;
                     }else{
-                        l.push("start " + current_log.op.payload + " at:" + new Date(current_log.createdDate) + " duration:" + formatSeconds(duration ))
+                        l.push("start " + current_log.op.payload + " at:" + formatDate(new Date(current_log.createdDate)) + " duration:" + formatSeconds(duration ))
                     }
                                    } else {
-                    l.push("start " + current_log.op.payload + " at:" + new Date(current_log.createdDate))
+                    l.push("start " + current_log.op.payload + " at:" + formatDate(new Date(current_log.createdDate)))
                 }
+
             }
         } else if (R.includes(current_log.op.type, hidden_types) || (current_log.op.type === set_status.type &&
         current_log.op.payload === ClockStatus.COUNTING_ENDED)) {
@@ -54,7 +55,6 @@ const mapOpLogToList = (todos, opLogs) => {
                 if (subTodo !== undefined){
                     l.push('toggle sub todo: ' + subTodo.text +' from todo: ' + todo.text )
                 }
-
             }
         }else if (current_log.op.type === focusSubTodo.type){
             const todo = R.find(R.propEq('id', current_log.op.payload.id))(todos)
@@ -65,7 +65,6 @@ const mapOpLogToList = (todos, opLogs) => {
                 if (subTodo !== undefined){
                     l.push('focus on sub todo: ' + subTodo.text +' from todo: ' + todo.text )
                 }
-
             }
         }
         else{
