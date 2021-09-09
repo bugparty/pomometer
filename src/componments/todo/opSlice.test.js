@@ -13,14 +13,10 @@ describe("Reducer", () => {
   });
 
   it("handles the addOp action", () => {
-    let ret = opLogsReducer(undefined, addOp( "todoid", "subid", Op.start_pomodoro,"hello", 100));
+    let ret = opLogsReducer(undefined, addOp(  Op.start_pomodoro));
     expect(ret).toMatchObject({
       oplogs: [
         {
-          todoId: 'todoid',
-          subTodoId: 'subid',
-          duration: 100,
-          text: "hello",
           op: Op.start_pomodoro
         },
       ],

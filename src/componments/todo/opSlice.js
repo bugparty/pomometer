@@ -15,22 +15,14 @@ export const opSlice = createSlice({
         state.push({
           id: action.payload.id,
           op: action.payload.op,
-          text: action.payload.text,
-          todoId: action.payload.todoId,
-          subTodoId: action.payload.subTodoId,
-          duration: action.payload.duration,
           createdDate: action.payload.createdDate,
         });
       },
-      prepare(todoId, subTodoId, op, text, duration) {
+      prepare(op) {
         return {
           payload: {
             id: uuidv4(),
             op: op,
-            text: text,
-            todoId: todoId,
-            subTodoId: subTodoId,
-            duration: duration,
             createdDate: new Date().toJSON(),
           },
         };

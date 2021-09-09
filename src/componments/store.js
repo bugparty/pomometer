@@ -3,9 +3,10 @@ import Storage from "./storage";
 import todoSlice from "./todo/todoSlice";
 import clockSlice from "./clock/ClockSlice";
 import opSlice from "./todo/opSlice";
-import visibilityFilterSlice from "./todo/visibilityFilterSlice";
+import visibilityFilterSlice,{setVisibilityFilter}  from "./todo/visibilityFilterSlice";
 import { combineReducers } from "redux";
-
+import {addOp} from "./todo/opSlice";
+import {set_stopped_at } from "./clock/ClockSlice"
 let storage = new Storage();
 const persistedState = storage.loadState();
 console.log("loaded state", persistedState);
@@ -17,7 +18,16 @@ const logger = (store) => (next) => (action) => {
   console.groupEnd();
   return result;
 };
-console.log(todoSlice);
+const isInterestedAction = action => {
+  return action.type !== addOp.type && action.type !== set_stopped_at.type &&
+      action.type !== setVisibilityFilter.type
+}
+const opMiddleware = store => next => action =>{
+  if (isInterestedAction(action)){
+    next(addOp(action))
+  }
+  return next(action)
+}
 const store = configureStore({
   reducer: combineReducers({
     todos: todoSlice,
@@ -25,7 +35,7 @@ const store = configureStore({
     oplogs: opSlice,
     clock: clockSlice,
   }),
-  middleware: [...getDefaultMiddleware(), logger],
+  middleware: [...getDefaultMiddleware(), opMiddleware, logger],
   preloadedState: persistedState,
 });
 

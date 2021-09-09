@@ -110,7 +110,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    reset_timer: dispatch(reset_timer()),
+    reset_timer: () => dispatch(reset_timer()),
     set_stopped_at: (time) => dispatch(set_stopped_at(time)),
   };
 };
