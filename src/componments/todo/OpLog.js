@@ -1,6 +1,6 @@
 import React from "react";
 import { List, Typography } from "antd";
-
+import {ClockCircleOutlined}from '@ant-design/icons';
 class OpLog extends React.Component {
   render() {
     return (
@@ -11,7 +11,7 @@ class OpLog extends React.Component {
         dataSource={this.props.opLogs}
         renderItem={(item) => (
           <List.Item>
-            <Typography.Text mark>[ITEM]</Typography.Text> {item}
+            <Typography.Text mark><ClockCircleOutlined /></Typography.Text> {item}
           </List.Item>
         )}
       />
