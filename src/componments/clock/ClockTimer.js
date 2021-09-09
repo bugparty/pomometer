@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reset_timer, ClockStatus, set_stopped_at } from "./ClockSlice";
+import { reset_timer,stop_timer, ClockStatus, set_stopped_at } from "./ClockSlice";
 import { Clock } from "./Clock";
 // Helper function that takes store state
 // and returns the current elapsed time
@@ -80,6 +80,7 @@ class ClockTimer extends Component {
       }
       if (timeLeft <= 0) {
         this.stop();
+        this.props.stop_timer();
         // dispatch any other actions to do on expiration
       } else {
         // dispatch anything that might need to be done on every tick
@@ -112,6 +113,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     reset_timer: () => dispatch(reset_timer()),
     set_stopped_at: (time) => dispatch(set_stopped_at(time)),
+    stop_timer: () => dispatch(stop_timer()),
   };
 };
 

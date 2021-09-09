@@ -1,6 +1,6 @@
 import React from "react";
 import { Clock } from "./Clock";
-import ClockButtons from "./ClockButtons2";
+import ClockButtons from "./ClockButtons";
 import ClockTimer from "./ClockTimer";
 
 export class ClockController extends React.Component {

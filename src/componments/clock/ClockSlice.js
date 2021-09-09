@@ -101,9 +101,11 @@ export const ClockSlice = createSlice({
         },
         set_stopped_at: (state, action) => {
             state.stoppedAt = action.payload;
+
         },
         stop_timer: (state) => {
             state.stoppedAt = new Date().getTime();
+            state.status = ClockStatus.COUNTING_ENDED;
         },
         reset_settings: (state, action) => {
             state.mode = ClockMode.POMODORO
