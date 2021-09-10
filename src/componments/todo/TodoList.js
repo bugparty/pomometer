@@ -35,7 +35,7 @@ class TodoList extends React.Component {
     });
   };
 
-  handleCancel = (todo) => (e) => {
+  handleCancel = (e) => {
     console.log(e);
     this.setState({
       deleteVisible: false,
@@ -54,7 +54,7 @@ class TodoList extends React.Component {
           visible={this.state.deleteVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-        ></Modal>
+        />
         <Collapse
           defaultActiveKey={["1"]}
           onChange={this.callback}
