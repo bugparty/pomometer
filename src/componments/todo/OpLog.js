@@ -5,8 +5,8 @@ class OpLog extends React.Component {
   render() {
     return (
       <List
-        header={<div>Header</div>}
-        footer={<div>Footer</div>}
+        header={<div></div>}
+        footer={<div></div>}
         bordered
         dataSource={this.props.opLogs}
         renderItem={(item) => (

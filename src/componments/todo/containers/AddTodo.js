@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../todoSlice";
+import {FormattedMessage} from "react-intl";
 
 let AddTodo = ({ dispatch }) => {
   let input;
@@ -28,7 +29,8 @@ let AddTodo = ({ dispatch }) => {
         </p>
         <p className="control">
           <button type="submit" className="button">
-            Add Todo
+              <FormattedMessage id="todo.add_todo" defaultMessage=
+                  "Add Todo"/>
           </button>
         </p>
       </form>

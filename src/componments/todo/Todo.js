@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Checkbox, Form, Input } from "antd";
 import { AimOutlined } from "@ant-design/icons";
+import { FormattedMessage, useIntl} from "react-intl";
 const SubTodo = ({
   onTodoClickSub,
   onTodoClickDeleteSub,
@@ -17,8 +18,9 @@ const SubTodo = ({
     <Checkbox onClick={onTodoClickSub} checked={completed}>
       {text}
     </Checkbox>
-    <Button onClick={onTodoClickDeleteSub}>Delete</Button>
-    <Button onClick={onTodoClickFocus}>Focus</Button>
+    <Button onClick={onTodoClickDeleteSub}>
+        <FormattedMessage id="todo.subtodo.delete" defaultMessage="Delete"/></Button>
+    <Button onClick={onTodoClickFocus}><FormattedMessage id="todo.subtodo.Focus" defaultMessage="Focus"/></Button>
   </div>
 );
 const DefaultSubTodo = ({
@@ -33,7 +35,7 @@ const DefaultSubTodo = ({
     <Checkbox onClick={onTodoClick} checked={completed}>
       {text}
     </Checkbox>
-    <Button onClick={onTodoClickFocus}>Focus</Button>
+    <Button onClick={onTodoClickFocus}><FormattedMessage id="todo.subtodo.Focus" defaultMessage="Focus"/> </Button>
   </div>
 );
 const Todo = ({
@@ -51,6 +53,7 @@ const Todo = ({
   focusSubTodo,
 }) => {
   let [input, setInput] = useState("");
+  let intl = useIntl();
   return (
     <div>
       <div>
@@ -81,7 +84,7 @@ const Todo = ({
           ))}
         {subItems.length === 0 && (
           <DefaultSubTodo
-            text={"default subtask"}
+            text={intl.formatMessage({id:"todo.default_subtodo", defaultMessage: "default subtask"})}
             completed={completed}
             onTodoClick={() => onTodoClick(id)}
             onTodoClickFocus={() => onTodoClickFocus(id, undefined)}

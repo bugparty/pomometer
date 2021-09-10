@@ -15,11 +15,11 @@ console.log(store);
 export function getMessages() {
   switch (navigator.language.split("-")[0]) {
     case "en":
-      return en_US.messages;
+      return en_US;
     case "zh":
       return zh_CN.messages;
     default:
-      return en_US.messages;
+      return en_US
   }
 }
 

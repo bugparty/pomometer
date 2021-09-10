@@ -9,36 +9,10 @@ import AddTodo from "./componments/todo/containers/AddTodo";
 import OpLogList from "./componments/todo/containers/OpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFooter from "./componments/todo/TodoFooter";
+import {FormattedMessage} from "react-intl";
 
-type AppMode = "pomodoro" | "longRest" | "shortRest";
 
-interface Options {
-  pomodoro_duration: number;
-  short_break_duration: number;
-  long_break_duration: number;
-}
-
-interface AppProps {}
-
-interface AppState extends Options {
-  status: "reset" | "begin" | "end";
-  mode: AppMode;
-  enableTickingSound: boolean;
-  enableRestTickingSound: boolean;
-}
-
-const isExist = (key: string) => {
-  return localStorage.getItem(key) !== null;
-};
-
-class App extends Component<AppProps, AppState> {
-  constructor(props: any) {
-    super(props);
-
-    const tickingSound = isExist("enableTickingSound") || true;
-    const restTickingSound = isExist("enableRestTickingSound") || false;
-
-  }
+class App extends Component {
   render() {
     return (
       <div className="App">
@@ -46,7 +20,7 @@ class App extends Component<AppProps, AppState> {
           <Navbar/>
           <div className="columns">
             <div className="TodoContainer column is-one-quarter">
-              <h2 className="h2">Todo list</h2>
+              <h2 className="h2"><FormattedMessage id="app.tab.todolist" defaultMessage="Todo list"/> </h2>
               {/* @ts-expect-error */}
               <AddTodo />
               <TodoFooter />
@@ -57,7 +31,7 @@ class App extends Component<AppProps, AppState> {
               <Introduce />
             </div>
             <div className="OpLogContainer column is-one-quarter">
-              <h2 className="h2">Logs</h2>
+              <h2 className="h2"><FormattedMessage id="app.tab.logs" defaultMessage="Logs"/></h2>
               <OpLogList />
             </div>
           </div>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Todo from "./Todo";
 import { Collapse, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import {injectIntl} from "react-intl"
 
 const { Panel } = Collapse;
 const genExtra = (that, id) => (
@@ -26,6 +27,7 @@ class TodoList extends React.Component {
     };
     this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+
   }
   handleOk = (e) => {
     console.log(e);
@@ -47,10 +49,11 @@ class TodoList extends React.Component {
   callback = (e) => {};
   expandIconPosition = (e) => {};
   render() {
+      const {intl} = this.props;
     return (
       <div>
         <Modal
-          title="Confirm Delete?"
+          title={intl.formatMessage({id:"todo_list.confirm_delete", defaultMessage:"Confirm Delete?"})}
           visible={this.state.deleteVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -110,4 +113,4 @@ TodoList.propTypes = {
   onTodoClickAddSub: PropTypes.func.isRequired,
 };
 
-export default TodoList;
+export default injectIntl(TodoList);
