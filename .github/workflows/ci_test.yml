@@ -44,5 +44,5 @@ jobs:
       run: npm run build
     - uses: bradyjoslin/setup-wrangler@v1
     - name: Publish
-      run: CF_ACCOUNT_ID=17ad48740eef0cc8f607145995815f37 wrangler publish
+      run: CF_ACCOUNT_ID=17ad48740eef0cc8f607145995815f37 CF_API_TOKEN=$CF_API_TOKEN wrangler publish
 
