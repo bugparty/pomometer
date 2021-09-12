@@ -17,7 +17,8 @@ const mapOpLogToList = (todos, opLogs) => {
                 let stoppedAt = null
                 for (let j = i + 2; j < opLogs.length; j++) {
                     let curOp = opLogs[j];
-                    if (curOp.op.type === start_timer.type || curOp.op.type === reset_timer.type
+                    if (curOp.op.type === start_timer.type || curOp.op.type === reset_timer.type ||
+                        curOp.op.type === stop_timer.type
                         || (curOp.op.type === set_status.type && curOp.op.payload === ClockStatus.COUNTING_ENDED)) {
 
                         stoppedAt = curOp.createdDate;
