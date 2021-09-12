@@ -19,7 +19,8 @@ function getTimeRemaining(
   stoppedAt = new Date().getTime()
 ) {
   let elapsed = getElapsedTime(baseTime, startedAt, stoppedAt);
-  return timeInterval - elapsed;
+  let timeLeft = timeInterval - elapsed
+  return timeLeft > 0 ? timeLeft : 0;
 }
 
 class ClockTimer extends Component {
@@ -34,9 +35,11 @@ class ClockTimer extends Component {
         props.timeInterval,
         props.stoppedAt
       ),
+      stoppedAt: props.stoppedAt
     };
     this.tick = this.tick.bind(this);
   }
+
 
   // Wait until the component has mounted to start the animation frame
   componentDidMount() {
@@ -49,9 +52,10 @@ class ClockTimer extends Component {
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.clockState !== this.props.clockState) {
-      console.log("start");
+      console.log("clock timer start");
       this.start();
     }
+
   }
 
   start() {
@@ -74,13 +78,11 @@ class ClockTimer extends Component {
         this.props.timeInterval
       );
       //debugger
-      if (parseInt(timeLeft / 1000) < parseInt(this.state.timeLeft / 1000)) {
-        //console.log('update stopeed_at', timeLeft)
-        this.props.set_stopped_at(new Date().getTime());
-      }
       if (timeLeft <= 0) {
-        this.stop();
+        //this.stop();
         this.props.stop_timer();
+        this.setState({ timeLeft: 0 });
+        this.stop();
         // dispatch any other actions to do on expiration
       } else {
         // dispatch anything that might need to be done on every tick
@@ -95,7 +97,15 @@ class ClockTimer extends Component {
   }
 
   render() {
-    return <Clock time={this.state.timeLeft} />;
+    let timeLeft = getTimeRemaining(
+        this.props.baseTime,
+        this.props.startedAt,
+        this.props.timeInterval
+    );
+    if (this.props.clockState === ClockStatus.RESET) {
+      timeLeft = this.props.timeInterval
+    }
+    return <Clock time={timeLeft} />;
   }
 }
 
