@@ -42,7 +42,7 @@ jobs:
       run: npm run test
     - name: Build Release
       run: npm run build
+    - uses: bradyjoslin/setup-wrangler@v1
     - name: Publish
-      uses: bradyjoslin/setup-wrangler@v1
       run: wrangler publish
 
