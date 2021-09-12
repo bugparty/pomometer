@@ -10,14 +10,7 @@ import {set_stopped_at, stop_timer,start_timer } from "./clock/ClockSlice"
 let storage = new Storage();
 const persistedState = storage.loadState();
 console.log("loaded state", persistedState);
-const logger = (store) => (next) => (action) => {
-  console.group(action.type);
-  console.info("dispatching", action);
-  let result = next(action);
-  console.log("next state", store.getState());
-  console.groupEnd();
-  return result;
-};
+
 const isInterestedAction = action => {
   return action.type !== addOp.type && action.type !== set_stopped_at.type &&
       action.type !== setVisibilityFilter.type
