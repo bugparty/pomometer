@@ -102,3 +102,10 @@ body {
 .TodoContainer {
   min-width: 400px;
 }
+.oplog_list{
+  height: 550px;
+  width:300px;
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+}
