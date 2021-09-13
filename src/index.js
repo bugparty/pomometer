@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import en_US from "./locales/en-US";
 import zh_CN from "./locales/zh-CN";
+import de_DE from "./locales/de-DE";
 import { IntlProvider } from "react-intl";
 import store from "./componments/store";
 import { Provider } from "react-redux";
@@ -15,11 +16,13 @@ console.log(store);
 export function getMessages() {
   switch (navigator.language.split("-")[0]) {
     case "en":
-      return en_US;
+      return en_US.messages;
     case "zh":
       return zh_CN.messages;
+    case "de":
+      return de_DE.messages;
     default:
-      return en_US
+      return en_US.messages;
   }
 }
 

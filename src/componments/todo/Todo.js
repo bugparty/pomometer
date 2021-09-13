@@ -67,7 +67,7 @@ const Todo = ({
                 if (input != null) onTodoClickAddSub(id, input);
               }}
             >
-              Add SubTask
+              <FormattedMessage id="todo.add_subtask" defaultMessage="Add SubTask"/>
             </Button>
           </Form.Item>
         </Form>

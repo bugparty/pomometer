@@ -8,7 +8,7 @@ import { Navbar } from "./componments/Navbar";
 import AddTodo from "./componments/todo/containers/AddTodo";
 import OpLogList from "./componments/todo/containers/OpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
-import TodoFooter from "./componments/todo/TodoFooter";
+import TodoFilter from "./componments/todo/TodoFilter";
 import {FormattedMessage} from "react-intl";
 
 
@@ -23,7 +23,7 @@ class App extends Component {
               <h2 className="h2"><FormattedMessage id="app.tab.todolist" defaultMessage="Todo list"/> </h2>
               {/* @ts-expect-error */}
               <AddTodo />
-              <TodoFooter />
+              <TodoFilter />
               <VisibleTodoList />
             </div>
             <div className="ClockContainer column">

@@ -30,7 +30,6 @@ class TodoList extends React.Component {
 
   }
   handleOk = (e) => {
-    console.log(e);
     this.props.onTodoClickDelete(this.state.deleteId);
     this.setState({
       deleteVisible: false,
@@ -38,7 +37,6 @@ class TodoList extends React.Component {
   };
 
   handleCancel = (e) => {
-    console.log(e);
     this.setState({
       deleteVisible: false,
     });
