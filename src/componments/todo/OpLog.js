@@ -152,8 +152,6 @@ class OpLog extends React.Component {
                 const subTodo = R.find(R.propEq('id', current_log.op.payload.subId))(todo.subItems)
                 if (subTodo === undefined) continue
                 l.push(intl.formatMessage(messages.delete_subtodo, {todo: todo.text, subtodo: subTodo.text}))
-            } else {
-                l.push(current_log.op.type)
             }
         }
         return l;
