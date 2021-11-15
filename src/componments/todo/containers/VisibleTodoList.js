@@ -13,11 +13,11 @@ import { VisibilityFilters } from "../visibilityFilterSlice";
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
     case VisibilityFilters.SHOW_ALL:
-      return todos;
+      return todos.filter((t) => !t.deleted);
     case VisibilityFilters.SHOW_COMPLETED:
-      return todos.filter((t) => t.completed);
+      return todos.filter((t) => t.completed && !t.deleted);
     case VisibilityFilters.SHOW_ACTIVE:
-      return todos.filter((t) => !t.completed);
+      return todos.filter((t) => !t.completed && !t.deleted);
     default:
       return todos;
   }

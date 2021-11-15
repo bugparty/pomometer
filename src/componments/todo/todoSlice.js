@@ -17,6 +17,7 @@ export const todoSlice = createSlice({
         id: "default",
         text: "default",
         completed: false,
+        deleted: false,
         focus: false,
         createdDate: new Date().toJSON(),
         subItems: [],
@@ -49,8 +50,8 @@ export const todoSlice = createSlice({
       todo.completed = !todo.completed;
     },
     deleteTodo: (state, action) => {
-      const index = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index, 1);
+      const todo = findTodoById(state, action.payload);
+      todo.deleted = true;
     },
     addSubTodo: {
       reducer(state, action) {

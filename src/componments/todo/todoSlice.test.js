@@ -94,6 +94,11 @@ describe("Reducer", () => {
             id: "default",
             text: "default",
           },
+          {
+            id: id,
+            text: text,
+            deleted: true
+          }
         ],
       },
       visibilityFilter: VisibilityFilters.SHOW_ALL,
