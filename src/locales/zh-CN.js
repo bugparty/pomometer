@@ -43,6 +43,7 @@ const messages = {
   "todo.add_todo" : "添加todo",
   "oplog.start_op_with_duration" : "在 {date} 开始 {op} ,时长 {duration}",
   "oplog.toggle_todo" : "完成todo: {todo}",
+  "oplog.delete_todo" : '删除 todo: {todo}',
   "app.tab.todolist" : "Todo列表",
   "settings.button.reset" : "重置"
 };
