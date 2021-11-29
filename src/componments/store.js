@@ -27,7 +27,7 @@ const timer_func = store => {
   timer = setTimeout(()=>{
     store.dispatch(set_stopped_at(new Date().getTime()))
   }, 1000);
-  console.log("setTimeout", timer)
+  //console.log("setTimeout", timer)
 }
 const clearCountDown = () => {
   clearTimeout(timer)
@@ -37,7 +37,7 @@ const clearCountDown = () => {
 }
 // stop timer when ui is absent
 const timerMiddleware = store => next => action => {
-  console.log("timerMiddleware", action)
+  //console.log("timerMiddleware", action)
   if (action.type === start_timer.type){
 
     timer_func(store)
@@ -45,7 +45,7 @@ const timerMiddleware = store => next => action => {
 
     let state = store.getState()
     let duration = (state.clock.stoppedAt - state.clock.startedAt) / 1000
-    console.log('duration',duration)
+    //console.log('duration',duration)
     if (duration > state.clock.timeInterval){
         clearCountDown()
         store.dispatch(stop_timer())

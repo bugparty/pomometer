@@ -25,15 +25,18 @@ class AudioController extends React.Component {
     }
   }
   playTic() {
+
     if (
       (this.props.enableTickingSound && this.props.mode === ClockMode.POMODORO) ||
       (this.props.enableRestTickingSound && this.props.mode !== ClockMode.POMODORO)
     ) {
+      console.log('playTic')
       const audioTicTac = document.getElementById("tictac");
       audioTicTac.play();
     }
   }
   stopTic() {
+    console.log('stopTic')
     const audioTicTac = document.getElementById("tictac");
     audioTicTac.pause();
   }
@@ -63,11 +66,17 @@ class AudioController extends React.Component {
           break;
       }
     }
+    let base_url =''
+    if (process.env.PUBLIC_URL){
+      base_url = process.env.PUBLIC_URL
+    }else {
+      base_url = ''
+    }
     return (
       <div>
         <audio id="80alarm">
           <source
-            src={process.env.PUBLIC_URL + this.state.alarm}
+            src={base_url + this.state.alarm}
             preload="auto"
             type="audio/mpeg"
           />
@@ -75,7 +84,7 @@ class AudioController extends React.Component {
         </audio>
         <audio id="tictac" loop={true}>
           <source
-            src={process.env.PUBLIC_URL + "/asserts/tictac.mp3"}
+            src={base_url +  "/asserts/tictac.mp3"}
             preload="auto"
             type="audio/mpeg"
           />
