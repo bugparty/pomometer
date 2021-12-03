@@ -10,9 +10,24 @@ import OpLogList from "./componments/todo/containers/OpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFilter from "./componments/todo/TodoFilter";
 import {FormattedMessage} from "react-intl";
+type AppMode = "pomodoro" | "longRest" | "shortRest";
 
+interface Options {
+  pomodoro_duration: number;
+  short_break_duration: number;
+  long_break_duration: number;
+}
 
-class App extends Component {
+interface AppProps {}
+
+interface AppState extends Options {
+  status: "reset" | "begin" | "end";
+  mode: AppMode;
+  enableTickingSound: boolean;
+  enableRestTickingSound: boolean;
+}
+
+class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div className="App">
