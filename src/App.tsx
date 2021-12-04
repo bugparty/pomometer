@@ -9,23 +9,12 @@ import AddTodo from "./componments/todo/containers/AddTodo";
 import OpLogList from "./componments/todo/containers/OpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFilter from "./componments/todo/TodoFilter";
+import OpFilter from "./componments/todo/OpFilter";
 import {FormattedMessage} from "react-intl";
-type AppMode = "pomodoro" | "longRest" | "shortRest";
-
-interface Options {
-  pomodoro_duration: number;
-  short_break_duration: number;
-  long_break_duration: number;
-}
 
 interface AppProps {}
 
-interface AppState extends Options {
-  status: "reset" | "begin" | "end";
-  mode: AppMode;
-  enableTickingSound: boolean;
-  enableRestTickingSound: boolean;
-}
+interface AppState {}
 
 class App extends Component<AppProps, AppState> {
   render() {
@@ -47,6 +36,7 @@ class App extends Component<AppProps, AppState> {
             </div>
             <div className="OpLogContainer column is-one-quarter">
               <h2 className="h2"><FormattedMessage id="app.tab.logs" defaultMessage="Logs"/></h2>
+              <OpFilter />
               <OpLogList />
             </div>
           </div>

@@ -1,20 +1,19 @@
 import { connect, ConnectedProps } from "react-redux";
 import {Dispatch} from "redux";
-import {OpVisibilityFilterState, OpVisiblityFilter, setVisibilityFilter} from "../OpVisibilityFilterSlice";
+import {OpVisibilityFilterState, setVisibilityFilter} from "../OpVisibilityFilterSlice";
 import React from "react";
 import {Button} from "antd";
+import {RootState} from "../../store";
 export interface OpLogState {
     visiblityFilter : OpVisibilityFilterState
 }
-interface RootState {
-    visiblityFilter: OpVisibilityFilterState
-}
+
 interface RootProps {
     filter: OpVisibilityFilterState
 }
 const mapStateToProps = (state : RootState, ownProps: RootProps) => {
     return {
-        active: ownProps.filter.value === state.visiblityFilter.value,
+        active: ownProps.filter.value === state.opfilter.value,
     };
 };
 
