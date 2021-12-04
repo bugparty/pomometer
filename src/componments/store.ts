@@ -5,7 +5,7 @@ import clockSlice from "./clock/ClockSlice";
 import opSlice from "./todo/opSlice";
 import visibilityFilterSlice   from "./todo/visibilityFilterSlice";
 import OpVisibilityFilterSlice from "./todo/OpVisibilityFilterSlice"
-import { combineReducers, applyMiddleware } from "redux";
+import { combineReducers } from "redux";
 import  {opMiddleware, timerMiddleware} from "./middlewares";
 let storage = new Storage();
 const persistedState = storage.loadState();
@@ -25,7 +25,7 @@ const store = configureStore({
   preloadedState: persistedState,
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself
-// @ts-ignore
+
 export type RootState = ReturnType<typeof rootReducer>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
