@@ -2,11 +2,12 @@ import {Middleware, MiddlewareAPI, PayloadAction} from "@reduxjs/toolkit";
 import {addOp} from "./todo/opSlice";
 import {ClockStatus, reset_timer, set_stopped_at, start_timer, stop_timer} from "./clock/ClockSlice";
 import {setVisibilityFilter} from "./todo/visibilityFilterSlice";
-import {AppDispatch, RootState} from "./store"
+import  {AppDispatch, RootState} from "./store"
 const isInterestedAction = (action: PayloadAction<any>) => {
     return action.type !== addOp.type && action.type !== set_stopped_at.type &&
         action.type !== setVisibilityFilter.type
 }
+
 // add operation logs
 export const opMiddleware: Middleware<{}, RootState> =
     store => next => action =>{
@@ -55,4 +56,4 @@ export const timerMiddleware: Middleware<{}, RootState> =
             clearCountDown()
         }
         return next(action)
-    }
+}
