@@ -4,10 +4,6 @@ import {OpVisibilityFilterState, setVisibilityFilter} from "../OpVisibilityFilte
 import React from "react";
 import {Button} from "antd";
 import {RootState} from "../../store";
-export interface OpLogState {
-    visiblityFilter : OpVisibilityFilterState
-}
-
 interface RootProps {
     filter: OpVisibilityFilterState
 }
