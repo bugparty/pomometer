@@ -78,9 +78,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                         break;
                 }
             }
-
         }
-
     }
 
     saveChanges() {
