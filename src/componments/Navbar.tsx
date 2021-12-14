@@ -1,9 +1,11 @@
 import React from "react";
 import  Settings  from "./Settings";
 import { FormattedMessage } from "react-intl";
-
-export class Navbar extends React.Component {
-  constructor(props) {
+interface NavBarState{
+  isOpenSettings: boolean
+}
+export class Navbar extends React.Component<any,NavBarState> {
+  constructor(props : any) {
     super(props);
     this.state = { isOpenSettings: false };
     this.openSettings = this.openSettings.bind(this);

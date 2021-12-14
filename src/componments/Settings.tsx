@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEventHandler} from "react";
 import {connect} from "react-redux";
 import classnames from "classnames";
 import {secondsToMinutes} from "../util";
@@ -7,9 +7,27 @@ import {
     reset_settings, set_long_break, set_pomodoro_break, set_short_break,
     set_rest_ticking_sound, set_ticking_sound,
 } from "./clock/ClockSlice";
-
-class Settings extends React.Component {
-    constructor(props) {
+import {Dispatch} from "redux";
+import {RootState} from "./store";
+interface SettingsProps{
+    pomodoro_duration : number,
+    short_break_duration : number,
+    long_break_duration : number,
+    isOpenSettings: boolean,
+    closeModal : () => void,
+    enableTickingSound: boolean,
+    enableRestTickingSound: boolean,
+    setTickingSound : (enable: boolean) => void,
+    setRestTickingSound: (enable: boolean) => void,
+    saveOptions: (options: any) => void,
+}
+interface SettingsState {
+    pomodoro: number,
+    short: number,
+    long: number
+}
+class Settings extends React.Component<SettingsProps, SettingsState> {
+    constructor(props : SettingsProps) {
         super(props);
         this.state = {
             pomodoro: secondsToMinutes(this.props.pomodoro_duration),
@@ -23,7 +41,7 @@ class Settings extends React.Component {
         this.handleResetDefaults = this.handleResetDefaults.bind(this);
     }
 
-    handleTickingSound(event) {
+    handleTickingSound(event : React.ChangeEvent<HTMLInputElement>) {
         const target = event.target;
         const name = target.name;
 
@@ -39,24 +57,30 @@ class Settings extends React.Component {
         }
     }
 
-    handleInputChange(event) {
+    handleInputChange(event : React.ChangeEvent<HTMLInputElement>) {
         const target = event.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
-        if (value < 1) return;
-        switch (name) {
-            case "pomodoro":
-                this.setState({pomodoro: value});
-                break;
-            case "short":
-                this.setState({short: value});
-                break;
-            case "long":
-                this.setState({long: value});
-                break;
-            default:
-                break;
+        if (target !== null){
+            debugger
+            const value = target.type === "checkbox" ? target.checked : target.value;
+            const name = target.name;
+            if (typeof value === 'number'){
+                switch (name) {
+                    case "pomodoro":
+                        this.setState({pomodoro: value});
+                        break;
+                    case "short":
+                        this.setState({short: value});
+                        break;
+                    case "long":
+                        this.setState({long: value});
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
+
     }
 
     saveChanges() {
@@ -223,12 +247,12 @@ class Settings extends React.Component {
         );
     }
 }
-
+interface RootProps{}
 /*
  saveOptions={this.props.saveOptions}
  resetDefault={this.props.resetDefault}
  */
-function mapStateToProps(state) {
+function mapStateToProps(state : RootState, ownProps: RootProps) {
     return {
         enableTickingSound: state.clock.ticking_sound_enabled,
         enableRestTickingSound: state.clock.rest_ticking_sound_enabled,
@@ -239,12 +263,14 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
+
     return {
-        setTickingSound: enable => dispatch(set_ticking_sound(enable)),
-        setRestTickingSound: enable => dispatch(set_rest_ticking_sound(enable)),
+        setTickingSound: (enable:boolean) => dispatch(set_ticking_sound(enable)),
+        setRestTickingSound:  (enable:boolean)  => dispatch(set_rest_ticking_sound(enable)),
+        // @ts-ignore
         resetDefault: () => dispatch(reset_settings()),
-        saveOptions: (options) => {
+        saveOptions: (options:any) => {
             if (options.long_break_duration !== undefined) {
                 dispatch(set_long_break(options.long_break_duration))
             }
@@ -264,6 +290,6 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-Settings.propTypes = {};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)
 
