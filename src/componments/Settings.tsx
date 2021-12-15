@@ -60,7 +60,6 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     handleInputChange(event : React.ChangeEvent<HTMLInputElement>) {
         const target = event.target;
         if (target !== null){
-            debugger
             const value = target.type === "checkbox" ? target.checked : target.value;
             const name = target.name;
             if (typeof value === 'number'){
