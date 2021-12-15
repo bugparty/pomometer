@@ -13,8 +13,17 @@ import {
 } from "../clock/ClockSlice";
 import {formatDate, formatSeconds} from "../../util";
 import * as R from "ramda";
-import {addSubTodo, addTodo, focusSubTodo, toggleSubTodo, toggleTodo, deleteSubTodo, deleteTodo} from "./todoSlice";
-import {defineMessages, injectIntl} from "react-intl"
+import {
+    addSubTodo,
+    addTodo,
+    focusSubTodo,
+    toggleSubTodo,
+    toggleTodo,
+    deleteSubTodo,
+    deleteTodo, Todo
+} from "./todoSlice";
+import {defineMessages, injectIntl,WrappedComponentProps} from "react-intl"
+import {OpLogParams} from "./opSlice";
 
 const hidden_types = [set_short_break.type, set_long_break.type, set_pomodoro_break.type, start_timer.type,
     reset_timer.type, stop_timer.type]
@@ -61,7 +70,12 @@ const messages = defineMessages({
     },
 })
 
-class OpLog extends React.Component {
+interface OpLogProps {
+    todos:Todo[],
+    opLogs: OpLogParams[]
+}
+
+class OpLog extends React.Component<OpLogProps & WrappedComponentProps, any> {
 
     mapOpLogToList = () => {
         const {intl} = this.props;
@@ -74,7 +88,7 @@ class OpLog extends React.Component {
             //handle clock related events
             if (opLogs[i].op.type === set_mode.type) {
                 if (i + 1 < opLogs.length && opLogs[i + 1].op.type === start_timer.type) {
-                    let stoppedAt = null
+                    let stoppedAt: string = ""
                     for (let j = i + 2; j < opLogs.length; j++) {
                         let curOp = opLogs[j];
                         if (curOp.op.type === start_timer.type || curOp.op.type === reset_timer.type ||
@@ -85,8 +99,8 @@ class OpLog extends React.Component {
                             break;
                         }
                     }
-                    if (stoppedAt !== null) {
-                        let duration = new Date(stoppedAt) - new Date(current_log.createdDate);
+                    if (stoppedAt !== "") {
+                        let duration = new Date(stoppedAt).getTime() - new Date(current_log.createdDate).getTime();
                         duration = duration / 1000;
                         if (duration < 60) {
                         } else {
@@ -108,49 +122,67 @@ class OpLog extends React.Component {
             } else if (R.includes(current_log.op.type, hidden_types) || (current_log.op.type === set_status.type &&
                 current_log.op.payload === ClockStatus.COUNTING_ENDED)) {
             } else if (current_log.op.type === addTodo.type) {
+                // @ts-ignore
                 l.push(intl.formatMessage(messages.add_todo, {todo: current_log.op.payload.text}))
             } else if (current_log.op.type === addSubTodo.type) {
-                const item = R.find(R.propEq('id', current_log.op.payload.id))(todos)
+                // @ts-ignore
+                const item = R.find(R.propEq('id', current_log.op.payload.id), todos)
                 if (item !== undefined) {
+
                     l.push(intl.formatMessage(messages.add_subtodo, {
                         todo: item.text,
+                        // @ts-ignore
                         subtodo: current_log.op.payload.subText
                     }))
                 }
             } else if (current_log.op.type === toggleSubTodo.type) {
-                const todo = R.find(R.propEq('id', current_log.op.payload.id))(todos)
+                // @ts-ignore
+                const todo = R.find(R.propEq('id', current_log.op.payload.id),todos)
+                // @ts-ignore
                 if (current_log.op.payload.subId === undefined) {
+                    // @ts-ignore
                     l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
                 } else {
-                    const subTodo = R.find(R.propEq('id', current_log.op.payload.subId))(todo.subItems)
+                    // @ts-ignore
+                    const subTodo = R.find(R.propEq('id', current_log.op.payload.subId), todo.subItems)
                     if (subTodo !== undefined) {
                         l.push(intl.formatMessage(messages.toggle_subtodo, {
+                            // @ts-ignore
                             todo: todo.text,
                             subtodo: subTodo.text
                         }))
                     }
                 }
             } else if (current_log.op.type === toggleTodo.type) {
-                const todo = R.find(R.propEq('id', current_log.op.payload))(todos)
+                const todo = R.find(R.propEq('id', current_log.op.payload), todos)
+                // @ts-ignore
                 l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
             } else if (current_log.op.type === focusSubTodo.type) {
+                // @ts-ignore
                 const todo = R.find(R.propEq('id', current_log.op.payload.id))(todos)
+                // @ts-ignore
                 if (current_log.op.payload.subId === undefined) {
+                    // @ts-ignore
                     l.push(intl.formatMessage(messages.focus_todo, {todo: todo.text}))
                 } else {
-                    const subTodo = R.find(R.propEq('id', current_log.op.payload.subId))(todo.subItems)
+                    // @ts-ignore
+                    const subTodo = R.find(R.propEq('id', current_log.op.payload.subId), todo.subItems)
                     if (subTodo !== undefined) {
+                        // @ts-ignore
                         l.push(intl.formatMessage(messages.focus_subtodo, {subtodo: subTodo.text, todo: todo.text}))
                     }
                 }
             } else if (current_log.op.type === deleteTodo.type) {
-                const todo = R.find(R.propEq('id', current_log.op.payload))(todos)
+                const todo = R.find(R.propEq('id', current_log.op.payload), todos)
                 if (todo === undefined) continue
                 l.push(intl.formatMessage(messages.delete_todo, {todo: todo.text}))
             } else if (current_log.op.type === deleteSubTodo.type) {
-                const todo = R.find(R.propEq('id', current_log.op.payload.id))(todos)
-                const subTodo = R.find(R.propEq('id', current_log.op.payload.subId))(todo.subItems)
+                // @ts-ignore
+                const todo = R.find<Todo>(R.propEq('id', current_log.op.payload.id), todos)
+                // @ts-ignore
+                const subTodo = R.find(R.propEq('id', current_log.op.payload.subId), todo.subItems)
                 if (subTodo === undefined) continue
+                // @ts-ignore
                 l.push(intl.formatMessage(messages.delete_subtodo, {todo: todo.text, subtodo: subTodo.text}))
             }
         }

@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-export const Introduce = () => {
+export const Introduce: React.FC = () => {
   return (
     <section className="section introduce">
       <article>
