@@ -28,7 +28,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
 
@@ -51,7 +53,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
     ret.todos.todos.forEach((todo) => expect(todo.createdDate).toBeDefined());
   });
@@ -77,7 +81,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
 
@@ -101,7 +107,9 @@ describe("Reducer", () => {
           }
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter:{
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
 
@@ -132,7 +140,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
     ret.todos.todos.forEach((todo) =>
       todo.subItems.forEach((subtodo) =>
@@ -171,7 +181,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
 
@@ -199,7 +211,9 @@ describe("Reducer", () => {
           },
         ],
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
   it("handles the focusSubTodo action", () => {
@@ -211,7 +225,9 @@ describe("Reducer", () => {
         focusTodo: "1",
         focusSubTodo: undefined,
       },
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
     expect(ret.todos).toMatchObject({
       todos: [

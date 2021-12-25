@@ -15,7 +15,9 @@ describe("VisibilityFilterReducer", () => {
   it("returns the initial state", () => {
     expect(todoAppReducers(undefined, {})).toMatchObject({
       todos: {},
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
   // build a test state
@@ -28,7 +30,9 @@ describe("VisibilityFilterReducer", () => {
     expect(
       todoAppReducers(state, setVisibilityFilter(VisibilityFilters.SHOW_ALL))
     ).toMatchObject({
-      visibilityFilter: VisibilityFilters.SHOW_ALL,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_ALL
+      },
     });
   });
 
@@ -36,7 +40,9 @@ describe("VisibilityFilterReducer", () => {
     expect(
       todoAppReducers(state, setVisibilityFilter(VisibilityFilters.SHOW_ACTIVE))
     ).toMatchObject({
-      visibilityFilter: VisibilityFilters.SHOW_ACTIVE,
+      visibilityFilter:{
+        filter: VisibilityFilters.SHOW_ACTIVE
+      } ,
     });
   });
 
@@ -47,7 +53,9 @@ describe("VisibilityFilterReducer", () => {
         setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED)
       )
     ).toMatchObject({
-      visibilityFilter: VisibilityFilters.SHOW_COMPLETED,
+      visibilityFilter: {
+        filter: VisibilityFilters.SHOW_COMPLETED
+      },
     });
   });
 });
