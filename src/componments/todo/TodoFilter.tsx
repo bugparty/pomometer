@@ -3,7 +3,7 @@ import FilterLink from "./containers/FilterLink";
 import { VisibilityFilters } from "./visibilityFilterSlice";
 import { FormattedMessage} from "react-intl";
 
-const TodoFilter = () => (
+const TodoFilter : React.FC<{}> = () => (
   <p>
       <FormattedMessage id="todo.filter.show" defaultMessage="Show: "/>
     <FilterLink filter={VisibilityFilters.SHOW_ALL}><FormattedMessage id="todo.filter.all" defaultMessage="All: "/></FilterLink>

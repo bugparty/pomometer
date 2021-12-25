@@ -20,7 +20,7 @@ import {
     toggleSubTodo,
     toggleTodo,
     deleteSubTodo,
-    deleteTodo, Todo
+    deleteTodo, TodoItem
 } from "./todoSlice";
 import {defineMessages, injectIntl,WrappedComponentProps} from "react-intl"
 import {OpLogParams} from "./opSlice";
@@ -71,7 +71,7 @@ const messages = defineMessages({
 })
 
 interface OpLogProps {
-    todos:Todo[],
+    todos:TodoItem[],
     opLogs: OpLogParams[]
 }
 
@@ -178,7 +178,7 @@ class OpLog extends React.Component<OpLogProps & WrappedComponentProps, any> {
                 l.push(intl.formatMessage(messages.delete_todo, {todo: todo.text}))
             } else if (current_log.op.type === deleteSubTodo.type) {
                 // @ts-ignore
-                const todo = R.find<Todo>(R.propEq('id', current_log.op.payload.id), todos)
+                const todo = R.find<TodoItem>(R.propEq('id', current_log.op.payload.id), todos)
                 // @ts-ignore
                 const subTodo = R.find(R.propEq('id', current_log.op.payload.subId), todo.subItems)
                 if (subTodo === undefined) continue
