@@ -10,6 +10,10 @@ if (!Intl.RelativeTimeFormat) {
 const messages = {
   "oplog.focus_subtodo" : "从todo: {todo}设置焦点在子任务:{subtodo}",
   "oplog.focus_todo" : "设置焦点在todo: {todo}",
+  "oplog.filter.today":"今天",
+  "oplog.filter.this_week":"本周",
+  "oplog.filter.all":"所有",
+  "oplog.filter.show":"过滤器:",
   "settings.field.long_break_duration" : "长休息时长",
   "settings.field.pomodoro_duration" : "番茄钟时长",
   "todo.filter.show" : "显示：",
