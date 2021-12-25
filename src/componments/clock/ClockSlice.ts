@@ -1,22 +1,38 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export const ClockMode = {
-    SHORT_BREAK: "SHORT_BREAK",
-    LONG_BREAK: "LONG_BREAK",
-    POMODORO: "POMODORO",
-    STOPPED: "STOPEED",
-};
-export const ClockStatus = {
-    COUNTING_DOWN: "counting_down",
-    COUNTING_ENDED: "counting_ended",
-    RESET: "reset",
-};
-export const SettingFilter = {
-    SHORT_BREAK_DURATION: "SHORT_BREAK_DURATION",
-    LONG_BREAK_DURATION: "LONG_BREAK_DURATION",
-    POMODORO_DURATION: "POMODORO_DURATION",
-};
-const DEFAULT_STATE = {
+export enum ClockMode {
+    SHORT_BREAK= "SHORT_BREAK",
+    LONG_BREAK= "LONG_BREAK",
+    POMODORO="POMODORO",
+    STOPPED= "STOPEED",
+}
+export enum ClockStatus  {
+    COUNTING_DOWN= "counting_down",
+    COUNTING_ENDED= "counting_ended",
+    RESET= "reset",
+}
+export enum SettingFilter  {
+    SHORT_BREAK_DURATION= "SHORT_BREAK_DURATION",
+    LONG_BREAK_DURATION= "LONG_BREAK_DURATION",
+    POMODORO_DURATION= "POMODORO_DURATION",
+}
+export interface ClockState {
+    mode: ClockMode,
+    status: ClockStatus,
+    timeInterval: number,
+    timeLeft: number,
+    playingTick: boolean,
+    playingAlarm: boolean,
+    short_break_duration: number,
+    long_break_duration: number,
+    pomodoro_duration: number,
+    ticking_sound_enabled: boolean,
+    rest_ticking_sound_enabled: boolean,
+    startedAt: number | undefined,
+    stoppedAt: number | undefined,
+    baseTime: number | undefined,
+}
+const DEFAULT_STATE:ClockState = {
     mode: ClockMode.POMODORO,
     status: ClockStatus.RESET,
     timeInterval: 25 * 60,
@@ -36,10 +52,10 @@ export const ClockSlice = createSlice({
     name: "clock",
     initialState: DEFAULT_STATE,
     reducers: {
-        set_status: (state, action) => {
+        set_status: (state, action:PayloadAction<ClockStatus>) => {
             state.status = action.payload;
         },
-        set_mode: (state, action) => {
+        set_mode: (state, action:PayloadAction<ClockMode>) => {
             state.mode = action.payload;
             switch (state.mode) {
                 case ClockMode.POMODORO:
@@ -55,51 +71,51 @@ export const ClockSlice = createSlice({
                     state.timeInterval = state.pomodoro_duration;
             }
         },
-        set_time_interval: (state, action) => {
+        set_time_interval: (state, action:PayloadAction<number>) => {
             state.timeInterval = action.payload;
         },
-        set_play_tick: (state, action) => {
+        set_play_tick: (state, action:PayloadAction<boolean>) => {
             state.playingTick = action.payload;
         },
-        set_play_alarm: (state, action) => {
+        set_play_alarm: (state, action:PayloadAction<boolean>) => {
             state.playingAlarm = action.payload;
         },
-        set_short_break: (state, action) => {
+        set_short_break: (state, action:PayloadAction<number>) => {
             state.short_break_duration = action.payload;
         },
-        set_long_break: (state, action) => {
+        set_long_break: (state, action:PayloadAction<number>) => {
             state.long_break_duration = action.payload;
         },
-        set_pomodoro_break: (state, action) => {
+        set_pomodoro_break: (state, action:PayloadAction<number>) => {
             state.pomodoro_duration = action.payload;
         },
-        set_ticking_sound: (state, action) => {
+        set_ticking_sound: (state, action:PayloadAction<boolean>) => {
             state.ticking_sound_enabled = action.payload;
         },
-        set_rest_ticking_sound: (state, action) => {
+        set_rest_ticking_sound: (state, action:PayloadAction<boolean>) => {
             state.rest_ticking_sound_enabled = action.payload;
         },
         reset_timer: {
-            reducer: (state, action) => {
+            reducer: (state, action:PayloadAction<{now:number}>) => {
                 state.baseTime = 0;
                 state.startedAt = state.startedAt ? action.payload.now : undefined;
                 state.stoppedAt = state.stoppedAt ? action.payload.now : undefined;
                 state.status = ClockStatus.RESET;
             },
-            prepare: (state) => ({payload: {now: new Date().getTime()}}),
+            prepare: () => ({payload: {now: new Date().getTime()}}),
         },
         start_timer: {
-            reducer: (state, action) => {
+            reducer: (state, action:PayloadAction<{now:number,baseTime:number}>) => {
                 state.baseTime = action.payload.baseTime;
                 state.startedAt = action.payload.now;
                 state.stoppedAt = undefined;
                 state.status = ClockStatus.COUNTING_DOWN;
             },
-            prepare: (baseTime = 0) => ({
+            prepare: (baseTime:number = 0) => ({
                 payload: {now: new Date().getTime(), baseTime},
             }),
         },
-        set_stopped_at: (state, action) => {
+        set_stopped_at: (state, action:PayloadAction<number>) => {
             state.stoppedAt = action.payload;
 
         },
@@ -107,7 +123,7 @@ export const ClockSlice = createSlice({
             state.stoppedAt = new Date().getTime();
             state.status = ClockStatus.COUNTING_ENDED;
         },
-        reset_settings: (state, action) => {
+        reset_settings: (state) => {
             state.mode = ClockMode.POMODORO
             state.status = ClockStatus.RESET
             state.timeInterval = 25 * 60

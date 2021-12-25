@@ -11,7 +11,6 @@ import store from "./componments/store";
 import { Provider } from "react-redux";
 // redux
 
-console.log(store);
 //intl
 export function getMessages() {
   switch (navigator.language.split("-")[0]) {
@@ -27,6 +26,7 @@ export function getMessages() {
 }
 
 const rootElement = document.getElementById("root");
+if (rootElement instanceof HTMLElement)
 if (rootElement.hasChildNodes()) {
   ReactDOM.hydrate(
     <IntlProvider

@@ -1,22 +1,22 @@
-export function formatSeconds(_seconds) {
+export function formatSeconds(_seconds: number) {
   let minute = Math.floor(_seconds / 60);
   let seconds = Math.ceil(_seconds % 60);
   return wrapTimeDigit(minute) + ":" + wrapTimeDigit(seconds);
 }
-export function formatDate(date){
+export function formatDate(date: Date){
   return (date.getMonth()+1)+ "/" + date.getDate() + ' '+ date.getHours() + ":" + date.getMinutes()
 
 }
-export function wrapTimeDigit(timeDigit) {
+export function wrapTimeDigit(timeDigit: number) {
   return timeDigit > 9 ? "" + timeDigit : "0" + timeDigit;
 }
 
-export function secondsToMinutesString(_seconds) {
+export function secondsToMinutesString(_seconds: number) {
   let minute = Math.floor(_seconds / 60);
   return "" + minute;
 }
 
-export function secondsToMinutes(_seconds) {
+export function secondsToMinutes(_seconds: number) {
   return Math.floor(_seconds / 60);
 }
 const isSafariBrowser = () => {

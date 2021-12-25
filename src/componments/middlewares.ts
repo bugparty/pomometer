@@ -46,7 +46,7 @@ export const timerMiddleware: Middleware<{}, RootState> =
             //console.log('duration',duration)
             if (duration > state.clock.timeInterval){
                 clearCountDown()
-                store.dispatch(stop_timer(state))
+                store.dispatch(stop_timer())
             }else if (store.getState().clock.status === ClockStatus.COUNTING_DOWN){
                 timer_func(store)
             }
