@@ -1,30 +1,65 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import {Dispatch} from "redux";
+import {connect, ConnectedProps} from "react-redux";
 import { reset_timer,stop_timer, ClockStatus, set_stopped_at } from "./ClockSlice";
 import { Clock } from "./Clock";
+import {RootState} from "../store";
+
 // Helper function that takes store state
 // and returns the current elapsed time
-function getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+function getElapsedTime(baseTime:number|undefined, startedAt:number|undefined, stoppedAt = new Date().getTime()) {
   if (!startedAt) {
     return 0;
   } else {
-    return stoppedAt - startedAt + baseTime;
+    if (baseTime === undefined){
+      console.log("basetime undefined")
+      return startedAt - startedAt
+    }else return stoppedAt - startedAt + baseTime;
   }
 }
 
 function getTimeRemaining(
-  baseTime,
-  startedAt,
-  timeInterval,
+  baseTime:number|undefined,
+  startedAt:number|undefined,
+  timeInterval:number,
   stoppedAt = new Date().getTime()
 ) {
   let elapsed = getElapsedTime(baseTime, startedAt, stoppedAt);
   let timeLeft = timeInterval - elapsed
   return timeLeft > 0 ? timeLeft : 0;
 }
+interface RootProps {}
+const mapStateToProps = (state:RootState, ownProps: RootProps) => {
+  return {
+    baseTime: state.clock.baseTime,
+    startedAt: state.clock.startedAt,
+    timeInterval: state.clock.timeInterval * 1000,
+    stoppedAt: state.clock.stoppedAt,
+    clockState: state.clock.status,
+  };
+};
 
-class ClockTimer extends Component {
-  constructor(props) {
+const mapDispatchToProps = (dispatch:Dispatch, ownProps: RootProps) => {
+  return {
+    reset_timer: () => dispatch(reset_timer()),
+    set_stopped_at: (time:number) => dispatch(set_stopped_at(time)),
+    stop_timer: () => dispatch(stop_timer()),
+  };
+};
+const connector = connect(mapStateToProps, mapDispatchToProps)
+export type PropsFromRedux = ConnectedProps<typeof connector>
+interface ClockTimerProps{
+
+}
+interface  ClockTimerState{
+  timeLeft: number,
+  stoppedAt: number|undefined,
+
+}
+type MyProps = PropsFromRedux & ClockTimerProps
+class ClockTimer extends Component<MyProps,ClockTimerState> {
+  private frameId: number| undefined;
+  constructor(props: MyProps | Readonly<MyProps>) {
     super(props);
     // here, getTimeRemaining is a helper function that returns an
     // object with { total, seconds, minutes, hours, days }
@@ -35,7 +70,7 @@ class ClockTimer extends Component {
         props.timeInterval,
         props.stoppedAt
       ),
-      stoppedAt: props.stoppedAt
+      stoppedAt: props.stoppedAt,
     };
     this.tick = this.tick.bind(this);
   }
@@ -50,7 +85,8 @@ class ClockTimer extends Component {
   componentWillUnmount() {
     this.stop();
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
+
+  componentDidUpdate(prevProps:Readonly<MyProps>, prevState:Readonly<ClockTimerState>, snapshot?: any) {
     if (prevProps.clockState !== this.props.clockState) {
       console.log("clock timer start");
       this.start();
@@ -66,7 +102,9 @@ class ClockTimer extends Component {
   }
 
   stop() {
-    cancelAnimationFrame(this.frameId);
+    if (this.frameId !== undefined){
+      cancelAnimationFrame(this.frameId);
+    }
   }
 
   tick() {
@@ -109,22 +147,6 @@ class ClockTimer extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    baseTime: state.clock.baseTime,
-    startedAt: state.clock.startedAt,
-    timeInterval: state.clock.timeInterval * 1000,
-    stoppedAt: state.clock.stoppedAt,
-    clockState: state.clock.status,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    reset_timer: () => dispatch(reset_timer()),
-    set_stopped_at: (time) => dispatch(set_stopped_at(time)),
-    stop_timer: () => dispatch(stop_timer()),
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClockTimer);
