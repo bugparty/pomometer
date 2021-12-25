@@ -1,7 +1,7 @@
 import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-export interface SubTodo{
+export interface SubTodoItem {
   id: string,
   text: string,
   completed: boolean,
@@ -9,20 +9,20 @@ export interface SubTodo{
   focus: boolean,
   createdDate: string,
 }
-export interface Todo {
+export interface TodoItem {
   id: string,
   text: string,
   completed: boolean,
   deleted: boolean,
   focus: boolean,
   createdDate: string,
-  subItems: SubTodo[],
+  subItems: SubTodoItem[],
 }
 
 export interface TodoState {
   focusTodo: string | undefined,
   focusSubTodo: string | undefined,
-  todos: Todo[],
+  todos: TodoItem[],
 }
 const initialState : TodoState = {
     focusSubTodo: undefined, focusTodo: undefined, todos: [{
@@ -37,10 +37,10 @@ const initialState : TodoState = {
 }
 const findTodoById = (state: Draft<TodoState>, id : string) => {
   // @ts-ignore
-  return state.todos.find((i: Todo) => i.id === id);
+  return state.todos.find((i: TodoItem) => i.id === id);
 };
-const findSubTodoById = (todo: Todo, subId : string) => {
-  return todo.subItems.find((i:SubTodo) => i.id === subId);
+const findSubTodoById = (todo: TodoItem, subId : string) => {
+  return todo.subItems.find((i:SubTodoItem) => i.id === subId);
 };
 export const todoSlice = createSlice({
   name: "todos",
@@ -142,13 +142,13 @@ export const todoSlice = createSlice({
       },
     },
     focusSubTodo: {
-      reducer(state, action:PayloadAction<{id:string,subId:string}>) {
+      reducer(state, action:PayloadAction<{id:string,subId:string|undefined}>) {
         if (action.payload.id == null) return;
         state.focusTodo = action.payload.id;
         if (action.payload.subId == null) return;
         state.focusSubTodo = action.payload.subId;
       },
-      prepare(id:string, subId:string) {
+      prepare(id:string, subId:string | undefined) {
         return {
           payload: {
             id: id,

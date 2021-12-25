@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, {ReactNodeLike} from "prop-types";
 import { Button } from "antd";
 
-const Link = ({ active, children, onClick }) => {
+const Link :React.FC<{active:boolean, onClick: ()=>void, children: ReactNodeLike}> = ({ active, children, onClick }) => {
   return (
     <Button onClick={onClick} disabled={active} style={{ marginLeft: "4px" }}>
       {children}
