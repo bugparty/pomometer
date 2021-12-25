@@ -1,11 +1,22 @@
 import React from "react";
 import { isSafari } from "../util";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {ClockStatus, ClockMode} from "./clock/ClockSlice";
-
+import {RootState} from "./store";
+function mapStateToProps(state:RootState){
+  return {
+    enableTickingSound: state.clock.ticking_sound_enabled,
+    enableRestTickingSound: state.clock.rest_ticking_sound_enabled,
+    mode: state.clock.mode,
+    status: state.clock.status,
+  }
+}
+const connector = connect(mapStateToProps)
+export type PropsFromRedux = ConnectedProps<typeof connector>
+type Props = PropsFromRedux
 let isMounted = false;
-class AudioController extends React.Component {
-  constructor(props) {
+class AudioController extends React.Component<Props,any> {
+  constructor(props: Props | Readonly<Props>) {
     super(props);
     this.playAlarm = this.playAlarm.bind(this);
     this.playTic = this.playTic.bind(this);
@@ -21,7 +32,9 @@ class AudioController extends React.Component {
       audio.play();
     } else {
       let alarm = document.getElementById("80alarm");
-      alarm.play();
+      if (alarm instanceof HTMLAudioElement){
+        alarm.play()
+      }
     }
   }
   playTic() {
@@ -32,13 +45,17 @@ class AudioController extends React.Component {
     ) {
       console.log('playTic')
       const audioTicTac = document.getElementById("tictac");
-      audioTicTac.play();
+      if (audioTicTac instanceof HTMLAudioElement){
+        audioTicTac.play()
+      }
     }
   }
   stopTic() {
     console.log('stopTic')
     const audioTicTac = document.getElementById("tictac");
-    audioTicTac.pause();
+    if (audioTicTac instanceof HTMLAudioElement){
+      audioTicTac.pause()
+    }
   }
   componentDidMount() {
     isMounted = true;
@@ -66,18 +83,18 @@ class AudioController extends React.Component {
           break;
       }
     }
-    let base_url =''
+    let base_url
     if (process.env.PUBLIC_URL){
       base_url = process.env.PUBLIC_URL
     }else {
       base_url = ''
     }
+    // @ts-ignore
     return (
       <div>
         <audio id="80alarm">
           <source
             src={base_url + this.state.alarm}
-            preload="auto"
             type="audio/mpeg"
           />
           Your browser does not support the audio element.
@@ -85,7 +102,6 @@ class AudioController extends React.Component {
         <audio id="tictac" loop={true}>
           <source
             src={base_url +  "/asserts/tictac.mp3"}
-            preload="auto"
             type="audio/mpeg"
           />
           Your browser does not support the audio element.
@@ -94,12 +110,5 @@ class AudioController extends React.Component {
     );
   }
 }
-function mapStateToProps(state){
-  return {
-    enableTickingSound: state.clock.ticking_sound_enabled,
-    enableRestTickingSound: state.clock.rest_ticking_sound_enabled,
-    mode: state.clock.mode,
-    status: state.clock.status,
-  }
-}
+
 export default connect(mapStateToProps)(AudioController)
