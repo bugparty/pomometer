@@ -11,7 +11,7 @@ class Storage {
       return undefined;
     }
   }
-  saveState(state) {
+  saveState(state: any) {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem("state", serializedState);
