@@ -1,3 +1,5 @@
+import { setDay, startOfToday,endOfToday } from 'date-fns'
+
 export function formatSeconds(_seconds: number) {
   let minute = Math.floor(_seconds / 60);
   let seconds = Math.ceil(_seconds % 60);
@@ -27,3 +29,24 @@ const isSafariBrowser = () => {
 };
 
 export var isSafari = isSafariBrowser();
+type TimeRange = {
+  start:number;
+  end:number;
+}
+export function getTodayRange():TimeRange{
+  let now = new Date()
+  let start = now.setHours(0,0,0,0)
+  let end = now.setHours(23,59,59,999)
+  return {
+    start:start,
+    end:end
+  }
+}
+export function getThisWeekRange():TimeRange{
+  let monday = setDay(startOfToday(), 0).getTime()
+  let sunday = setDay(endOfToday(), 6).getTime()
+  return {
+    start:monday,
+    end:sunday
+  }
+}

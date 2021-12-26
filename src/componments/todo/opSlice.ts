@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-export enum Op {
+export enum Operation {
   start_short_rest = "start_short_rest",
   start_long_rest =  "start_long_rest",
   start_pomodoro =  "start_pomodoro",
@@ -10,7 +10,7 @@ export enum Op {
 export interface OpLogParams {
   id: string,
   op: any,
-  createdDate: string
+  createdDate: number
 }
 export interface OpState{
   ops: OpLogParams []
@@ -36,7 +36,7 @@ export const opSlice = createSlice({
           payload: {
             id: uuidv4(),
             op: op,
-            createdDate: new Date().toJSON(),
+            createdDate: new Date().getTime(),
           },
         };
       },

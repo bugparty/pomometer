@@ -88,7 +88,7 @@ class OpLog extends React.Component<OpLogProps & WrappedComponentProps, any> {
             //handle clock related events
             if (opLogs[i].op.type === set_mode.type) {
                 if (i + 1 < opLogs.length && opLogs[i + 1].op.type === start_timer.type) {
-                    let stoppedAt: string = ""
+                    let stoppedAt: number = 0
                     for (let j = i + 2; j < opLogs.length; j++) {
                         let curOp = opLogs[j];
                         if (curOp.op.type === start_timer.type || curOp.op.type === reset_timer.type ||
@@ -99,7 +99,7 @@ class OpLog extends React.Component<OpLogProps & WrappedComponentProps, any> {
                             break;
                         }
                     }
-                    if (stoppedAt !== "") {
+                    if (stoppedAt !== 0) {
                         let duration = new Date(stoppedAt).getTime() - new Date(current_log.createdDate).getTime();
                         duration = duration / 1000;
                         if (duration < 60) {

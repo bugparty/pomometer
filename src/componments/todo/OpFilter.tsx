@@ -3,7 +3,7 @@ import OpFilterLink from "./containers/OpFilterLink";
 import { OpVisibilityFilter} from "./OpVisibilityFilterSlice";
 import { FormattedMessage} from "react-intl";
 
-const OpFilter: React.FC<{}> = () => (
+const OpFilter = () => (
     <p>
         <FormattedMessage id="oplog.filter.show" defaultMessage="Show: "/>
         <OpFilterLink filter={{value:OpVisibilityFilter.SHOW_ALL}}><FormattedMessage id="oplog.filter.all" defaultMessage="All: "/></OpFilterLink>
