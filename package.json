@@ -6,10 +6,6 @@
     "@formatjs/intl-pluralrules": "^3.2.4",
     "@formatjs/intl-relativetimeformat": "^9.2.2",
     "@reduxjs/toolkit": "^1.6.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.5",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
     "antd": "^4.16.13",
     "bulma-start": "^0.0.3",
     "classnames": "^2.2.6",
@@ -22,7 +18,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-intl": "^5.20.10",
     "react-redux": "^7.2.5",
-    "react-scripts": "^5.0.0",
+    "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.8",
     "uuid": "^8.3.2"
@@ -47,8 +43,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.5",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
     "@formatjs/cli": "^4.2.33",
-    "@types/ramda": "^0.27.58",
+    "@types/ramda": "^0.27.62",
     "@types/react-infinite-scroller": "^1.2.2",
     "@types/uuid": "^8.3.3",
     "prettier": "^2.3.2",
