@@ -6,7 +6,7 @@ import { Footer } from "./componments/Footer";
 import { Introduce } from "./componments/Introduce";
 import { Navbar } from "./componments/Navbar";
 import AddTodo from "./componments/todo/containers/AddTodo";
-import OpLogList from "./componments/todo/containers/OpLogList";
+import VisibleOpLogList from "./componments/todo/containers/VisibleOpLogList";
 import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFilter from "./componments/todo/TodoFilter";
 import OpFilter from "./componments/todo/OpFilter";
@@ -37,7 +37,7 @@ class App extends Component<AppProps, AppState> {
             <div className="OpLogContainer column is-one-quarter">
               <h2 className="h2"><FormattedMessage id="app.tab.logs" defaultMessage="Logs"/></h2>
               <OpFilter />
-              <OpLogList />
+              <VisibleOpLogList />
             </div>
           </div>
 

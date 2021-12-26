@@ -2,8 +2,9 @@
   "presets": [
     [
       "@babel/preset-env",
-      "@babel/preset-react",
-      { "targets": { "browsers": ["last 3 versions", "safari >= 6"] } }
+      { "targets": { "browsers": ["last 3 versions", "safari >= 6"] } },
+      "@babel/preset-react"
+
     ]
   ],
   "plugins": [["@babel/plugin-proposal-class-properties"]]
