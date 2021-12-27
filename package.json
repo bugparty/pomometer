@@ -5,6 +5,17 @@
   "dependencies": {
     "@formatjs/intl-pluralrules": "^3.2.4",
     "@formatjs/intl-relativetimeformat": "^9.2.2",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@formatjs/cli": "^4.2.33",
+    "@types/ramda": "^0.27.62",
+    "@types/react-infinite-scroller": "^1.2.2",
+    "@types/uuid": "^8.3.3",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.17",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
     "@reduxjs/toolkit": "^1.6.1",
     "antd": "^4.16.13",
     "bulma-start": "^0.0.3",
@@ -21,7 +32,8 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.8",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "typescript": "^4.5.4"
   },
   "scripts": {
     "start": "react-scripts start ",
@@ -34,27 +46,28 @@
     "pages": "GENERATE_SOURCEMAP=false PUBLIC_URL=https://cdn.jsdelivr.net/gh/bugparty/pomotodo_page@gh-pages/ react-scripts build"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "@formatjs/cli": "^4.2.33",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.5",
-    "@types/ramda": "^0.27.62",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-infinite-scroller": "^1.2.2",
-    "@types/uuid": "^8.3.3",
+    "eslint": "^7.32.0",
     "prettier": "^2.3.2",
     "source-map-loader": "^3.0.0",
     "ts-jest": "^27.0.7",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.2"
+    "ts-loader": "^9.2.6"
   }
 }
