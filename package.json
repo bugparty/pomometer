@@ -43,12 +43,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@formatjs/cli": "^4.2.33",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.5",
+    "@types/ramda": "^0.27.62",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
-    "@formatjs/cli": "^4.2.33",
-    "@types/ramda": "^0.27.62",
     "@types/react-infinite-scroller": "^1.2.2",
     "@types/uuid": "^8.3.3",
     "prettier": "^2.3.2",

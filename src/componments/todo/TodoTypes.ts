@@ -30,14 +30,14 @@ export const mapDispatchToProps = (dispatch:Dispatch, ownProps: RootProps) => {
         onTodoClickFocus: (id :string, subId:string | undefined) => {
             dispatch(focusSubTodo(id, subId));
         },
-        onTodoClick: (id :string) => {
-            dispatch(toggleTodo(id));
+        onTodoClick: (id :string,checked: boolean) => {
+            dispatch(toggleTodo(id,checked));
         },
         onTodoClickDelete: (id :string) => {
             dispatch(deleteTodo(id));
         },
-        onTodoClickSub: (id :string, subId:string) => {
-            dispatch(toggleSubTodo(id, subId));
+        onTodoClickSub: (id :string, subId:string,checked: boolean) => {
+            dispatch(toggleSubTodo(id, subId,checked));
         },
         onTodoClickDeleteSub: (id :string, subId:string) => {
             dispatch(deleteSubTodo(id, subId));

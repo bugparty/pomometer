@@ -90,7 +90,7 @@ export const Todo = (props: Props) => {
                             key={subtodo.id}
                             {...subtodo}
                             onFocus={props.focusTodo === props.id && props.focusSubTodo === subtodo.id}
-                            onTodoClickSub={() => props.onTodoClickSub(props.id, subtodo.id)}
+                            onTodoClickSub={() => props.onTodoClickSub(props.id, subtodo.id, !subtodo.completed)}
                             onTodoClickDeleteSub={() => props.onTodoClickDeleteSub(props.id, subtodo.id)}
                             onTodoClickFocus={() => props.onTodoClickFocus(props.id, subtodo.id)}
                         />
@@ -99,7 +99,7 @@ export const Todo = (props: Props) => {
                     <DefaultSubTodo
                         text={intl.formatMessage({id: "todo.default_subtodo", defaultMessage: "default subtask"})}
                         completed={props.completed}
-                        onTodoClick={() => props.onTodoClick(props.id)}
+                        onTodoClick={() => props.onTodoClick(props.id, !props.completed)}
                         onTodoClickFocus={() => props.onTodoClickFocus(props.id, undefined)}
                         onFocus={props.focusTodo === props.id}
                     />

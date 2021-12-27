@@ -35,7 +35,7 @@ const messages = {
   "clock.button.long" : "长休息",
   "todo.subtodo.delete" : "删除",
   "oplog.add_todo" : "添加todo {todo}",
-  "oplog.toggle_subtodo" : "完成todo: {todo}的子任务:{subtodo}",
+
   "todo.default_subtodo" : "默认子todo",
   "clock.button.short" : "短休息",
   "settings.field.short_break_duration" : "短休息时长",
@@ -47,7 +47,10 @@ const messages = {
   "todo.add_todo" : "添加todo",
   "oplog.start_op_with_duration" : "在 {date} 开始 {op} ,时长 {duration}",
   "oplog.toggle_todo" : "完成todo: {todo}",
+  "oplog.untoggle_todo" : "取消完成todo: {todo}",
   "oplog.delete_todo" : '删除 todo: {todo}',
+  "oplog.toggle_subtodo" : "完成todo: {todo}的子任务:{subtodo}",
+  "oplog.untoggle_subtodo" : "取消完成todo: {todo}的子任务:{subtodo}",
   "app.tab.todolist" : "Todo列表",
   "settings.button.reset" : "重置"
 };
