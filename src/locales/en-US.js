@@ -31,7 +31,16 @@ const messages = {
   "settings.enableTickingSound" : "enable ticking sound",
   "introduction.p2" : "The method uses a timer to segment a typical 25-minute working time and a short 5-minute break, while those periods are called pomodoros, with 4 pomodoros per break, for a long break of 15-30 minutes.",
   "navi.settings" : "Settings",
-  "settings.title" : "Settings"
+  "settings.title" : "Settings",
+  "todo.filter.show":"Show",
+  "todo.filter.all": "All",
+  "todo.filter.active": "Active",
+  "todo.filter.completed": "Completed",
+  "oplog.filter.show" : "Show",
+  "oplog.filter.all" : "All",
+  "oplog.filter.this_week": "This Week",
+  "oplog.filter.today" : "Today",
+
 };
 const en_US = {
   locale: "en-US",

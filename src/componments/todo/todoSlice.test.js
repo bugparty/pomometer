@@ -64,7 +64,7 @@ describe("Reducer", () => {
     const text = "hello";
     let state = todoAppReducers(undefined, addTodo(text));
     let id = state.todos.todos[1].id;
-    expect(todoAppReducers(state, toggleTodo(id))).toMatchObject({
+    expect(todoAppReducers(state, toggleTodo(id, true))).toMatchObject({
       todos: {
         focusTodo: undefined,
         focusSubTodo: undefined,
@@ -159,7 +159,7 @@ describe("Reducer", () => {
     state = todoAppReducers(state, addSubTodo(id, subtext));
     let subid = state.todos.todos[1].subItems[0].id;
 
-    expect(todoAppReducers(state, toggleSubTodo(id, subid))).toMatchObject({
+    expect(todoAppReducers(state, toggleSubTodo(id, subid, true))).toMatchObject({
       todos: {
         focusTodo: undefined,
         focusSubTodo: undefined,

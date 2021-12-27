@@ -5,7 +5,7 @@ import {WrappedComponentProps} from "react-intl"
 import {ExpandIconPosition} from "antd/lib/collapse/Collapse";
 import {TodoItem} from "./todoSlice";
 import {Todo} from "./Todo";
-
+import {PropsFromRedux} from "./TodoTypes"
 
 const { Panel } = Collapse;
 const genExtra = (that: TodoList, id:string) => (
@@ -21,18 +21,13 @@ const genExtra = (that: TodoList, id:string) => (
   />
 );
 interface TodoListProps {
-    onTodoClickDelete: (id:string)=>void,
-    onTodoClick: (id:string)=>void,
-    onTodoClickSub: (id:string,subId:string)=>void,
-    onTodoClickDeleteSub: (id:string,subId:string)=>void,
-    onTodoClickAddSub: (id:string,text:string)=>void,
-    onTodoClickFocus: (id:string, subId:string | undefined) => void,
     focusTodo: string | undefined,
     focusSubTodo: string | undefined,
     todos: TodoItem[],
 }
-class TodoList extends React.Component<TodoListProps & WrappedComponentProps, any> {
-  constructor(props: (TodoListProps & WrappedComponentProps<"intl">) | Readonly<TodoListProps & WrappedComponentProps<"intl">>) {
+type Props = PropsFromRedux & TodoListProps & WrappedComponentProps<"intl">
+class TodoList extends React.Component<Props , any> {
+  constructor(props: (Props) | Readonly<Props>) {
     super(props);
     this.state = {
       deleteVisible: false,
@@ -88,7 +83,7 @@ class TodoList extends React.Component<TodoListProps & WrappedComponentProps, an
                 <Todo
                     {...todo}
                     {...this.props}
-                    onClick={() => this.props.onTodoClick(todo.id)}
+                    onClick={() => this.props.onTodoClick(todo.id, !todo.completed)}
                     createdDate={todo.createdDate}
                 />
               </Panel>

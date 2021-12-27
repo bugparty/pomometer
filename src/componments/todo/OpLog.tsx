@@ -52,6 +52,14 @@ const messages = defineMessages({
         id: 'oplog.toggle_todo',
         defaultMessage: 'toggle todo: {todo}'
     },
+    untoggle_subtodo: {
+        id: 'oplog.untoggle_subtodo',
+        defaultMessage: 'untoggle sub todo: {subtodo} from todo: {todo}'
+    },
+    untoggle_todo: {
+        id: 'oplog.untoggle_todo',
+        defaultMessage: 'untoggle todo: {todo}'
+    },
     focus_todo: {
         id: 'oplog.focus_todo',
         defaultMessage: 'focus on todo: {todo}'
@@ -138,25 +146,48 @@ class OpLog extends React.Component<OpLogProps & WrappedComponentProps, any> {
             } else if (current_log.op.type === toggleSubTodo.type) {
                 // @ts-ignore
                 const todo = R.find(R.propEq('id', current_log.op.payload.id),todos)
+                if (todo == null) return
                 // @ts-ignore
                 if (current_log.op.payload.subId === undefined) {
-                    // @ts-ignore
-                    l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
+                    if (current_log.op.payload.checked){
+                        l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
+                    }else{
+                        l.push(intl.formatMessage(messages.untoggle_todo, {todo: todo.text}))
+                    }
+
                 } else {
                     // @ts-ignore
                     const subTodo = R.find(R.propEq('id', current_log.op.payload.subId), todo.subItems)
                     if (subTodo !== undefined) {
-                        l.push(intl.formatMessage(messages.toggle_subtodo, {
-                            // @ts-ignore
-                            todo: todo.text,
-                            subtodo: subTodo.text
-                        }))
+                        if (current_log.op.payload.checked){
+                            l.push(intl.formatMessage(messages.toggle_subtodo, {
+                                // @ts-ignore
+                                todo: todo.text,
+                                subtodo: subTodo.text
+                            }))
+                        }else{
+                            l.push(intl.formatMessage(messages.untoggle_subtodo, {
+                                // @ts-ignore
+                                todo: todo.text,
+                                subtodo: subTodo.text
+                            }))
+                        }
+
                     }
                 }
             } else if (current_log.op.type === toggleTodo.type) {
-                const todo = R.find(R.propEq('id', current_log.op.payload), todos)
-                // @ts-ignore
-                l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
+                const todo = R.find(R.propEq('id', current_log.op.payload.id), todos)
+                if (todo instanceof Object){
+                    if (current_log.op.payload.checked){
+                        l.push(intl.formatMessage(messages.toggle_todo, {todo: todo.text}))
+                    }else{
+                        l.push(intl.formatMessage(messages.untoggle_todo, {todo: todo.text}))
+                    }
+                }
+
+                else {
+
+                }
             } else if (current_log.op.type === focusSubTodo.type) {
                 // @ts-ignore
                 const todo = R.find(R.propEq('id', current_log.op.payload.id))(todos)
