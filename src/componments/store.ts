@@ -9,7 +9,6 @@ import { combineReducers } from "redux";
 import  {opMiddleware, timerMiddleware} from "./middlewares";
 let storage = new Storage();
 const persistedState = storage.loadState();
-console.log("loaded state", persistedState);
 const rootReducer = combineReducers({
   todos: todoSlice,
   visibilityFilter: visibilityFilterSlice,
