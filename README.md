@@ -8,3 +8,4 @@ dev版本自动部署在https://pomometer.0xff.workers.dev/
 # todo
 * 添加网络同步功能
 * 添加邮箱登录功能
+* add build version base on git on the footer
