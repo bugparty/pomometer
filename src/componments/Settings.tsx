@@ -39,8 +39,17 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         this.saveChanges = this.saveChanges.bind(this);
         this.handleSaveChanges = this.handleSaveChanges.bind(this);
         this.handleResetDefaults = this.handleResetDefaults.bind(this);
+        this.handleExport = this.handleExport.bind(this);
     }
+    async handleImport(event : React.MouseEvent<HTMLButtonElement>){
+        let fileHandle
+        // @ts-ignore
+        [fileHandle] = await  window.showOpenFilePicker();
 
+    }
+    handleExport(event : React.MouseEvent<HTMLButtonElement>){
+
+    }
     handleTickingSound(event : React.ChangeEvent<HTMLInputElement>) {
         const target = event.target;
         const name = target.name;
@@ -216,6 +225,26 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                                         />
                                     </div>
                                 </div>
+                                <div className="columns">
+                                    <div className="column">
+                                        <div className="field">
+                                            <p className="control">
+                                                <button className="button is-success" onClick={this.handleExport}>
+                                                    export data
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="column">
+                                        <div className="field">
+                                            <p className="control">
+                                                <button className="button is-success" onClick={this.handleImport}>
+                                                    import data
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    </div >
                             </section>
                         </section>
                         <footer className="modal-card-foot">
