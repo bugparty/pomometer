@@ -3,24 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@formatjs/cli": "^4.2.33",
     "@formatjs/intl-pluralrules": "^3.2.4",
     "@formatjs/intl-relativetimeformat": "^9.2.2",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@sentry/react": "^7.5.1",
+    "@sentry/tracing": "^7.5.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "@formatjs/cli": "^4.2.33",
-    "@types/ramda": "^0.27.62",
-    "@types/react-infinite-scroller": "^1.2.2",
-    "@types/uuid": "^8.3.3",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.17",
+    "@types/ramda": "^0.27.62",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@reduxjs/toolkit": "^1.6.1",
+    "@types/react-infinite-scroller": "^1.2.2",
+    "@types/uuid": "^8.3.3",
     "antd": "^4.16.13",
     "bulma-start": "^0.0.3",
     "classnames": "^2.2.6",
     "date-fns": "^2.27.0",
+    "dotenv": "^16.0.0",
     "nanoid": "2.0.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1",
@@ -32,10 +35,10 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.8",
-    "uuid": "^8.3.2",
+    "rsync": "^0.6.1",
+    "semver": "^7.3.7",
     "typescript": "^4.5.4",
-    "dotenv": "^16.0.0",
-    "rsync": "^0.6.1"
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start ",
@@ -46,7 +49,8 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write ./src",
     "pages": "GENERATE_SOURCEMAP=false react-scripts build",
-    "deploy": "node deploy.js"
+    "deploy": "node deploy.js",
+    "releaseit": "release-it"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +73,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "prettier": "^2.3.2",
+    "release-it": "^15.1.1",
     "source-map-loader": "^3.0.0",
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6"

@@ -9,8 +9,18 @@ import de_DE from "./locales/de-DE";
 import { IntlProvider } from "react-intl";
 import store from "./componments/store";
 import { Provider } from "react-redux";
-// redux
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
+Sentry.init({
+  dsn: "https://a2a8db40e6b34807ad64804b47e1ceed@o157982.ingest.sentry.io/6557759",
+  integrations: [new BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 //intl
 export function getMessages() {
   switch (navigator.language.split("-")[0]) {
