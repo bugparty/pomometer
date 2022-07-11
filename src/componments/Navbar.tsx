@@ -1,6 +1,7 @@
 import React from "react";
 import  Settings  from "./Settings";
 import { FormattedMessage } from "react-intl";
+import ReactGA from 'react-ga';
 interface NavBarState{
   isOpenSettings: boolean
 }
@@ -13,6 +14,7 @@ export class Navbar extends React.Component<any,NavBarState> {
   }
 
   openSettings() {
+    ReactGA.pageview(window.location.pathname + "settings",undefined, "settings");
     this.setState({ isOpenSettings: true });
   }
 

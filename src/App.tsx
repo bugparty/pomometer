@@ -11,12 +11,15 @@ import VisibleTodoList from "./componments/todo/containers/VisibleTodoList";
 import TodoFilter from "./componments/todo/TodoFilter";
 import OpFilter from "./componments/todo/OpFilter";
 import {FormattedMessage} from "react-intl";
-
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-5311721-14');
+ReactGA.pageview(window.location.pathname + window.location.search, undefined, "index");
 interface AppProps {}
 
 interface AppState {}
 
 class App extends Component<AppProps, AppState> {
+
   render() {
     return (
       <div className="App">
