@@ -31,7 +31,7 @@ jobs:
       with:
         # npm cache files are stored in `~/.npm` on Linux/macOS
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
@@ -45,11 +45,11 @@ jobs:
     - name: Build
       run: npm run pages
       
-    - name: Deploy 🚀
-      uses: peaceiris/actions-gh-pages@v3.6.1
-      with:
-          personal_token: ${{ secrets.ACCESS_TOKEN }}
-          external_repository: bugparty/pomotodo_page
-          publish_branch: gh-pages # The branch the action should deploy to.
-          publish_dir: build # The folder the action should deploy.
-          disable_nojekyll: true
+    # - name: Deploy 🚀
+    #   uses: peaceiris/actions-gh-pages@v3.6.1
+    #   with:
+    #       personal_token: ${{ secrets.ACCESS_TOKEN }}
+    #       external_repository: bugparty/pomotodo_page
+    #       publish_branch: gh-pages # The branch the action should deploy to.
+    #       publish_dir: build # The folder the action should deploy.
+    #       disable_nojekyll: true
