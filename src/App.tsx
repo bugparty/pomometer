@@ -12,7 +12,7 @@ import TodoFilter from "./componments/todo/TodoFilter";
 import OpFilter from "./componments/todo/OpFilter";
 import {FormattedMessage} from "react-intl";
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-5311721-14');
+ReactGA.initialize('UA-5311721-14', {testMode: process.env.NODE_ENV === 'test'});
 ReactGA.pageview(window.location.pathname + window.location.search, undefined, "index");
 interface AppProps {}
 

@@ -39,7 +39,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-intl": "^5.20.10",
     "react-redux": "^7.2.5",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.8",
     "rsync": "^0.6.1",
@@ -58,12 +58,6 @@
     "pages": "GENERATE_SOURCEMAP=false react-scripts build",
     "deploy": "node deploy.js",
     "releaseit": "release-it"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
