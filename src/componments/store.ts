@@ -6,7 +6,7 @@ import opSlice from "./todo/opSlice";
 import visibilityFilterSlice   from "./todo/visibilityFilterSlice";
 import OpVisibilityFilterSlice from "./todo/OpVisibilityFilterSlice"
 import { combineReducers } from "redux";
-import  {opMiddleware, timerMiddleware} from "./middlewares";
+import  {opMiddleware, timerMiddleware, googleAnalysisMiddleware} from "./middlewares";
 import * as Sentry from "@sentry/react";
 let storage = new Storage();
 const persistedState = storage.loadState();
@@ -21,13 +21,12 @@ const rootReducer = combineReducers({
   oplogs: opSlice,
   clock: clockSlice,
   opfilter: OpVisibilityFilterSlice,
-  sentryReduxEnhancer
 })
 
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [opMiddleware, timerMiddleware, ...getDefaultMiddleware()],
+  middleware: [opMiddleware, timerMiddleware,googleAnalysisMiddleware, ...getDefaultMiddleware()],
   preloadedState: persistedState,
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

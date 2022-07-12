@@ -3,6 +3,7 @@ import {addOp} from "./todo/opSlice";
 import {ClockStatus, reset_timer, set_stopped_at, start_timer, stop_timer} from "./clock/ClockSlice";
 import {setVisibilityFilter} from "./todo/visibilityFilterSlice";
 import  {AppDispatch, RootState} from "./store"
+import ReactGA from 'react-ga';
 const isInterestedAction = (action: PayloadAction<any>) => {
     return action.type !== addOp.type && action.type !== set_stopped_at.type &&
         action.type !== setVisibilityFilter.type
@@ -13,6 +14,15 @@ export const opMiddleware: Middleware<{}, RootState> =
     store => next => action =>{
         if (isInterestedAction(action)){
             store.dispatch(addOp(action))
+            
+        }
+        return next(action)
+    }
+export const googleAnalysisMiddleware: Middleware<{}, RootState> =
+    store => next => action => {
+        if (action.type !== set_stopped_at.type){
+            ReactGA.event({category: 'UserOp',
+            action:action.type })
         }
         return next(action)
     }
