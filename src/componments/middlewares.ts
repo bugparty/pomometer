@@ -20,7 +20,7 @@ export const opMiddleware: Middleware<{}, RootState> =
     }
 export const googleAnalysisMiddleware: Middleware<{}, RootState> =
     store => next => action => {
-        if (action.type !== set_stopped_at.type){
+        if (action.type !== set_stopped_at.type && action.type !== addOp.type){
             ReactGA.event({category: 'UserOp',
             action:action.type })
         }
