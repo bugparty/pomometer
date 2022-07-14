@@ -19,6 +19,39 @@ interface AppProps {}
 interface AppState {}
 
 class App extends Component<AppProps, AppState> {
+  componentDidMount() {
+    setTimeout(()=>{
+      let item = window.performance.getEntries().find(item => item.name === "first-contentful-paint");
+      if (item){
+        console.log('page load time', item.startTime)
+        // http://localhost:8080
+        fetch('https://api.ip.sb/geoip')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("HTTP error " + response.status);
+            }
+            return response.json();
+          })
+          .then(json => {
+            let label = json['isp'] +"-"+ json['region'] +"-"+ json['city']
+            console.log("isp", label)
+            if (item){
+              ReactGA.timing({
+                category:'page load',
+                variable:'first-contentful-paint',
+                value: item.startTime,
+                label: label
+              })
+            }
+
+          })
+          .catch(function (e) {
+            console.log(e)
+          })
+
+      }
+    }, 10000)
+  }
 
   render() {
     return (
