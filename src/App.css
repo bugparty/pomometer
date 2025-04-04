@@ -1,5 +1,6 @@
 @import '~antd/dist/antd.css';
 @import 'bulma/css/bulma.css';
+
 html,
 body {
   height: 100%;
@@ -56,10 +57,23 @@ body {
   margin-left: 10px;
   margin-bottom: 1em;
 }
+.TodoContainer {
+  min-width: 400px;
+}
+
 .OpLogContainer {
+  max-width: 100%;
   margin-top: 1em;
   margin-right: 1em;
   margin-bottom: 1em;
+}
+.oplog_list{
+  height: 550px;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  
 }
 .introduce {
   display: flex;
@@ -100,13 +114,3 @@ body {
   }
 }
 
-.TodoContainer {
-  min-width: 400px;
-}
-.oplog_list{
-  height: 550px;
-  width:300px;
-  overflow: auto;
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
-}

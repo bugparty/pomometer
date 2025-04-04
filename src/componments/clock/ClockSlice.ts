@@ -31,6 +31,7 @@ export interface ClockState {
     startedAt: number | undefined,
     stoppedAt: number | undefined,
     baseTime: number | undefined,
+    language: string,
 }
 const DEFAULT_STATE:ClockState = {
     mode: ClockMode.POMODORO,
@@ -47,6 +48,7 @@ const DEFAULT_STATE:ClockState = {
     startedAt: undefined,
     stoppedAt: undefined,
     baseTime: undefined,
+    language: "en-US",
 }
 export const ClockSlice = createSlice({
     name: "clock",
@@ -123,6 +125,9 @@ export const ClockSlice = createSlice({
             state.stoppedAt = new Date().getTime();
             state.status = ClockStatus.COUNTING_ENDED;
         },
+        set_language: (state, action:PayloadAction<string>) => {
+            state.language = action.payload;
+        },
         reset_settings: (state) => {
             state.mode = ClockMode.POMODORO
             state.status = ClockStatus.RESET
@@ -135,6 +140,7 @@ export const ClockSlice = createSlice({
             state.pomodoro_duration = 30 * 60
             state.ticking_sound_enabled = true
             state.rest_ticking_sound_enabled = false
+            state.language = "en-US"
         }
     },
 });
@@ -154,6 +160,7 @@ export const {
     start_timer,
     stop_timer,
     set_stopped_at,
-    reset_settings
+    reset_settings,
+    set_language
 } = ClockSlice.actions;
 export default ClockSlice.reducer;

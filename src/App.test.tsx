@@ -14,9 +14,7 @@ it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
       <Provider store={store}>
-          <IntlProvider locale={navigator.language} messages={en_US.messages}>
-              <App />
-          </IntlProvider>
+          <App />
       </Provider>,
     div
   );

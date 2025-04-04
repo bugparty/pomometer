@@ -5,7 +5,7 @@ import {secondsToMinutes} from "../util";
 import {FormattedMessage} from "react-intl";
 import {
     reset_settings, set_long_break, set_pomodoro_break, set_short_break,
-    set_rest_ticking_sound, set_ticking_sound,
+    set_rest_ticking_sound, set_ticking_sound, set_language,
 } from "./clock/ClockSlice";
 import {Dispatch} from "redux";
 import {RootState} from "./store";
@@ -20,6 +20,8 @@ interface SettingsProps{
     setTickingSound : (enable: boolean) => void,
     setRestTickingSound: (enable: boolean) => void,
     saveOptions: (options: any) => void,
+    language: string,
+    setLanguage: (language: string) => void,
 }
 interface SettingsState {
     pomodoro: number,
@@ -39,6 +41,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         this.saveChanges = this.saveChanges.bind(this);
         this.handleSaveChanges = this.handleSaveChanges.bind(this);
         this.handleResetDefaults = this.handleResetDefaults.bind(this);
+        this.handleLanguageChange = this.handleLanguageChange.bind(this);
     }
 
     handleTickingSound(event : React.ChangeEvent<HTMLInputElement>) {
@@ -105,6 +108,17 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         this.props.closeModal();
     }
 
+    handleLanguageChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        const newLanguage = event.target.value;
+        this.props.setLanguage(newLanguage);
+        
+        // Dispatch a message to update the HTML content
+        window.postMessage({
+            type: 'LANGUAGE_CHANGED',
+            language: newLanguage
+        }, window.location.origin);
+    }
+
     render() {
         let modalClass = classnames("modal", {
             "is-active": this.props.isOpenSettings,
@@ -129,6 +143,26 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                         </header>
                         <section className="modal-card-body">
                             <section>
+                                <div className="field">
+                                    <label className="label">
+                                        <FormattedMessage
+                                            id="settings.language"
+                                            defaultMessage="Language"
+                                        />
+                                    </label>
+                                    <div className="control">
+                                        <div className="select is-info">
+                                            <select
+                                                value={this.props.language}
+                                                onChange={this.handleLanguageChange}
+                                            >
+                                                <option value="en-US">English</option>
+                                                <option value="zh-CN">中文</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="columns">
                                     <div className="column">
                                         <label className="checkbox">
@@ -256,7 +290,7 @@ function mapStateToProps(state : RootState, ownProps: RootProps) {
         pomodoro_duration: state.clock.pomodoro_duration,
         short_break_duration: state.clock.short_break_duration,
         long_break_duration: state.clock.long_break_duration,
-
+        language: state.clock.language,
     }
 }
 
@@ -283,7 +317,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
             if (options.enableRestTickingSound !== undefined) {
                 dispatch(set_rest_ticking_sound(options.enableRestTickingSound))
             }
-        }
+        },
+        setLanguage: (language: string) => dispatch(set_language(language)),
     }
 }
 
