@@ -62,6 +62,9 @@ The application will be available at `http://localhost:3000`
 - `npm run compile` - Compiles internationalization messages
 - `npm run prettier` - Formats code using Prettier
 - `npm run deploy` - Deploys the application
+- `npm run screenshot` - Capture a screenshot of the running app using Puppeteer
+  (set `CHROME_PATH` to specify the browser executable if needed)
+- `npm run screenshot:playwright` - Capture a screenshot using Playwright, which automatically downloads its browsers
 
 ## Project Structure
 

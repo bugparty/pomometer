@@ -42,7 +42,9 @@
     "prettier": "prettier --write ./src",
     "pages": "GENERATE_SOURCEMAP=false react-scripts build",
     "deploy": "node deploy.js",
-    "releaseit": "release-it"
+    "releaseit": "release-it",
+    "screenshot": "node screenshot.js",
+    "screenshot:playwright": "node screenshot-playwright.js"
   },
   "browserslist": {
     "production": [
@@ -74,6 +76,8 @@
     "dotenv": "^16.0.0",
     "eslint": "^7.32.0",
     "prettier": "^2.3.2",
+    "puppeteer": "21.0.0",
+    "playwright": "^1.40.0",
     "release-it": "^15.1.1",
     "rsync": "^0.6.1",
     "semver": "^7.3.7",
