@@ -112,5 +112,10 @@ body {
   #clockContainer {
     padding: 1rem;
   }
+
+  .TodoContainer {
+    min-width: auto;
+    width: 100%;
+  }
 }
 
