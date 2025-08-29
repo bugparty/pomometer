@@ -1,0 +1,138 @@
+@import 'antd/dist/reset.css';
+@import './css-variables.css';
+
+/* ===== 基础样式 ===== */
+html,
+body {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+/* ===== 响应式布局管理 ===== */
+/* 桌面端样式 (>= 769px) */
+@media (min-width: var(--breakpoint-desktop)) {
+  html,
+  body {
+    overflow: hidden;
+    position: fixed;
+  }
+  
+  .App,
+  #root,
+  .AppWrapper {
+    height: 100vh !important;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .AppWrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+/* 移动端样式 (<= 768px) */
+@media (max-width: var(--breakpoint-desktop)) {
+  html,
+  body {
+    overflow: auto;
+    position: static;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .App,
+  #root,
+  .AppWrapper {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible;
+    position: static;
+  }
+  
+  .AppWrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+}
+
+/* ===== 通用容器样式 ===== */
+.App,
+#root,
+.AppWrapper {
+  min-height: 100vh !important;
+}
+
+/* ===== 移动端布局优化 ===== */
+@media (max-width: var(--breakpoint-desktop)) {
+  /* 主容器样式 */
+  .App,
+  .AppWrapper {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+  }
+
+  /* 主容器滚动优化 */
+  .App .AppWrapper > div:nth-child(2) {
+    flex-direction: column !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* 组件容器通用样式 */
+  .App .TodoContainer,
+  .App .ClockContainer,
+  .App .OpLogContainer,
+  .TodoContainer,
+  .ClockContainer,
+  .OpLogContainer {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-height: none !important;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* 移动端组件顺序 */
+  .ClockContainer { order: 1; }
+  .TodoContainer { order: 2; }
+  .OpLogContainer { order: 3; }
+}
+
+/* ===== 触摸和滚动优化 ===== */
+html {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 移动端用户选择优化 */
+@media (max-width: var(--breakpoint-desktop)) {
+  body {
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 桌面端用户选择限制 */
+@media (min-width: var(--breakpoint-desktop)) {
+  body {
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+
