@@ -1,0 +1,232 @@
+@import '../../css-variables.css';
+@import '../common/buttons.css';
+@import '../common/containers.css';
+@import '../common/states.css';
+
+/* ===== 时钟组件样式 ===== */
+
+#clockContainer {
+  @apply pb-2 pt-4 mx-4 block;
+  container-type: inline-size;
+  background: var(--gradient-gray);
+  border-radius: var(--radius-xl);
+}
+
+#clock {
+  font-size: clamp(50px, 20cqw, 300px);
+  @apply font-extrabold text-center text-primary;
+  text-shadow: var(--shadow-sm);
+  letter-spacing: -0.02em;
+}
+
+/* ===== Safari特定样式 ===== */
+@supports (background: -webkit-named-image(i)) {
+  #clockContainer {
+    @apply pb-0 block;
+    width: 100%;
+    overflow-x: hidden;
+    /* 移除container queries以提高Safari兼容性 */
+    container-type: normal !important;
+  }
+
+  #clock {
+    /* 使用更保守的响应式字体大小，提高Safari兼容性 */
+    font-size: clamp(3rem, 8vw, 12rem) !important;
+    @apply font-extrabold text-center text-primary;
+    /* 防止文字溢出 */
+    white-space: nowrap;
+    overflow: hidden;
+    /* 确保在各种屏幕尺寸下都能正常显示 */
+    max-width: 100%;
+    /* 添加轻微的letter-spacing以提高可读性 */
+    letter-spacing: -0.05em;
+    /* Safari兼容性修复 */
+    -webkit-text-size-adjust: 100%;
+    /* 确保字体渲染一致性 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===== 按钮区域样式 ===== */
+.main-controls {
+  display: flex;
+  gap: var(--spacing-base);
+  padding: var(--spacing-xl);
+  background: var(--gradient-white);
+  border-radius: var(--radius-2xl);
+  border: 2px solid rgba(226, 232, 240, 0.6);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: var(--transition-bounce);
+}
+
+.main-controls:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+/* ===== 时钟按钮样式扩展 ===== */
+/* 使用通用按钮样式，但为时钟组件添加特定样式 */
+
+/* ===== 按钮主题样式 ===== */
+/* Pomodoro按钮 - 主要按钮 */
+.main-controls .ant-btn:nth-child(1) {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.main-controls .ant-btn:nth-child(1):hover {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-darker) 100%);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+/* Short Rest按钮 - 蓝色主题 */
+.main-controls .ant-btn:nth-child(2) {
+  background: var(--gradient-blue);
+  color: var(--color-white);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.main-controls .ant-btn:nth-child(2):hover {
+  background: linear-gradient(135deg, var(--color-blue-dark) 0%, var(--color-blue-darker) 100%);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Long Rest按钮 - 紫色主题 */
+.main-controls .ant-btn:nth-child(3) {
+  background: var(--gradient-purple);
+  color: var(--color-white);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.main-controls .ant-btn:nth-child(3):hover {
+  background: linear-gradient(135deg, var(--color-purple-dark) 0%, var(--color-purple-darker) 100%);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+/* Reset按钮 */
+.main-controls .ant-btn-dangerous {
+  background: var(--gradient-red);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--color-white) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-controls .ant-btn-dangerous:hover {
+  background: linear-gradient(135deg, var(--color-red-dark) 0%, var(--color-red-darker) 100%) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: var(--color-white) !important;
+}
+
+.main-controls .ant-btn-dangerous span {
+  color: var(--color-white) !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 按钮状态样式 ===== */
+.main-controls .ant-btn span {
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  position: relative;
+  z-index: 1;
+}
+
+.main-controls .ant-btn:focus {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), var(--shadow-lg);
+}
+
+.main-controls .ant-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.main-controls .ant-btn:disabled:hover {
+  transform: none !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* ===== 按钮加载状态 ===== */
+.main-controls .ant-btn.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.main-controls .ant-btn.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== 响应式设计 ===== */
+@media only screen and (max-width: var(--breakpoint-desktop)) {
+  #clockContainer {
+    margin: 0 var(--spacing-sm);
+    padding: var(--spacing-base) var(--spacing-sm);
+  }
+  
+  .main-controls {
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+  }
+  
+  .main-controls .ant-btn {
+    height: 46px;
+    font-size: 14.5px;
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media only screen and (max-width: var(--breakpoint-mobile)) {
+  #clock {
+    @apply text-mobile-clock font-extrabold text-center text-primary;
+  }
+
+  #clockContainer {
+    @apply p-4;
+    margin: var(--spacing-sm);
+    background: linear-gradient(135deg, rgba(26, 188, 156, 0.03) 0%, rgba(26, 188, 156, 0.01) 100%);
+  }
+  
+  .main-controls {
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main-controls .ant-btn {
+    height: 44px;
+    font-size: var(--text-sm);
+    padding: 0 var(--spacing-lg);
+    min-width: 80px;
+    border-radius: var(--radius-lg);
+  }
+  
+  /* 移动端按钮样式优化 */
+  .main-controls .ant-btn {
+    border-radius: var(--radius-lg);
+  }
+}
+

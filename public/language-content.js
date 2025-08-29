@@ -13,6 +13,13 @@ const languageContent = {
     description: "AA番茄钟是一个符合番茄工作法的在线番茄钟计时工具",
     keywords: "番茄钟, 在线番茄钟, 番茄计时器, 番茄工作法, 番茄钟app, 生产力工具, 时间管理, 时间管理软件, Pomodoro Technique",
     noscript: "You need to enable JavaScript to run this app. 番茄工作法说明,番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在1980年代由Francesco Cirillo创立。该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的短休息时间，而那些时间段被称为pomodoros，每休息4个pomodoros,进行一个15-30分钟的长休息"
+  },
+  "de-DE": {
+    htmlLang: "de",
+    title: "AA Pomodoro, ein kostenloser Online-Pomodoro-Timer basierend auf der Pomodoro-Technik",
+    description: "AA Pomodoro ist ein Online-Pomodoro-Timer-Tool, das der Pomodoro-Technik folgt",
+    keywords: "Pomodoro, Online-Pomodoro, Pomodoro-Timer, Pomodoro-Technik, Pomodoro-App, Produktivitätstool, Zeitmanagement, Zeitmanagement-Software",
+    noscript: "Sie müssen JavaScript aktivieren, um diese App auszuführen. Einführung in die Pomodoro-Technik: Die Pomodoro-Technik ist eine Zeitmanagement-Methode, die in den 1980er Jahren von Francesco Cirillo entwickelt wurde. Die Methode verwendet einen Timer, um eine typische 25-minütige Arbeitszeit und eine kurze 5-minütige Pause zu segmentieren. Diese Zeitabschnitte werden Pomodoros genannt. Nach 4 Pomodoros folgt eine lange Pause von 15-30 Minuten."
   }
 };
 

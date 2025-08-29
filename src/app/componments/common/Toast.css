@@ -1,0 +1,72 @@
+@import '../../css-variables.css';
+
+/* 自定义 Toast 样式类 - 通过 Ant Design 的 className 和 style 属性控制 */
+
+/* 基础 Toast 样式类（用于标识） */
+.custom-toast {
+  /* 标识类，样式通过内联样式控制 */
+}
+
+/* 各种类型的 Toast 标识类 */
+.custom-toast-error,
+.custom-toast-success,
+.custom-toast-warning,
+.custom-toast-info,
+.custom-toast-loading {
+  /* 标识类，样式通过内联样式控制 */
+}
+
+/* 基础 Toast 样式 */
+.custom-toast .ant-message-notice-content {
+  border-radius: var(--toast-border-radius) !important;
+  box-shadow: var(--toast-shadow) !important;
+  padding: var(--toast-padding) !important;
+  margin: var(--toast-margin) !important;
+  max-width: var(--toast-max-width) !important;
+  min-width: var(--toast-min-width) !important;
+  border: none !important;
+  display: inline-block !important;
+  pointer-events: all !important;
+  font-size: var(--text-sm) !important;
+  line-height: 1.5 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: var(--color-white) !important;
+}
+
+/* 不同类型 Toast 的颜色样式 */
+.custom-toast.custom-toast-error .ant-message-notice-content {
+  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red-dark) 100%) !important;
+}
+
+.custom-toast.custom-toast-success .ant-message-notice-content {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+}
+
+.custom-toast.custom-toast-warning .ant-message-notice-content {
+  background: linear-gradient(135deg, var(--color-yellow) 0%, var(--color-yellow-dark) 100%) !important;
+}
+
+.custom-toast.custom-toast-info .ant-message-notice-content {
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-blue-dark) 100%) !important;
+}
+
+.custom-toast.custom-toast-loading .ant-message-notice-content {
+  background: linear-gradient(135deg, var(--color-gray-600) 0%, var(--color-gray-700) 100%) !important;
+}
+
+/* 确保图标样式正确 */
+.custom-toast .ant-message-notice-content .anticon {
+  color: var(--color-white) !important;
+}
+
+/* 确保链接样式正确 */
+.custom-toast .ant-message-notice-content a {
+  color: var(--color-white) !important;
+  text-decoration: underline !important;
+}
+
+.custom-toast .ant-message-notice-content a:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}

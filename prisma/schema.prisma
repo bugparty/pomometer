@@ -1,0 +1,95 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id
+  email     String   @unique
+  name      String?
+  picture   String?
+  googleAccessToken  String? @map("google_access_token")
+  googleRefreshToken String? @map("google_refresh_token")
+  googleTokenExpiry  DateTime? @map("google_token_expiry")
+  googlePomometerListId String? @map("google_pomometer_list_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  todos      Todo[]
+  operations Operation[]
+  settings   UserSettings?
+
+  @@map("users")
+}
+
+model Todo {
+  id          String    @id
+  userId      String    @map("user_id")
+  text        String
+  completed   Boolean   @default(false)
+  deleted     Boolean   @default(false)
+  focus       Boolean   @default(false)
+  createdDate DateTime  @map("created_date")
+  updatedDate DateTime  @default(now()) @updatedAt @map("updated_date")
+  googleTaskListId String? @map("google_task_list_id")
+  googleTaskId String? @map("google_task_id")
+
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subItems SubTodo[]
+
+  @@map("todos")
+}
+
+model SubTodo {
+  id          String    @id
+  todoId      String    @map("todo_id")
+  text        String
+  completed   Boolean   @default(false)
+  deleted     Boolean   @default(false)
+  focus       Boolean   @default(false)
+  createdDate DateTime  @map("created_date")
+  updatedDate DateTime  @default(now()) @updatedAt @map("updated_date")
+  startTime   DateTime? @map("start_time")
+  endTime     DateTime? @map("end_time")
+  description String?
+  googleTaskId String? @map("google_task_id")
+
+  todo Todo @relation(fields: [todoId], references: [id], onDelete: Cascade)
+
+  @@map("sub_todos")
+}
+
+model Operation {
+  id             Int      @id @default(autoincrement())
+  userId         String   @map("user_id")
+  operationType  String   @map("operation_type")
+  payload        String
+  timestamp      DateTime
+  processed      Boolean  @default(true)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("operations")
+}
+
+model UserSettings {
+  id                        Int  @id @default(autoincrement())
+  userId                    String  @map("user_id") @unique
+  pomodoroDuration          Int    @default(1500) @map("pomodoro_duration")
+  shortBreakDuration        Int    @default(300) @map("short_break_duration")
+  longBreakDuration         Int    @default(1500) @map("long_break_duration")
+  tickingSoundEnabled       Boolean @default(true) @map("ticking_sound_enabled")
+  restTickingSoundEnabled   Boolean @default(false) @map("rest_ticking_sound_enabled")
+  language                  String @default("en-US")
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}

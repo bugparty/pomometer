@@ -1,0 +1,47 @@
+@import '../../css-variables.css';
+@import './containers.css';
+@import './states.css';
+
+/* ===== 通用样式 ===== */
+
+/* 介绍页面样式 */
+.introduce {
+  @apply flex flex-col justify-center items-center;
+  padding: var(--spacing-2xl) var(--spacing-base) var(--spacing-base) var(--spacing-base);
+  margin: var(--spacing-base);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.introduce article {
+  @apply max-w-800;
+  line-height: 1.7;
+}
+
+.introduce h2 {
+  color: hsl(171, 100%, 35%);
+  margin-bottom: var(--spacing-base);
+  font-weight: 700;
+}
+
+.introduce p {
+  color: rgba(54, 54, 54, 0.85);
+  margin-bottom: var(--spacing-base);
+}
+
+/* ===== 响应式设计 ===== */
+@media only screen and (max-width: var(--breakpoint-desktop)) {
+  .introduce {
+    margin: var(--spacing-sm);
+    padding: var(--spacing-xl) var(--spacing-base);
+  }
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  .introduce {
+    margin: var(--spacing-sm);
+    padding: var(--spacing-base) var(--spacing-md);
+    border-radius: var(--radius-md);
+  }
+}

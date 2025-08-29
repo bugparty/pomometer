@@ -1,93 +1,40 @@
-# Pomometer - A Modern Pomodoro Timer with Todo List
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Pomometer is a feature-rich Pomodoro timer application built with React and TypeScript. It combines time management with task tracking to help you stay productive using the Pomodoro Technique.
-
-## Features
-
-- 🍅 Pomodoro Timer with customizable work/break durations
-- ✅ Todo list management
-- 📝 Operation logs tracking
-- 🔊 Audio notifications
-- 🌐 Internationalization support
-- 📱 Responsive design
-- 🎨 Modern UI with Ant Design and Bulma
-
-## Tech Stack
-
-- React 17
-- TypeScript
-- Redux Toolkit for state management
-- Ant Design & Bulma for UI components
-- React Intl for internationalization
-- Sentry for error tracking
-- Google Analytics integration
+> **Note**
+> The project previously used a ReScript/Reason toolchain (`bsconfig.json`),
+> but this has been removed. The codebase is now purely TypeScript.
 
 ## Getting Started
 
-### Prerequisites
+First, run the development server:
 
-- Node.js (v14 or higher)
-- npm or pnpm
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/pomometer.git
-cd pomometer
-```
-
-2. Install dependencies:
-```bash
-npm install
+npm run dev
 # or
-pnpm install
-```
-
-3. Start the development server:
-```bash
-npm start
+yarn dev
 # or
-pnpm start
+pnpm dev
+# or
+bun dev
 ```
 
-The application will be available at `http://localhost:3000`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Available Scripts
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- `npm start` - Runs the app in development mode
-- `npm build` - Builds the app for production
-- `npm test` - Runs the test suite
-- `npm run extract` - Extracts internationalization messages
-- `npm run compile` - Compiles internationalization messages
-- `npm run prettier` - Formats code using Prettier
-- `npm run deploy` - Deploys the application
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Project Structure
+## Learn More
 
-```
-src/
-├── componments/     # React components
-├── locales/        # Internationalization files
-├── App.tsx         # Main application component
-├── App.css         # Main styles
-└── util.ts         # Utility functions
-```
+To learn more about Next.js, take a look at the following resources:
 
-## Contributing
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## License
+## Deploy on Vercel
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Acknowledgments
-
-- Built with React and TypeScript
-- UI components from Ant Design and Bulma
-- Icons from Font Awesome
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
