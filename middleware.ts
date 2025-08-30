@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCorsHeaders, getCorsOptionsHeaders } from './src/app/lib/cors'
 
 export function middleware(request: NextRequest) {
-  // 处理所有API路由的CORS预检请求
+  // Handle CORS preflight requests for all API routes
   if (request.method === 'OPTIONS' && request.nextUrl.pathname.startsWith('/api/')) {
     return new NextResponse(null, {
       status: 200,
@@ -10,10 +10,10 @@ export function middleware(request: NextRequest) {
     })
   }
 
-  // 对于其他请求，继续处理
+  // Continue processing other requests
   const response = NextResponse.next()
   
-  // 为所有API响应添加CORS头
+  // Add CORS headers to all API responses
   if (request.nextUrl.pathname.startsWith('/api/')) {
     const corsHeaders = getCorsHeaders(request)
     Object.entries(corsHeaders).forEach(([key, value]) => {

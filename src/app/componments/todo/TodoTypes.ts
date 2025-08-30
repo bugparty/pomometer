@@ -8,13 +8,13 @@ import {todoSyncActions} from "./todoSyncActions";
 export interface RootProps {
 }
 
-// 过滤后的Todo项目接口，只包含符合过滤条件的subtodo
+// Filtered Todo item interface that only includes subtodos matching the filter
 export interface FilteredTodoItem extends Omit<TodoItem, 'subItems'> {
     subItems: SubTodoItem[];
-    originalSubItems: SubTodoItem[]; // 保存原始的subItems用于编辑等操作
+    originalSubItems: SubTodoItem[]; // Preserve original subItems for editing and other operations
 }
 
-// 检查todo是否包含指定状态的subtodo
+// Check whether a todo contains subtodos with the specified status
 const hasSubtodosWithStatus = (todo: TodoItem, completed: boolean): boolean => {
     if (!todo.subItems || todo.subItems.length === 0) {
         return false;
@@ -22,7 +22,7 @@ const hasSubtodosWithStatus = (todo: TodoItem, completed: boolean): boolean => {
     return todo.subItems.some((subTodo: SubTodoItem) => subTodo.completed === completed && !subTodo.deleted);
 };
 
-// 根据filter过滤subtodo
+// Filter subtodos according to the filter
 const filterSubtodos = (subItems: SubTodoItem[], filter: VisibilityFilters): SubTodoItem[] => {
     if (!subItems || subItems.length === 0) {
         return [];
@@ -40,7 +40,7 @@ const filterSubtodos = (subItems: SubTodoItem[], filter: VisibilityFilters): Sub
     }
 };
 
-// 检查todo是否应该根据filter显示
+// Determine whether a todo should be displayed based on the filter
 const shouldShowTodo = (todo: TodoItem, filter: VisibilityFilters): boolean => {
     if (todo.deleted) return false;
     
@@ -48,10 +48,10 @@ const shouldShowTodo = (todo: TodoItem, filter: VisibilityFilters): boolean => {
         case VisibilityFilters.SHOW_ALL:
             return true;
         case VisibilityFilters.SHOW_COMPLETED:
-            // 显示所有已完成的subtodo的todo，或者主todo已完成
+            // Show todos with all subtodos completed, or if the main todo is completed
             return todo.completed || hasSubtodosWithStatus(todo, true);
         case VisibilityFilters.SHOW_ACTIVE:
-            // 显示所有包含未完成subtodo的todo，或者主todo未完成
+            // Show todos containing unfinished subtodos, or if the main todo is incomplete
             return !todo.completed || hasSubtodosWithStatus(todo, false);
         default:
             return true;
@@ -61,14 +61,14 @@ const shouldShowTodo = (todo: TodoItem, filter: VisibilityFilters): boolean => {
 const getVisibleTodos = (todos: TodoItem[], filter: VisibilityFilters): FilteredTodoItem[] => {
     const visibleTodos = todos.filter(todo => shouldShowTodo(todo, filter));
     
-    // 为每个可见的todo创建过滤后的版本
+    // Create a filtered version for each visible todo
     const result = visibleTodos.map(todo => {
         const filteredSubItems = filterSubtodos(todo.subItems, filter);
         //console.log(`[getVisibleTodos] Todo "${todo.text}": original subtodos: ${todo.subItems.length}, filtered subtodos: ${filteredSubItems.length}`);
         return {
             ...todo,
             subItems: filteredSubItems,
-            originalSubItems: todo.subItems // 保存原始数据
+            originalSubItems: todo.subItems // Save original data
         };
     });
     

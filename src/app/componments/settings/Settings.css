@@ -4,9 +4,9 @@
 @import '../common/forms.css';
 @import '../common/states.css';
 
-/* ===== 设置组件样式 ===== */
+/* ===== Settings component styles ===== */
 
-/* 设置界面样式 */
+/* Settings interface styles */
 .settings-modal {
   background: var(--gradient-gray);
   border-radius: var(--radius-2xl);
@@ -215,10 +215,10 @@
   border-top: 1px solid var(--color-gray-200);
 }
 
-/* ===== 设置组件特定样式 ===== */
-/* 使用通用按钮样式，并为设置组件添加特定样式 */
+/* ===== Settings component specific styles ===== */
+/* Use common button styles and add settings-specific styles */
 
-/* ===== 响应式设计 ===== */
+/* ===== Responsive design ===== */
 @media (max-width: var(--breakpoint-tablet)) {
   .settings-modal {
     max-width: 95vw;

@@ -3,7 +3,7 @@ import type { GoogleUserInfo, JWTPayload } from '../types/api';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-// 生成JWT token
+// Generate JWT token
 export function generateJWT(userInfo: GoogleUserInfo): string {
   const payload: JWTPayload = {
     sub: userInfo.sub,
@@ -11,13 +11,13 @@ export function generateJWT(userInfo: GoogleUserInfo): string {
     name: userInfo.name,
     picture: userInfo.picture,
     iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24小时过期
+    exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // Expires in 24 hours
   };
 
   return jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256' });
 }
 
-// 验证JWT token
+// Verify JWT token
 export function verifyJWT(token: string): JWTPayload | null {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
@@ -28,9 +28,9 @@ export function verifyJWT(token: string): JWTPayload | null {
   }
 }
 
-// 验证Google JWT token
+// Verify Google JWT token
 export function verifyGoogleToken(credential: string, googleClientId: string): GoogleUserInfo | null {
-  // 检查 Google Client ID 配置
+  // Check Google Client ID configuration
   if (!googleClientId || googleClientId.trim() === '') {
     console.error('🔴 [JWT] Google Client ID is not configured');
     console.error('🔴 [JWT] Please set GOOGLE_CLIENT_ID or NEXT_PUBLIC_GOOGLE_CLIENT_ID environment variable');
@@ -38,7 +38,7 @@ export function verifyGoogleToken(credential: string, googleClientId: string): G
   }
 
   try {
-    // 解码JWT payload（生产环境中应该验证签名）
+    // Decode JWT payload (signature should be verified in production)
     const payload = JSON.parse(Buffer.from(credential.split('.')[1], 'base64').toString()) as GoogleUserInfo;
     
     console.log('Token payload:', {
@@ -51,17 +51,17 @@ export function verifyGoogleToken(credential: string, googleClientId: string): G
       email: payload.email
     });
     
-    // 验证token是否过期
+    // Check if the token has expired
     if (payload.exp && payload.exp < Date.now() / 1000) {
       throw new Error('Token expired');
     }
     
-    // 验证issuer
+    // Validate issuer
     if (payload.iss !== 'accounts.google.com' && payload.iss !== 'https://accounts.google.com') {
       throw new Error('Invalid issuer');
     }
     
-    // 验证audience（客户端ID）- 支持数组和字符串格式
+    // Validate audience (client ID) - supports array and string formats
     let isValidAudience = false;
     if (Array.isArray(payload.aud)) {
       isValidAudience = payload.aud.includes(googleClientId);
@@ -74,7 +74,7 @@ export function verifyGoogleToken(credential: string, googleClientId: string): G
         received: payload.aud,
         expected: googleClientId
       });
-      // 暂时不抛出错误，用于调试
+      // Temporarily do not throw an error for debugging
       // throw new Error('Invalid audience')
     }
     

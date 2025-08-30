@@ -44,11 +44,11 @@ module.exports = {
     },
   },
   plugins: [],
-  // 确保CSS兼容性
+  // Ensure CSS compatibility
   corePlugins: {
-    preflight: true, // 确保基础样式重置生效
+    preflight: true, // Ensure base style reset takes effect
   },
-  // 如果需要支持较旧浏览器，可以禁用某些现代特性
+  // Disable certain modern features if older browser support is needed
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,

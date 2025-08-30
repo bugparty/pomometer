@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { withAuth } from '../../../lib/auth';
 import type { JWTPayload, SyncOperationsRequest, SyncResponse, UserSettings } from '../../../types/api';
 
-// 同步设置操作
+// Sync settings operations
 async function handleSyncSettings(request: NextRequest, user: JWTPayload): Promise<Response> {
   try {
     const { operations, lastSyncTime } = await request.json() as SyncOperationsRequest;
     const userId = user.sub;
     
-    // TODO: 应用所有操作到数据库
-    // 暂时跳过数据库操作，只记录日志
+    // TODO: Apply all operations to the database
+    // Temporarily skip database operations; just log them
     for (const operation of operations) {
       console.log(`Processing settings operation: ${operation.type}`, { 
         payload: operation.payload, 
@@ -17,12 +17,12 @@ async function handleSyncSettings(request: NextRequest, user: JWTPayload): Promi
         userId 
       });
       
-      // 这里应该执行实际的数据库操作
+      // Actual database operations should be executed here
       // await settingsService.applySettingsOperation(userId, operation);
     }
     
-    // TODO: 获取更新后的设置
-    // 暂时返回默认设置
+    // TODO: Fetch updated settings
+    // Temporarily return default settings
     const settings: UserSettings = {
       pomodoro_duration: 1500,
       short_break_duration: 300,
@@ -37,8 +37,8 @@ async function handleSyncSettings(request: NextRequest, user: JWTPayload): Promi
     const response: SyncResponse = {
       success: true,
       data: {
-        conflicts: [], // 设置通常不会有冲突
-        serverOperations: [], // 暂时不需要返回服务端操作
+        conflicts: [], // Settings typically have no conflicts
+        serverOperations: [], // No server operations need to be returned for now
         lastSyncTime: syncTime,
         settings
       }

@@ -1,4 +1,4 @@
-// Settings API接口类型定义
+// Settings API interface type definitions
 export interface SettingsPayload {
   value: number | boolean | string
 }
@@ -7,7 +7,7 @@ export interface SettingsOperation {
   type: string
   payload: SettingsPayload
   timestamp: string
-  id?: string // 本地操作ID，用于去重
+  id?: string // Local operation ID for deduplication
 }
 
 export interface SettingsSyncRequest {
@@ -161,7 +161,7 @@ class SettingsAPI {
   }
 }
 
-// 单例管理
+// Singleton management
 let settingsAPIInstance: SettingsAPI | null = null;
 
 export const getSettingsAPI = () => {
@@ -171,7 +171,7 @@ export const getSettingsAPI = () => {
   return settingsAPIInstance;
 };
 
-// 为了向后兼容
+// For backward compatibility
 export const settingsAPI = {
   get instance() {
     return getSettingsAPI();

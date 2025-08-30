@@ -3,7 +3,7 @@ import { PrismaD1 } from '@prisma/adapter-d1';
 import { config } from 'dotenv';
 import { resolve } from 'path';
 
-// 加载环境变量，优先读取.env.local，然后.env
+// Load environment variables, preferring .env.local over .env
 config({ path: resolve(process.cwd(), '.env.local') });
 config({ path: resolve(process.cwd(), '.env') });
 
