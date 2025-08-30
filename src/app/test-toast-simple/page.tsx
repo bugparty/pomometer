@@ -22,14 +22,14 @@ export default function TestToastSimplePage() {
   };
 
   const testMultipleSuccess = () => {
-    // 模拟多次触发相同消息的情况
+    // Simulate triggering the same message multiple times
     toastManager.successIntl('toast.test.successFirst');
     setTimeout(() => toastManager.successIntl('toast.test.successSecond'), 100);
     setTimeout(() => toastManager.successIntl('toast.test.successThird'), 200);
   };
 
   const testBackgroundColors = () => {
-    // 测试背景色是否正确显示
+    // Test whether background colors display correctly
     toastManager.errorIntl('toast.test.backgroundRed');
     setTimeout(() => toastManager.successIntl('toast.test.backgroundGreen'), 1000);
     setTimeout(() => toastManager.warningIntl('toast.test.backgroundYellow'), 2000);

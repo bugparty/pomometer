@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { withAuth } from '../../../lib/auth';
 import type { JWTPayload } from '../../../types/api';
 
-// 获取用户信息
+// Fetch user information
 async function handleGetUserProfile(request: NextRequest, user: JWTPayload): Promise<Response> {
   try {
     return NextResponse.json({

@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { withAuth } from '../../lib/auth';
 import type { JWTPayload, SettingsResponse, UserSettings } from '../../types/api';
 
-// 获取用户设置
+// Fetch user settings
 async function handleGetSettings(request: NextRequest, user: JWTPayload): Promise<Response> {
   try {
-    // TODO: 从数据库获取用户设置
-    // 暂时返回默认设置
+    // TODO: Retrieve user settings from the database
+    // Temporarily return default settings
     const settings: UserSettings = {
       pomodoro_duration: 1500,
       short_break_duration: 300,

@@ -12,10 +12,10 @@ import {
   replaceSettings
 } from '../clock/ClockSlice'
 
-// Settings API适配器
+// Settings API adapter
 class SettingsAPIAdapter implements SyncAPI {
   async syncOperations(operations: SyncOperation[], lastSyncTime: string | null) {
-    // 转换为SettingsOperation类型
+    // Convert to SettingsOperation type
     const settingsOperations: SettingsOperation[] = operations.map(op => ({
       type: op.type,
       payload: op.payload as SettingsPayload,
@@ -38,12 +38,12 @@ class SettingsAPIAdapter implements SyncAPI {
   }
 }
 
-// Settings操作处理器
+// Settings operation handler
 class SettingsOperationHandler implements OperationHandler {
   applyOperation(operation: SyncOperation) {
     const { type, payload } = operation
     
-    // 类型断言，因为我们知道不同操作类型的payload结构
+    // Type assertion since we know payload structures for different operation types
     const typedPayload = payload as { value: number | boolean | string };
     
     switch (type) {
@@ -71,7 +71,7 @@ class SettingsOperationHandler implements OperationHandler {
   }
 
   replaceData(data: unknown) {
-    // 使用服务端设置更新本地状态
+    // Update local state with server settings
     const typedData = data as { settings: SettingsUpdate; lastSyncTime: string };
     store.dispatch(replaceSettings({
       settings: typedData.settings,
@@ -80,13 +80,13 @@ class SettingsOperationHandler implements OperationHandler {
   }
 }
 
-// 创建Settings同步管理器实例
+// Create Settings sync manager instance
 export const settingsSyncManager = new GenericSyncManager(
   'settings',
   new SettingsAPIAdapter(),
   new SettingsOperationHandler(),
-  10000 // 10秒同步间隔，设置同步频率较高
+  10000 // 10-second sync interval for frequent synchronization
 )
 
-// 为了保持向后兼容，提供一个包装方法
+// Wrapper method to maintain backward compatibility
 export const fetchSettingsFromServer = () => settingsSyncManager.fetchDataFromServer()

@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server';
 
 /**
- * 获取CORS头部配置
- * @param request NextRequest对象
- * @param additionalHeaders 额外的头部配置
- * @returns 头部配置对象
+ * Get CORS header configuration
+ * @param request NextRequest object
+ * @param additionalHeaders Additional headers
+ * @returns Header configuration object
  */
 export function getCorsHeaders(
   request: NextRequest, 
@@ -22,26 +22,26 @@ export function getCorsHeaders(
 }
 
 /**
- * 获取预检请求的CORS头部配置
- * @param request NextRequest对象
- * @returns 头部配置对象
+ * Get CORS headers for preflight requests
+ * @param request NextRequest object
+ * @returns Header configuration object
  */
 export function getCorsOptionsHeaders(request: NextRequest): Record<string, string> {
   const headers: Record<string, string> = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Max-Age': '86400', // 24小时缓存预检结果
+    'Access-Control-Max-Age': '86400', // Cache preflight results for 24 hours
   };
   
   return headers;
 }
 
 /**
- * 检查请求来源是否被允许 (现在允许所有来源)
- * @param request NextRequest对象
- * @returns 始终返回true，允许所有来源
+ * Check whether the request origin is allowed (currently allows all origins)
+ * @param request NextRequest object
+ * @returns Always true, allowing all origins
  */
 export function isOriginAllowed(request: NextRequest): boolean {
-  return true; // 允许所有来源
+  return true; // Allow all origins
 }

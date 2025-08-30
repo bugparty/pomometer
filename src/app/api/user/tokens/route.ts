@@ -5,7 +5,7 @@ import { getCorsHeaders } from '../../../lib/cors';
 
 export async function GET(request: NextRequest) {
   try {
-    // 验证JWT token
+    // Validate JWT token
     const authHeader = request.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json(
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 从数据库获取用户信息
+    // Retrieve user information from the database
     const db = getDb();
     const user = await db.user.findUnique({
       where: { id: decoded.sub }
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 检查token是否过期 (使用类型断言来访问可能的字段)
+    // Check whether the token has expired (using type assertion to access possible fields)
     interface UserTokenFields {
       googleAccessToken: string | null;
       googleRefreshToken: string | null;
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
         hasGoogleRefreshToken: !!userWithTokens.googleRefreshToken,
         tokenExpiry: userWithTokens.googleTokenExpiry,
         isTokenExpired,
-        // 不返回实际的token值，只返回是否存在
+        // Return only whether tokens exist, not their actual values
       }
     }, {
       headers: getCorsHeaders(request)
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// 处理CORS预检请求
+// Handle CORS preflight requests
 export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
