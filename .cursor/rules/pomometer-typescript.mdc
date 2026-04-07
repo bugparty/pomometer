@@ -1,0 +1,85 @@
+---
+description: Pomometer TypeScript/React — type-safe API, Redux typing, no any
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Pomometer — Code patterns & type-safe guidelines
+
+## 🔧 Code Patterns & Standards
+
+### Component Architecture
+- **Container components**: Redux-connected in `containers/` dirs
+- **Presentational components**: Pure React components
+- **UI Framework**: Ant Design Collapse panels with custom styling
+
+### Redux Middleware Chain
+1. **opMiddleware**: Logs user actions (excludes auth, timer actions)
+2. **timerMiddleware**: 1-second countdown with cleanup
+3. **googleAnalysisMiddleware**: GA tracking
+
+### Code Style
+- **TypeScript**: Required for all new code
+- **Components**: Functional with hooks
+- **Async**: Prefer async/await over Promises
+- **Error handling**: Proper try/catch blocks
+
+# Pomometer — Coding Guidelines (Type‑Safe by Default)
+
+This repository enforces strict TypeScript and runtime safety. Follow these rules when authoring new code, PRs, or agent‑generated changes to avoid type errors and keep our build clean.
+
+## General
+- Prefer explicit domain types over loose shapes. Centralize shared DTOs in `src/app/types/api.ts`.
+- Never use `any`. If you must accept untyped input, keep it at the boundary as `unknown` and immediately narrow with a type guard or validator.
+- Avoid catch‑all update types like `[key: string]: any`. For “update” DTOs, enumerate allowed fields explicitly.
+- Do not use `@ts-ignore`. If absolutely necessary, use `@ts-expect-error` with a 1‑line rationale and a TODO.
+
+## API Routes
+- Treat `request.json()` as **untrusted** (wrong shape, extra fields, malicious input). **Do not** cast with `as YourDto` and proceed — that only silences TypeScript.
+- **Prefer** runtime validation: e.g. a schema parser (`safeParse` / `parse`) whose result you branch on; use only the **validated** value as your DTO. (Wrapping `await request.json()` directly is fine when the parser treats input as unchecked.)
+- **If you use a hand-written type guard:** assign to `unknown` first so you do not inherit `any` from typings, then narrow — e.g. `const raw: unknown = await request.json(); if (!isSyncRequest(raw)) return ...`
+- Use discriminated unions for operations: `{ type: 'ADD_TODO', payload: AddTodoPayload } | ...` so `switch(type)` narrows safely.
+- Persisting operation logs: use a concrete payload type (e.g., `OperationPayload`) instead of `Record<string, any>`.
+
+## Redux Store & Middlewares
+- Always import `RootState` and `AppDispatch` from `src/app/componments/store` in components.
+- Middleware typing:
+  - `export const myMw: Middleware<unknown, RootState> = store => next => action => { ... }`
+  - Helper functions that receive the API should use `MiddlewareAPI<Dispatch, RootState>` (Redux provides `Dispatch<UnknownAction>` in middleware).
+- Action narrowing: use structural guards and action creator return types instead of `any`.
+  - `const isOp = (a: { type: string }): a is OpAction => !excluded.includes(a.type)`
+- Avoid `var`; prefer `let`/`const`. Avoid `ts-ignore` by writing null‑safe math and guards.
+
+## React Components
+- If a component has no props, use `React.FC` (no `{}`) or `type Props = Record<string, never>`; avoid empty interfaces.
+- Use `useDispatch<AppDispatch>()` when dispatching thunks.
+- Don’t add unused lifecycle params typed as `any` (e.g., drop `snapshot` from `componentDidUpdate` if unused).
+- `mapStateToProps`/`mapDispatchToProps`: drop unused `ownProps` or type it as `Record<string, never>`.
+
+## Services/Prisma
+- “Update” DTOs must enumerate fields (e.g., `{ text?: string; completed?: boolean; updatedDate?: Date }`). No index signatures.
+- Model third‑party responses (e.g., Google Tasks) with interfaces and convert at the edges.
+- When adding or changing Prisma usage in a new environment, ensure: `pnpm prisma generate` (root) and for the background worker: `cd ./backgroundworker && pnpm prisma generate --schema=../prisma/schema.prisma`.
+
+## Operation/Data Flow
+- Server‑applied operations: use typed payloads and discriminated unions to avoid casts.
+- Replace‑data actions must be strictly typed (e.g., `replaceTodos(TodoItem[])`), never `as any`.
+
+## Lint & Quality
+- No `any`. No `ts-ignore`. Prefer narrowing and explicit unions.
+- Keep assertions localized (assert the smallest expression necessary).
+- Fix types at the root cause; don’t paper over with `unknown` unless you immediately narrow it.
+
+## Minimal Patterns (Copy‑Paste)
+- Action guard: `const isOp = (a: { type: string }): a is OpAction => !excluded.includes(a.type)`
+- Middleware template:
+  - `export const mw: Middleware<unknown, RootState> = store => next => action => { /* ... */ }`
+  - `const helper = (api: MiddlewareAPI<Dispatch, RootState>) => { /* ... */ }`
+- API boundary (prefer schema validation; manual guard only when appropriate):
+  - `const parsed = MyRequestSchema.safeParse(await request.json()); if (!parsed.success) return NextResponse.json({ success: false }, { status: 400 }); const body = parsed.data;`
+  - Manual: `const raw: unknown = await request.json(); if (!isSyncRequest(raw)) return NextResponse.json({ success: false }, { status: 400 });` — then use `raw` inside the guard’s narrowing branch only.
+
+## Workflow
+- Use pnpm for everything (`pnpm install/dev/build`).
+- In a fresh environment: `pnpm prisma generate` before builds to prevent client type errors; **before `pnpm dev` for fullstack work**, run `pnpm wrangler d1 migrations apply pomometer-db --local`.
+- Iterate in small batches and run `pnpm build` frequently.

@@ -1,0 +1,7 @@
+# Pomometer — Cursor rules (index)
+
+**Authoritative content:** [`.cursor/rules/*.mdc`](.cursor/rules/) — edit those files (split by concern: core always-on, CSS for `*.css`, TypeScript for `*.ts` / `*.tsx`).
+
+**Other tools:** [`AGENTS.md`](AGENTS.md) stays a short entry point (e.g. GitHub Copilot). [`.github/copilot-instructions.md`](.github/copilot-instructions.md) mirrors setup for Copilot.
+
+Do not grow this file with duplicated policy; keep the split rules as the single source of truth for Cursor.

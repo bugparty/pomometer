@@ -1,0 +1,365 @@
+@import '../../css-variables.css';
+
+/* ===== 表单样式 ===== */
+
+/* 基础表单元素样式 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-gray-700);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-label.required::after {
+  content: '*';
+  color: var(--color-red);
+  font-weight: bold;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  padding: var(--spacing-md) var(--spacing-base);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  color: var(--color-gray-700);
+  transition: var(--transition-slow);
+  width: 100%;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: var(--color-white);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-gray-400);
+  font-style: italic;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* 表单验证状态 */
+.form-input.is-valid {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-input.is-invalid {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-feedback {
+  font-size: var(--text-sm);
+  margin-top: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.form-feedback.valid-feedback {
+  color: var(--color-primary);
+}
+
+.form-feedback.invalid-feedback {
+  color: var(--color-red);
+}
+
+/* 复选框样式 */
+.form-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: var(--transition-slow);
+  appearance: none;
+}
+
+.form-checkbox:checked {
+  background: var(--gradient-primary);
+  border-color: var(--color-primary);
+}
+
+.form-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.form-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  line-height: 1.5;
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+}
+
+/* 单选框样式 */
+.form-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-300);
+  border-radius: 50%;
+  background: var(--color-white);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: var(--transition-slow);
+  appearance: none;
+}
+
+.form-radio:checked {
+  background: var(--gradient-primary);
+  border-color: var(--color-primary);
+}
+
+.form-radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--color-white);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-radio:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.radio-label {
+  cursor: pointer;
+  line-height: 1.5;
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+}
+
+/* 表单操作区域 */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-base);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--color-gray-200);
+  margin-top: var(--spacing-xl);
+}
+
+/* 表单网格布局 */
+.form-grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.form-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: var(--spacing-md);
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* 移动端表单优化 */
+@media (max-width: var(--breakpoint-mobile)) {
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: var(--text-base); /* 防止移动端缩放 */
+    padding: var(--spacing-lg) var(--spacing-base);
+  }
+
+  .form-checkbox,
+  .form-radio {
+    width: 24px;
+    height: 24px;
+  }
+
+  .form-checkbox:checked::after,
+  .form-radio:checked::after {
+    font-size: 14px;
+  }
+
+  .form-radio:checked::after {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* 表单加载状态 */
+.form-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.form-loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1;
+}
+
+/* 表单禁用状态 */
+.form-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 内联表单样式 */
+.form-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.form-inline .form-group {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-inline .form-group {
+    min-width: auto;
+  }
+}
+
+/* 表单帮助文本 */
+.form-help {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-xs);
+  line-height: 1.4;
+}
+
+/* 表单错误文本 */
+.form-error {
+  font-size: var(--text-sm);
+  color: var(--color-red);
+  margin-top: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* 表单成功文本 */
+.form-success {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  margin-top: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* 动画 */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

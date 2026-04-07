@@ -1,0 +1,63 @@
+/* ===== 通用UI组件样式索引文件 ===== */
+
+/* 导入所有通用样式文件 */
+@import '../../css-variables.css';
+@import './buttons.css';
+@import './containers.css';
+@import './forms.css';
+@import './states.css';
+@import './Common.css';
+@import './Toast.css';
+
+/* ===== 快速使用指南 ===== */
+
+/*
+使用这些通用样式类来快速构建UI：
+
+1. 按钮样式:
+   - .base-btn (基础按钮)
+   - .btn-primary, .btn-secondary, .btn-purple, .btn-danger (主题按钮)
+   - .btn-sm, .btn-md, .btn-lg (尺寸变体)
+   - .filter-btn (过滤器按钮)
+   - .icon-btn (图标按钮)
+
+2. 容器样式:
+   - .base-container (基础容器)
+   - .card-container (卡片容器)
+   - .list-container (列表容器)
+   - .filter-container (过滤器容器)
+   - .form-container (表单容器)
+
+3. 表单样式:
+   - .form-group, .form-label, .form-input, .form-select, .form-textarea
+   - .form-checkbox, .form-radio
+   - .checkbox-group, .radio-group
+   - .form-actions, .form-help, .form-error, .form-success
+
+4. 状态样式:
+   - .empty-state (空状态)
+   - .loading-state (加载状态)
+   - .error-state (错误状态)
+   - .success-state (成功状态)
+   - .warning-state (警告状态)
+   - .info-state (信息状态)
+   - .completed-state (完成状态)
+   - .active-state (激活状态)
+   - .disabled-state (禁用状态)
+
+5. 动画类:
+   - .animate-fade-in, .animate-fade-out
+   - .animate-pulse, .animate-spin
+   - .hover-lift, .focus-ring
+
+示例用法:
+<button class="base-btn btn-primary btn-md">主要按钮</button>
+<div class="card-container">
+  <form class="form-container">
+    <div class="form-group">
+      <label class="form-label">用户名</label>
+      <input type="text" class="form-input">
+    </div>
+  </form>
+</div>
+*/

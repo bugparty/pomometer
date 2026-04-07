@@ -1,0 +1,55 @@
+---
+description: Pomometer i18n — react-intl / FormatJS, locale files, ESLint formatjs rules, when to translate vs disable
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Pomometer — Internationalization (i18n)
+
+## Stack
+
+- **Runtime:** [`react-intl`](https://formatjs.io/docs/react-intl/) (FormatJS family): `IntlProvider`, `FormattedMessage`, `useIntl`, `injectIntl` (class components), `createIntl` / `IntlShape` where there is no React tree (e.g. [`ToastManager`](../../src/app/componments/common/ToastManager.ts)).
+- **Messages:** [`src/app/locales/en-US.js`](../../src/app/locales/en-US.js), [`zh-CN.js`](../../src/app/locales/zh-CN.js), [`de-DE.js`](../../src/app/locales/de-DE.js) — export `messages` objects keyed by message **id** (same keys in every locale file you ship).
+- **Wiring:** [`layout.tsx`](../../src/app/layout.tsx) selects `messages` from Redux `language` and passes them to `IntlProvider`.
+
+## Authoring rules (new or changed UI copy)
+
+1. **User-visible strings** (labels, buttons, errors, tooltips, `aria-label` when it describes UI in natural language) must go through **`FormattedMessage`** or **`intl.formatMessage({ id, defaultMessage })`** with a **stable `id`** and English **`defaultMessage`**.
+2. **Add the same `id` to all shipped locale files** (`en-US`, `zh-CN`, `de-DE`) when you introduce a new id — do not leave one locale silently falling back forever if others are maintained.
+3. **IDs:** Prefer dotted namespaces (`settings.title`, `sync.googleTasks.badge`, `privacy.contact.desc`) — match existing style in locale files.
+4. **Do not** wrap **locale-invariant** glyphs in fake translations (e.g. universal **×** for close): use a **module-level constant** (e.g. `"\u00d7"`) or similar so JSX is not a raw string literal for `formatjs/no-literal-string-in-jsx`, without adding useless per-locale entries.
+
+## ESLint (`eslint.config.mjs`)
+
+- Plugin: **`eslint-plugin-formatjs`**, rule **`formatjs/no-literal-string-in-jsx`** (error).
+- **`props.exclude`:** `[["*", "placeholder"]]` — **placeholder** attributes are not required to go through i18n (often mirror labels or technical hints).
+- **`src/app/test-*/**`:** rule **off** — internal/dev test routes are not treated as product UI.
+- **`ignores: [".cursor/**"]`** — Cursor rule docs are not linted as app code.
+
+Official rule docs: [FormatJS — ESLint](https://formatjs.github.io/docs/tooling/linter/).
+
+## When `eslint-disable-next-line formatjs/no-literal-string-in-jsx` is acceptable
+
+Use **sparingly** and **comment why**:
+
+| Case | Example |
+|------|--------|
+| **Contact / mailto** | Literal email in `<a>` body or `href` |
+| **SEO / static shell** | `<title>`, meta description/keywords, `<noscript>` block where `IntlProvider` is not available |
+| **SSR bootstrap** | Short “Loading…” shell before client + `IntlProvider` |
+| **Decorative** | Empty-state emoji, brand monogram letter |
+| **Not natural language** | Clock `:` separators between numeric segments |
+| **styled-jsx / CSS** | Template literals that are CSS, not user copy |
+| **Third-party constraints** | Only if i18n is impossible without large refactors — prefer fixing properly first |
+
+Do **not** disable the rule broadly to avoid adding keys; prefer real messages and locale entries.
+
+## Verification
+
+- After visible UI changes: follow **[`pomometer-acceptance-verification.mdc`](pomometer-acceptance-verification.mdc)** (browser snapshot + screenshot) where applicable.
+- Run **`pnpm lint`** — i18n rule is part of the same ESLint run.
+
+## Related
+
+- Type-safe Redux / API: [`pomometer-typescript.mdc`](pomometer-typescript.mdc)
+- Router index: [`AGENTS.md`](../../AGENTS.md)

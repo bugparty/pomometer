@@ -1,0 +1,227 @@
+---
+description: Pomometer core — stack, architecture, pnpm, D1/Prisma workflows, deployment, auth/API summary
+alwaysApply: true
+---
+
+# Pomometer — Core rules
+
+**Canonical for Cursor:** this file and sibling `.mdc` files in `.cursor/rules/`. Short index for other tools: [`AGENTS.md`](../../AGENTS.md).
+
+## 📋 Project Overview
+
+This is a **Pomodoro timer + Todo list** web application with a **hybrid Next.js + Cloudflare Workers architecture**.
+
+### Core Features
+- Pomodoro timer with multiple sound options
+- Todo list management with categories and priorities  
+- Google OAuth authentication
+- Google Tasks API integration
+- Real-time sync across devices
+- Internationalization (i18n) support
+
+### Technology Stack
+- **Frontend**: Next.js 15 + React 19 + Redux Toolkit
+- **Backend**: Cloudflare Workers via nextjs + D1 SQL database
+- **Styling**: Tailwind CSS (`@apply` directives) + Custom CSS
+- **UI Components**: Ant Design (antd)
+- **Authentication**: JWT + Google OAuth 2.0
+- **Database**: Cloudflare D1 + Prisma ORM
+- **Package Manager**: pnpm (required)
+
+## 🏗️ Architecture Overview
+
+### 1. Redux Store Structure (`src/app/componments/store.ts`)
+- **State Slices**: `todos`, `clock`, `oplogs`, `auth`, `visibilityFilter`, `opfilter`
+- **Middleware Pipeline**: `opMiddleware` → `timerMiddleware` → `googleAnalysisMiddleware`
+- **Persistence**: localStorage integration with Sentry monitoring
+
+### 2. Hybrid Deployment Model
+- **Frontend**: Next.js app via OpenNext on Cloudflare Pages
+- **Backend**: Cloudflare Worker (`workers-site/`) for API routes
+- **Database**: Cloudflare D1 with Prisma adapter
+
+### 3. File Structure
+```
+src/app/componments/     # Core Redux slices & components (typo is intentional)
+src/app/api/            # Next.js server API routes
+locales/                # i18n translations
+prisma/                 # Database schema & configuration
+backgroundworker/       # Background worker service
+```
+
+## 💻 Development Workflows
+
+### Package Management (CRITICAL)
+**Always use `pnpm`, never `npm`:**
+```bash
+pnpm install           # NOT npm install
+pnpm add <package>     # NOT npm install <package>
+pnpm remove <package>  # NOT npm uninstall <package>
+pnpm dev              # NOT npm run dev
+pnpm build            # NOT npm run build
+```
+
+### First-time Setup (NEW ENVIRONMENT)
+```bash
+# 1. Install dependencies
+pnpm install
+
+# 2. Generate Prisma client (CRITICAL!)
+pnpm prisma generate
+
+# 3. Initialize local D1 (CRITICAL before API routes / fullstack dev work)
+pnpm wrangler d1 migrations apply pomometer-db --local
+
+# 4. Start development
+pnpm dev
+```
+
+### Before `pnpm dev` (agents, debugging, fullstack checks)
+
+**Prisma client alone is not enough.** Local API routes use **Cloudflare D1** via Wrangler; without applied SQL migrations the local DB has no tables and handlers fail at runtime.
+
+- **Always** run `pnpm wrangler d1 migrations apply pomometer-db --local` before the first `pnpm dev` in a new clone or after pulling migration changes under `migrations/`. Re-running is safe when there are no pending migrations.
+- **Do not** start the dev server to “see if the DB works” without this step — initialize D1 first, then start the server.
+
+### Local Development
+```bash
+# Fullstack (port 3000) — only after local D1 migrations are applied (see above)
+pnpm dev
+```
+
+### Background Worker
+When you want to run the background worker, you need to cd into the backgroundworker directory first:
+```bash
+cd ./backgroundworker && pnpm run dev
+```
+
+Generate prisma client (from backgroundworker directory):
+```bash
+cd ./backgroundworker && pnpm prisma generate --schema=../prisma/schema.prisma
+```
+
+Note: The backgroundworker has its own prisma.config.ts that points to the correct schema path: '../prisma/schema.prisma'
+
+### Database Management
+
+The process for updating the database schema differs between local development and production environments.
+
+#### Local Database (Wrangler)
+To apply schema changes to your **local** D1 database, you must use the Wrangler CLI. This command applies migration files located in the `migrations/` directory.
+
+```bash
+# Apply pending migrations to the local D1 instance
+pnpm wrangler d1 migrations apply pomometer-db --local
+```
+
+#### Remote/Production Database (Prisma)
+To apply schema changes to the **remote** (production) D1 database, use the `prisma db push` command. This is typically handled by the CI/CD pipeline.
+
+```bash
+# Pushes the schema from prisma/schema.prisma to the remote database
+pnpm prisma db push
+```
+
+### 🚨 CRITICAL: What NOT to do
+- ❌ **Do not run `prisma db push` for your local database.** It targets the remote D1 instance defined in `wrangler.toml` and will not affect your local setup.
+- ❌ **Do not use `prisma migrate dev`.** Use the documented Wrangler workflow for local migrations instead.
+
+**Styling** (Tailwind in CSS only, variables, Safari): applies when editing `*.css` — see `pomometer-css.mdc`.
+
+**TypeScript / React / API typing**: applies when editing `*.ts` / `*.tsx` — see `pomometer-typescript.mdc`.
+
+## 🔐 Authentication & API
+
+### Google OAuth Flow
+1. **ModernGoogleLogin** component initiates OAuth
+2. **Callback page** (`/auth/google/callback`) handles token exchange
+3. **JWT tokens** stored in localStorage
+4. **Google Tasks API** permissions included in scope
+
+### API Integration
+- Routes: `/api/*` are implemented as Next.js route handlers under `src/app/api/`
+- Database: Cloudflare D1 with TypeScript types
+- CORS: Wildcard `*` configuration for development
+
+## 🗄️ Database & Prisma
+
+### Configuration
+- **Database**: Cloudflare D1 (serverless SQL)
+- **ORM**: Prisma with Cloudflare D1 adapter
+- **Schema**: `prisma/schema.prisma`
+
+### 🚨 CRITICAL: First-time Setup
+**In a fresh environment, do both before relying on the database in dev:**
+
+1. **Generate Prisma client:**
+```bash
+pnpm prisma generate
+```
+
+**Without this step, you'll get error:**
+```
+Module '"@prisma/client"' has no exported member 'PrismaClient'
+```
+
+2. **Apply local D1 migrations** (creates local D1 schema from `migrations/`; required for `/api/*` and Prisma against local D1):
+```bash
+pnpm wrangler d1 migrations apply pomometer-db --local
+```
+
+### Schema Updates (IMPORTANT)
+The following command will only update the Cloudflare remote database
+```bash
+# Edit schema → Run push command → Database updated
+pnpm prisma db push
+```
+
+### What NOT to do:
+- ❌ Don't add `url = env("DATABASE_URL")` to schema.prisma
+- ❌ Don't use local SQLite files  
+- ❌ Don't use `prisma migrate dev` or migration files
+
+### Reference
+- [Prisma + Cloudflare D1 Guide](https://www.prisma.io/blog/build-applications-at-the-edge-with-prisma-orm-and-cloudflare-d1-preview)
+
+## 🚀 Build & Deployment
+
+### Environment Commands
+```bash
+# Production
+pnpm run deploy            # Requires Cloudflare credentials
+pnpm run deploy:staging    # Staging environment
+```
+
+### Critical Dependencies
+- `@opennextjs/cloudflare`: Next.js → Cloudflare adapter
+- `@reduxjs/toolkit`: Modern Redux patterns
+- `jose`: JWT handling in Workers
+- `wrangler`: Cloudflare CLI
+
+## ⚠️ Important Notes
+
+### State Management
+- All state flows through Redux actions
+- Timer updates via `set_stopped_at` every second
+- localStorage persistence is automatic
+- User data syncs to D1 when authenticated
+
+### Cross-Component Communication
+- Redux actions for all state changes
+- Operation logs for debugging/analytics
+- Timer state managed through middleware
+
+### Dependencies
+- Check `package.json` before adding new packages
+- Prefer lightweight alternatives
+- Ensure Next.js + Cloudflare Workers compatibility
+
+### Memory Management
+- The project uses Cloudflare D1 adapter, so do not add `url = env("DATABASE_URL")` in the datasource db of schema.prisma
+- The project uses Cloudflare D1 and should not attempt to find or use locally generated sqlite file databases
+- API routes are Next.js route handlers under `src/app/api/`; in production they are deployed via OpenNext to Cloudflare, not served from a long-lived Node server
+
+### Migration & Schema Management
+- Use Wrangler CLI for local D1 database migrations: `pnpm wrangler d1 migrations apply pomometer-db --local`
+- Use Prisma commands for remote/production database: `pnpm prisma db push`
+- Never use `prisma migrate dev` or generate migration files for this project

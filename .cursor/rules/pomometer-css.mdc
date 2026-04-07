@@ -1,0 +1,134 @@
+---
+description: Pomometer CSS — @apply, css-variables, Safari hack, no Tailwind in JSX
+globs: "**/*.css"
+alwaysApply: false
+---
+
+# Pomometer — Styling & CSS
+
+## 🎨 Styling Guidelines
+
+### CSS Architecture (CRITICAL)
+- **Never use Tailwind classes directly in JSX**
+- **Always use `@apply` directives in CSS files**
+- Main styles in `src/app/App.css`
+- Card-style design: `border-radius: 12px` + gradient backgrounds
+
+### Browser Compatibility
+- **Safari mobile is priority** - always test iOS layouts
+- Use `clamp()` for responsive typography with fallbacks
+- Minimum touch target: 44px for mobile buttons
+
+### Safari-Specific CSS
+If you want to apply CSS only for Safari, don't use:
+```css
+@supports (-webkit-appearance: none) and (not (-moz-appearance: none)) and (not (-ms-overflow-style: none))
+```
+
+Because it will also match some other browsers like Chrome. Use:
+```css
+@supports (background: -webkit-named-image(i))
+```
+
+### CSS Module Structure
+The project uses a modular CSS approach with separate CSS files for each component:
+- **`src/app/App.css`**: Main styles and Ant Design CSS reset
+- **`src/app/componments/clock/Clock.css`**: Clock component styles
+- **`src/app/componments/todo/Todo.css`**: Todo component styles
+- **`src/app/componments/settings/Settings.css`**: Settings component styles
+- **`src/app/componments/auth/Auth.css`**: Authentication component styles
+- **`src/app/componments/navigation/Navigation.css`**: Navigation component styles
+- **`src/app/componments/common/Common.css`**: Common utility styles
+
+### CSS Best Practices
+- **Import CSS files**: Each component should import its corresponding CSS file
+- **Avoid complex selectors**: Use semantic class names instead of relying on Tailwind classes as CSS selectors
+- **Test cross-browser**: Test CSS modifications on both desktop and mobile devices
+- **Use CSS variables**: Consider using CSS custom properties for consistent spacing and colors
+- **PostCSS integration**: The project uses PostCSS with Tailwind CSS for optimal processing
+
+### CSS Error Prevention
+- **Avoid Tailwind selector errors**: Don't use `lg\\:flex-row` or similar patterns as CSS selectors
+- **Handle @apply carefully**: In some CSS parsing environments, @apply directives may not be recognized
+- **CSS Grid fallbacks**: Provide flexbox fallbacks when using CSS Grid for better browser compatibility
+- **Responsive typography**: Use `clamp()` function with fallbacks for responsive text sizing
+- **Touch targets**: Ensure minimum 44px touch targets for mobile buttons and interactive elements
+
+## 🎨 CSS Architecture & Best Practices
+
+### CSS Variables System
+The project uses a centralized CSS variables system defined in `src/app/css-variables.css`:
+
+#### Import CSS Variables
+**Always import CSS variables at the top of each CSS file:**
+```css
+@import '../../css-variables.css';
+```
+
+#### Use CSS Variables Instead of Hardcoded Values
+**❌ Don't use hardcoded values:**
+```css
+color: #374151;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+```
+
+**✅ Use CSS variables:**
+```css
+color: var(--color-gray-700);
+padding: var(--spacing-base);
+border-radius: var(--radius-md);
+box-shadow: var(--shadow-md);
+```
+
+### CSS Best Practices
+
+#### 1. **Always Use CSS Variables**
+- **Never hardcode colors, spacing, or other design tokens**
+- **Always use predefined CSS variables for consistency**
+- **If a new value is needed, add it to `css-variables.css` first**
+
+#### 2. **Maintain Breakpoint Consistency**
+- **Use predefined breakpoint variables:**
+  - `--breakpoint-mobile: 480px`
+  - `--breakpoint-tablet: 640px`
+  - `--breakpoint-desktop: 768px`
+  - `--breakpoint-large: 1024px`
+  - `--breakpoint-xl: 1280px`
+- **Never create custom breakpoints without adding them to the variables file**
+
+#### 3. **Semantic Naming Convention**
+- **CSS variables should have clear, semantic names**
+- **Use consistent naming patterns:**
+  - Colors: `--color-{name}-{shade}`
+  - Spacing: `--spacing-{size}`
+  - Radius: `--radius-{size}`
+  - Shadows: `--shadow-{size}`
+  - Transitions: `--transition-{speed}`
+
+#### 4. **Progressive Enhancement Approach**
+- **Define base styles first, then add enhancements**
+- **Use CSS variables for consistent visual hierarchy**
+- **Maintain accessibility and performance standards**
+
+### CSS File Structure
+```
+src/app/
+├── css-variables.css          # Central CSS variables
+├── App.css                    # Main app styles
+└── componments/
+    ├── clock/Clock.css        # Clock component styles
+    ├── todo/Todo.css          # Todo component styles
+    ├── settings/Settings.css  # Settings component styles
+    ├── auth/Auth.css          # Auth component styles
+    ├── navigation/Navigation.css # Navigation styles
+    └── common/Common.css      # Common utility styles
+```
+
+### CSS Maintenance Guidelines
+- **New styles must use existing CSS variables when possible**
+- **New variables must be added to `css-variables.css` first**
+- **Regularly audit for duplicate or unused CSS rules**
+- **Maintain consistent CSS variable naming conventions**
+- **Test CSS changes across different screen sizes and browsers**

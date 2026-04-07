@@ -1,0 +1,60 @@
+---
+description: After bugfixes or changes that affect visible UI or user-visible behavior, verify in the Cursor built-in browser (MCP) with a fixed navigate → snapshot → (interact) → screenshot flow — run automatically without asking the user for permission to test
+alwaysApply: true
+---
+
+# Pomometer — Post-fix acceptance (browser + screenshot)
+
+When a change **fixes a bug** or **changes what the user sees** (layout, styles, copy, Toast, navigation, client-visible errors, Redux-driven UI, etc.), treat **browser verification** as part of **done**, not optional. **Do not ask** the user whether to open the browser unless the flow is blocked (see **Blocked** below).
+
+## Scope (run this flow)
+
+- **Run:** Edits to React components, CSS, client routes, visible error handling, i18n strings shown in UI, or anything where **correctness is visible** in the app.
+- **Skip:** Pure types, server-only logic with no UI contract change, Prisma/schema-only edits — use **`pnpm build`** or targeted tests instead; no browser pass required.
+
+## Preconditions
+
+- **`pnpm dev`** on **http://localhost:3000** (if the port is stuck or the server is dead, follow **pomometer-dev-server.mdc** in this folder).
+- Use the **Cursor IDE Browser** MCP (`cursor-ide-browser`). **Before calling any MCP tool**, read that server’s tool descriptors under `mcps/cursor-ide-browser/tools/` (schemas are mandatory).
+
+## Fixed verification workflow (mandatory order)
+
+Use the **shortest path** that reproduces the bug or proves the fix. Prefer **one** tab; create a new tab only if you must not disturb an existing session.
+
+1. **`browser_navigate`** to the relevant URL  
+   - Default app entry: **`http://localhost:3000/`**  
+   - If the bug is route-specific (e.g. `/auth/google/callback`), navigate **directly** to that path when safe, or start from `/` and navigate in-app using snapshot refs.
+
+2. **`browser_snapshot`**  
+   - Use **refs from the latest snapshot only** for clicks, typing, and form actions.  
+   - Reproduce the user steps (open panel, trigger Toast, complete the flow under test).
+
+3. **Screenshot (required for visual acceptance)**  
+   - After the state under test is visible, take at least **one** viewport screenshot using either:  
+     - **`browser_take_screenshot`** on the current page, **or**  
+     - **`take_screenshot_afterwards: true`** on **`browser_navigate`** / **`browser_snapshot`** when that already matches the moment to capture.  
+   - If “before vs after” matters, capture the **fixed** state and briefly describe what changed relative to the reported bug (no need for a literal image diff tool).
+
+4. **Assert in the reply**  
+   - State **pass** or **fail** vs the expected visible outcome (e.g. “Toast appears”, “no layout overflow”, “button reachable”).  
+   - If verification **fails**, say what the snapshot/screenshot showed and what is still wrong; do not mark the task complete.
+
+5. **Optional**  
+   - **`browser_console_messages`** if the snapshot suggests a client error.  
+   - **`browser_network_requests`** only when the fix depends on a specific request.
+
+## Authentication / Google OAuth
+
+If verification requires **sign-in** or **Google consent**, follow the full flow in **pomometer-browser-testing.mdc** (OAuth click-through, when to stop and ask the user). This file does not duplicate that flow.
+
+## Blocked (stop and say why)
+
+- Dev server not running or URL not reachable after reasonable checks.  
+- Browser MCP unavailable or tools error repeatedly.  
+- The scenario needs **secrets, production-only data, or manual account steps** you cannot complete — then list what was verified (e.g. `pnpm build` only) and what remains **manual**.
+
+## Anti-patterns
+
+- Do **not** ship a “UI fix” with **only** `pnpm build` when this rule’s scope applied.  
+- Do **not** assume click coordinates; use snapshot **refs**.  
+- Do **not** repeat the same failing interaction more than once without a **new snapshot** or new evidence.

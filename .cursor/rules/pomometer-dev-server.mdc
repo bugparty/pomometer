@@ -1,0 +1,12 @@
+---
+description: Local Next dev server on port 3000 — free the port and restart when the app is stuck, ECONNREFUSED, or “unable to handle this request”
+alwaysApply: true
+---
+
+# Pomometer — Local dev server (port 3000)
+
+If **localhost:3000** is wrong or stuck (stale process, port in use, bad state after env / `next.config` changes): **kill whatever is listening on 3000** (not **30002** or other ports), then from repo root run **`pnpm dev`** and wait until it’s **Ready** before refresh / browser tests.
+
+If Next falls back to **3001**, free **3000** and restart there for OAuth consistency, or remind the user to add that origin in Google Cloud.
+
+On Unix, same idea: free **:3000**, then `pnpm dev`.

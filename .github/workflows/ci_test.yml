@@ -1,0 +1,179 @@
+# This workflow builds and tests the Pomometer Next.js app for all branches
+# Uses macOS runners for faster build performance (2x faster than Ubuntu)
+# Deploys to Cloudflare Workers only when changes are pushed to main branch
+
+name: CI Build and Deploy
+
+on:
+  push:
+    branches: [ nextjs, main, dev ]
+  pull_request:
+    branches: [ nextjs, main, dev ]
+
+jobs:
+  build-and-deploy:
+    
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+        
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        
+    - name: Cache pnpm store
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Debug pnpm and lockfile info
+      run: |
+        echo "🍎 Running on: macOS-latest"
+        echo "pnpm version: $(pnpm --version)"
+        echo "Node version: $(node --version)"
+        ls -la pnpm-lock.yaml || echo "pnpm-lock.yaml not found"
+        head -5 pnpm-lock.yaml || echo "Cannot read pnpm-lock.yaml"
+          
+    - name: Install Dependencies
+      run: |
+        pnpm install --frozen-lockfile || {
+          echo "Frozen lockfile failed, installing without frozen lockfile..."
+          pnpm install
+        }
+      
+    - name: Generate Prisma Client
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+        CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+      run: pnpm prisma generate
+      
+    - name: Check TypeScript (non-blocking)
+      run: pnpm run lint || echo "ESLint found issues but continuing..."
+      
+    - name: Verify build tools
+      run: |
+        pnpm list @opennextjs/cloudflare || echo "@opennextjs/cloudflare not found"
+        pnpm list wrangler || echo "wrangler not found"
+      
+    - name: Build for Cloudflare Worker
+      env:
+        NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        NEXT_PUBLIC_API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+        CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+        NODE_ENV: production
+      run: pnpm run prod:build
+      
+    - name: Deploy to Cloudflare Worker
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      env:
+        CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        NEXT_PUBLIC_API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+        CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+      run: pnpm run deploy
+
+  e2e-tests:
+
+    runs-on: macos-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      NEXT_PUBLIC_API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+      CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - name: Cache pnpm store
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install Dependencies
+      run: |
+        pnpm install --frozen-lockfile || {
+          echo "Frozen lockfile failed, installing without frozen lockfile..."
+          pnpm install
+        }
+
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/Library/Caches/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+
+    - name: Install Playwright Browsers
+      run: |
+        pnpm exec playwright install --with-deps
+        # Verify browsers are installed
+        pnpm exec playwright --version
+
+    - name: Generate Prisma Client
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+        CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+      run: pnpm prisma generate
+
+    - name: Run Playwright tests
+      run: pnpm test:e2e
+
+    - name: Run tests
+      run: pnpm test
+
+    - name: Upload test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-results
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 7
+

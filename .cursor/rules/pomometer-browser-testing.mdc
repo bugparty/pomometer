@@ -1,0 +1,49 @@
+---
+description: Pomometer login and post-change verification using Cursor built-in browser (MCP), Google OAuth click-through, terminal log checks, DOM assertions — run automatically after relevant code edits without asking the user for permission to test
+alwaysApply: true
+---
+
+# Pomometer — Built-in browser login testing
+
+When **validating changes** that touch authentication, OAuth, Navbar, session, `/auth/google/callback`, or anything that could affect **Google sign-in**, the agent should **run this check automatically** after edits. **Do not ask** the user whether to open the browser or run the test unless the flow is blocked (see below).
+
+## Preconditions
+
+- **`pnpm dev`** on **http://localhost:3000** (if the port is stuck or the server is dead, follow **pomometer-dev-server.mdc** in this folder).
+- Use the **Cursor IDE Browser** MCP (`cursor-ide-browser`). **Before calling any MCP tool**, read that server’s tool descriptors under `mcps/cursor-ide-browser/tools/` (schemas are mandatory).
+
+## Core workflow
+
+1. **`browser_navigate`** to `http://localhost:3000/` (reuse or create a tab as appropriate).
+2. **`browser_snapshot`** to obtain refs; then interact using **refs from the latest snapshot** only.
+3. If the primary chrome shows **Sign in with Google** (or localized equivalent from `FormattedMessage` / `auth.login.signInWithGoogle`):
+   - **`browser_click`** that control to start OAuth.
+4. **On Google’s pages** (accounts.google.com, consent, account chooser):
+   - If **saved account(s)** or **“Choose an account”** with a known selectable account: click through (**account row / Continue / Allow**) until redirect back to the app (`localhost` + `/` or `/auth/google/callback` then home).
+   - If **no usable saved session** (email/password form with no one-click account, security challenge, CAPTCHA, or device verification): **stop automation**, **tell the user** they must sign in manually in that tab, then **resume verification** once they are back on the app (fresh snapshot + logs below). Do **not** guess passwords or bypass Google security.
+
+## After login (mandatory verification — no user prompt)
+
+Run **both**; do not skip either:
+
+1. **Backend / dev server logs**  
+   Read the active **`pnpm dev` terminal** output (or the terminal file Cursor records). Confirm there is **no** unexpected stack trace for the OAuth path; look for **`POST /api/auth/google/oauth/callback`** with **200** when the flow just completed, and absence of repeated fatal errors right after redirect.
+
+2. **Browser DOM / snapshot**  
+   Take a fresh **`browser_snapshot`**. Assert logged-in UI, for example:
+   - **Logout** (or equivalent sign-out control) present, **or**
+   - **Open Google Tasks** / sync affordances visible, **or**
+   - **Sign in with Google** no longer the only auth action for a session that should be authenticated.  
+   Use whatever the snapshot actually shows; if the page shows an error overlay, capture it and treat verification as failed.
+
+Optional: **`browser_console_messages`** if the snapshot suggests a client-side failure.
+
+## Anti-patterns
+
+- Do **not** assume coordinates; use snapshot **refs** (except documented screenshot-xy flows).
+- Do **not** run the same failing click loop more than once without a **new snapshot** or new evidence.
+- Do **not** paste OAuth **authorization codes** or **secrets** into chat or rules.
+
+## Localization note
+
+The sign-in control may not read exactly “Sign in with Google” if the UI locale is not English; match by **role + name** from the snapshot or the `auth.login.signInWithGoogle` string in `locales/*`.

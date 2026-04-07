@@ -1,0 +1,50 @@
+variables:
+  DOCKER_DRIVER: overlay2
+
+image: bowmanhan/node-chrome:latest
+
+cache:
+  paths:
+  - node_modules/
+  - build/
+stages:
+- build
+- test
+- deploy
+
+
+test:
+
+  image: bowmanhan/node:10.11.0-alpine
+  stage: test
+  environment: dev
+  script:
+  - yarn install
+  - yarn test
+
+build:
+
+  stage: build
+  environment: production
+  artifacts:
+    paths:
+    - build/
+  script:
+  - yarn install
+  - yarn build
+
+deploy:
+  cache:
+    policy: pull
+  image: bowmanhan/node:10.11.0-alpine
+  stage: deploy
+  environment: production
+  only:
+   - master
+  script:
+    - cd build/
+    - export SSHPASS=$USER_PASS
+    - find ./ -name '*.map' -delete
+    - sshpass -e scp  -o stricthostkeychecking=no -r . root@b1.calm.gq:/var/www/pomometer/
+    - sshpass -e ssh root@b1.calm.gq 'chown -R root:nginx /var/www/pomometer/'
+    - sshpass -e scp  -o stricthostkeychecking=no -r . nginx@150.95.156.142:/var/www/pomometer/

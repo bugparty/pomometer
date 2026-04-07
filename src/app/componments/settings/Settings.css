@@ -1,0 +1,255 @@
+@import '../../css-variables.css';
+@import '../common/buttons.css';
+@import '../common/containers.css';
+@import '../common/forms.css';
+@import '../common/states.css';
+
+/* ===== 设置组件样式 ===== */
+
+/* 设置界面样式 */
+.settings-modal {
+  background: var(--gradient-gray);
+  border-radius: var(--radius-2xl);
+  border: 2px solid var(--color-gray-200);
+  box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  max-width: 480px;
+  width: 100%;
+  margin: 0 var(--spacing-base);
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(16px);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid var(--color-gray-200);
+  position: relative;
+}
+
+.settings-header::before {
+  content: '⚙️';
+  font-size: var(--text-2xl);
+  margin-right: var(--spacing-md);
+}
+
+.settings-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-gray-800);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.settings-close-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-red-dark);
+  font-size: var(--text-xl);
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition-slow);
+}
+
+.settings-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--color-red-dark);
+  transform: scale(1.05);
+}
+
+.settings-content {
+  padding: var(--spacing-2xl);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.settings-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-gray-700);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.settings-select-wrapper {
+  position: relative;
+}
+
+.settings-select {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-base);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  color: var(--color-gray-700);
+  transition: var(--transition-slow);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.settings-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+  background: rgba(249, 250, 251, 0.8);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.settings-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.settings-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.settings-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: var(--transition-slow);
+}
+
+.settings-checkbox:checked {
+  background: var(--gradient-primary);
+  border-color: var(--color-primary);
+}
+
+.settings-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.settings-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.settings-checkbox-text {
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+  font-weight: 500;
+}
+
+.settings-input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-base);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  color: var(--color-gray-700);
+  transition: var(--transition-slow);
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: var(--color-white);
+}
+
+.settings-input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.settings-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-base);
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  background: rgba(249, 250, 251, 0.8);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+/* ===== 设置组件特定样式 ===== */
+/* 使用通用按钮样式，并为设置组件添加特定样式 */
+
+/* ===== 响应式设计 ===== */
+@media (max-width: var(--breakpoint-tablet)) {
+  .settings-modal {
+    max-width: 95vw;
+    margin: 0 var(--spacing-sm);
+    border-radius: var(--radius-xl);
+  }
+
+  .settings-header {
+    padding: var(--spacing-xl) var(--spacing-xl);
+  }
+
+  .settings-title {
+    font-size: var(--text-xl);
+  }
+
+  .settings-content {
+    padding: var(--spacing-xl);
+  }
+
+  .settings-checkboxes {
+    padding: var(--spacing-xl);
+  }
+
+  .settings-footer {
+    padding: var(--spacing-xl) var(--spacing-xl);
+    flex-direction: column-reverse;
+    gap: var(--spacing-md);
+  }
+
+  .settings-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
