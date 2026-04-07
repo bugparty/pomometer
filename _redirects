@@ -1,3 +1,0 @@
-# Redirect domain aliases to primary domain
-http://ww2.pomometer.com/* http://www.pomometer.com/:splat 301!
-http://tomato.ifancc.com/* http://www.pomometer.com/:splat 301!
