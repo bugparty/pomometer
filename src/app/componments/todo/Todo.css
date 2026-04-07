@@ -1,0 +1,1148 @@
+@import '../../css-variables.css';
+@import '../common/buttons.css';
+@import '../common/containers.css';
+@import '../common/states.css';
+@import '../common/forms.css';
+
+/* ===== Todo组件样式 ===== */
+
+/* Todo容器样式 */
+.TodoContainer {
+  margin-top: var(--spacing-base);
+  margin-left: var(--spacing-md);
+  margin-bottom: var(--spacing-base);
+  min-width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  background: var(--gradient-gray);
+  border-radius: var(--radius-xl);
+}
+
+/* OpLog容器样式 */
+.OpLogContainer {
+  margin: var(--spacing-base) var(--spacing-md) var(--spacing-base) 0;
+  background: var(--gradient-gray);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-gray-200);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-slow);
+}
+
+.OpLogContainer:hover {
+  border-color: var(--color-gray-300);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* OpLog标题样式 */
+.OpLogContainer h2 {
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-base);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* ===== OpFilter过滤器样式 ===== */
+.oplog_filter {
+  background: rgba(255, 255, 255, 0.7);
+  padding: var(--spacing-base) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  margin-bottom: var(--spacing-base);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  flex-wrap: wrap;
+}
+
+.oplog_filter .filter-label {
+  font-weight: 600;
+  color: var(--color-gray-700);
+  font-size: var(--text-base);
+  flex-shrink: 0;
+}
+
+.oplog_filter .filter-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.oplog_filter .filter-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-base);
+  background: rgba(249, 250, 251, 0.8);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  color: var(--color-gray-500);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--text-sm);
+  transition: var(--transition-slow);
+  min-width: 70px;
+}
+
+.oplog_filter .filter-buttons a:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--color-blue);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.oplog_filter .filter-buttons a.active {
+  background: var(--gradient-blue);
+  border-color: var(--color-blue);
+  color: var(--color-white);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.oplog_filter .filter-buttons a:active {
+  transform: translateY(0);
+}
+
+/* ===== OpLog列表样式 ===== */
+.oplog_list {
+  height: 550px;
+  max-width: 100%;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  margin: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.oplog_list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.oplog_list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.oplog_list::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 3px;
+}
+
+.oplog_list::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* OpLog列表项样式优化 */
+.oplog_list .ant-list {
+  background: transparent;
+}
+
+.oplog_list .ant-list-header,
+.oplog_list .ant-list-footer {
+  display: none;
+}
+
+.oplog_list .ant-list-item {
+  background: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-base) var(--spacing-xl);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  transition: var(--transition-slow);
+  position: relative;
+  overflow: hidden;
+}
+
+.oplog_list .ant-list-item:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-gray-300);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.oplog_list .ant-list-item:last-child {
+  margin-bottom: 0;
+}
+
+/* OpLog图标样式 */
+.oplog_list .ant-list-item .ant-typography {
+  margin-right: var(--spacing-md);
+}
+
+.oplog_list .ant-list-item .ant-typography mark {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.oplog_list .ant-list-item .anticon {
+  color: var(--color-white);
+  font-size: var(--text-sm);
+}
+
+/* OpLog文本内容样式 */
+.oplog_list .ant-list-item {
+  color: var(--color-gray-700);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+}
+
+/* 空状态样式 */
+.oplog_list .ant-empty {
+  padding: 3rem 1.5rem;
+}
+
+.oplog_list .ant-empty-image {
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.oplog_list .ant-empty-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* OpLog空状态样式 */
+.empty-oplog-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  height: 100%;
+  min-height: 300px;
+}
+
+.empty-oplog-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.empty-oplog-state .empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.empty-oplog-state .empty-description {
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0;
+}
+
+/* Todo过滤器样式 */
+.todo-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.filter-label {
+  font-weight: 500;
+  color: rgba(54, 54, 54, 0.8);
+  white-space: nowrap;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Todo特定的过滤器按钮样式扩展 */
+.filter-buttons .ant-btn {
+  /* 使用通用样式，但这里可以添加特定的覆盖样式 */
+}
+
+/* Todo特定的空状态样式扩展 */
+.empty-todo-state {
+  padding: 48px 24px;
+}
+
+.empty-oplog-state {
+  padding: 3rem 1rem;
+  height: 100%;
+  min-height: 300px;
+}
+
+.empty-todo-state .empty-icon {
+  font-size: 48px;
+  animation: none;
+}
+
+.empty-oplog-state .empty-icon {
+  font-size: 3rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-todo-state .empty-title {
+  font-size: 20px;
+  color: #202124;
+}
+
+.empty-oplog-state .empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.empty-todo-state .empty-description {
+  font-size: 14px;
+  color: #5f6368;
+}
+
+.empty-oplog-state .empty-description {
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Google Tasks 风格的TodoList样式 */
+.google-todo-list {
+  margin: 16px 0;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+  overflow: hidden;
+  border: 1px solid #dadce0;
+}
+
+/* 主任务项样式 */
+.google-todo-item {
+  border-bottom: 1px solid #e8eaed;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.google-todo-item:last-child {
+  border-bottom: none;
+}
+
+.google-todo-item:hover {
+  background-color: rgba(60, 64, 67, 0.04);
+}
+
+.google-todo-item.completed {
+  opacity: 0.6;
+}
+
+/* 主任务行 */
+.todo-main-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  min-height: 48px;
+}
+
+.todo-checkbox {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+
+
+.todo-text {
+  flex: 1;
+  font-size: 14px;
+  color: #3c4043;
+  cursor: default;
+  padding: 4px 0;
+  line-height: 20px;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.todo-text.completed-text {
+  text-decoration: line-through;
+  color: #80868b;
+}
+
+/* 任务操作按钮 */
+.todo-actions {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  margin-left: 8px;
+}
+
+.google-todo-item:hover .todo-actions {
+  opacity: 1;
+}
+
+.action-button {
+  color: #5f6368;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover,
+.action-button:focus {
+  color: #1a73e8;
+  background-color: rgba(26, 115, 232, 0.04);
+}
+
+.delete-button:hover,
+.delete-button:focus {
+  color: #ea4335;
+  background-color: rgba(234, 67, 53, 0.04);
+}
+
+.action-button .anticon {
+  font-size: 18px;
+}
+
+/* 子任务容器 */
+.subtasks-container {
+  border-top: 1px solid #f1f3f4;
+  background-color: #fafbfc;
+}
+
+.subtask-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 8px 52px; /* 增加左侧缩进 */
+  min-height: 40px;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.subtask-row:hover {
+  background-color: rgba(60, 64, 67, 0.04);
+}
+
+.subtask-row.completed {
+  opacity: 0.6;
+}
+
+.subtask-indent {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #dadce0;
+  margin-right: 8px;
+}
+
+.subtask-checkbox {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+
+
+
+
+.subtask-text {
+  flex: 1;
+  font-size: 13px;
+  color: #5f6368;
+  line-height: 18px;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.subtask-text.completed-text {
+  text-decoration: line-through;
+  color: #9aa0a6;
+}
+
+.subtask-delete-button {
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  color: #5f6368;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.subtask-row:hover .subtask-delete-button {
+  opacity: 1;
+}
+
+.subtask-delete-button:hover,
+.subtask-delete-button:focus {
+  color: #ea4335;
+  background-color: rgba(234, 67, 53, 0.04);
+}
+
+.subtask-delete-button .anticon {
+  font-size: 14px;
+}
+
+/* sub_todo 样式 - 与subtask保持一致 */
+.sub_todo {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 8px 52px;
+  min-height: 40px;
+  transition: background-color 0.2s ease;
+  position: relative;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.sub_todo:hover {
+  background-color: rgba(60, 64, 67, 0.04);
+}
+
+.sub_todo .main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sub_todo .left-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.sub_todo .right-content {
+  display: flex;
+  align-items: center;
+}
+
+.sub_todo .left-content .anticon {
+  margin-right: 8px;
+  color: #1a73e8;
+  font-size: 14px;
+}
+
+.sub_todo .ant-checkbox {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+
+
+
+
+.sub_todo span {
+  flex: 1;
+  font-size: 13px;
+  color: #5f6368;
+  line-height: 18px;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  transition: all 0.2s ease;
+}
+
+.sub_todo .time-tag {
+  margin-left: 8px;
+  padding: 2px 6px;
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.sub_todo .button-group {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.sub_todo:hover .button-group {
+  opacity: 1;
+}
+
+.sub_todo .edit-btn,
+.sub_todo .delete-btn,
+.sub_todo .view-btn {
+  color: #5f6368;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-left: 4px;
+  transition: all 0.2s ease;
+}
+
+.sub_todo .edit-btn:hover,
+.sub_todo .view-btn:hover {
+  color: #1a73e8;
+  background-color: rgba(26, 115, 232, 0.04);
+}
+
+.sub_todo .delete-btn:hover {
+  color: #ea4335;
+  background-color: rgba(234, 67, 53, 0.04);
+}
+
+.sub_todo .edit-btn .anticon,
+.sub_todo .delete-btn .anticon,
+.sub_todo .view-btn .anticon {
+  font-size: 14px;
+}
+
+/* sub_todo completed状态样式 - 使用简化的选择器 */
+.sub_todo.completed {
+  opacity: 0.6;
+}
+
+.sub_todo .completed-text,
+.sub_todo.completed span {
+  text-decoration: line-through !important;
+  color: #9aa0a6 !important;
+  opacity: 0.7 !important;
+}
+
+/* 更具体的选择器确保样式生效 */
+.sub_todo .ant-checkbox-wrapper span.completed-text {
+  text-decoration: line-through !important;
+  color: #9aa0a6 !important;
+  opacity: 0.7 !important;
+}
+
+.sub_todo .description {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #5f6368;
+  border-left: 3px solid #e0e0e0;
+  line-height: 1.4;
+}
+
+/* 添加子任务行 */
+.add-subtask-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 8px 32px;
+  background-color: #fafbfc;
+  border-top: 1px solid #f1f3f4;
+}
+
+.add-subtask-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 13px;
+  padding: 8px 0;
+  background: transparent;
+  color: #5f6368;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.add-subtask-input::placeholder {
+  color: #9aa0a6;
+  font-style: italic;
+}
+
+.add-subtask-input:focus {
+  border-bottom: 2px solid #1a73e8;
+  box-shadow: none;
+  outline: none;
+}
+
+/* 新增：添加子任务双行输入容器样式 */
+.add-subtask-inputs {
+  flex: 1;
+}
+
+/* 新增：第二行详情输入的顶部间距 */
+.add-subtask-desc {
+  margin-top: var(--spacing-xs);
+}
+
+/* 新增：详情输入一行的容器，含图标 */
+.add-subtask-detail-row {
+  display: flex;
+  align-items: center;
+}
+
+/* 新增：详情输入前的图标样式 */
+.add-subtask-detail-icon {
+  color: var(--color-gray-400);
+  font-size: var(--text-sm);
+  margin-right: var(--spacing-sm);
+}
+
+/* 已完成任务区域 */
+.completed-section {
+  margin-top: 8px;
+}
+
+.completed-header {
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e8eaed;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.completed-header:hover {
+  background-color: #f1f3f4;
+}
+
+.completed-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #5f6368;
+  display: flex;
+  align-items: center;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.completed-title::before {
+  content: '✓';
+  margin-right: 8px;
+  color: #34a853;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.completed-todos .google-todo-item {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.completed-todos .google-todo-item:hover {
+  background-color: rgba(60, 64, 67, 0.04);
+}
+
+.completed-todos .google-todo-item:last-child {
+  border-bottom: none;
+}
+
+/* Google Tasks风格的空状态 */
+
+/* 响应式设计 - Google Material Design风格 */
+@media only screen and (max-width: 768px) {
+  .TodoContainer {
+    margin: 8px 12px 16px 12px;
+    padding: 16px;
+    /* border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5); */
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* 移动端移除高度限制，允许自然滚动 */
+    overflow: visible;
+    max-height: none;
+  }
+
+  .OpLogContainer {
+    margin: 8px 12px 16px 0;
+    padding: 16px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    /* 移动端移除高度限制，允许自然滚动 */
+    overflow: visible;
+    max-height: none;
+  }
+
+  /* Google Tasks移动端样式优化 */
+  .google-todo-list {
+    margin: 8px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* 确保在移动端可以正常滚动 */
+    overflow: visible;
+    position: static;
+  }
+
+  .todo-main-row {
+    padding: 16px 12px;
+    min-height: 56px; /* Material Design推荐的触摸目标高度 */
+  }
+
+  .todo-text {
+    font-size: 16px; /* 移动端更大的字体 */
+    line-height: 1.5;
+    /* 移动端允许文本选择 */
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .action-button {
+    width: 44px; /* Material Design推荐的最小触摸目标 */
+    height: 44px;
+    margin: 0 2px;
+    /* 移动端按钮更容易点击 */
+    touch-action: manipulation;
+  }
+
+  .subtask-row {
+    padding: 12px 12px 12px 52px;
+    min-height: 48px;
+  }
+
+  /* sub_todo移动端样式 */
+  .sub_todo {
+    padding: 12px 12px 12px 52px;
+    min-height: 48px;
+  }
+
+  .sub_todo .left-content .anticon {
+    font-size: 16px;
+  }
+
+  .sub_todo span {
+    font-size: 14px;
+    /* 移动端允许文本选择 */
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .sub_todo .time-tag {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+
+  .sub_todo .edit-btn,
+  .sub_todo .delete-btn,
+  .sub_todo .view-btn {
+    width: 32px;
+    height: 32px;
+    touch-action: manipulation;
+  }
+
+  .sub_todo .edit-btn .anticon,
+  .sub_todo .delete-btn .anticon,
+  .sub_todo .view-btn .anticon {
+    font-size: 16px;
+  }
+
+
+
+  .sub_todo .description {
+    margin-top: 8px;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Safari特定的sub_todo样式优化 */
+  @supports (background: -webkit-named-image(i)) {
+    .sub_todo .edit-btn,
+    .sub_todo .delete-btn,
+    .sub_todo .view-btn {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    
+    .sub_todo span {
+      -webkit-user-select: text;
+      user-select: text;
+      -webkit-touch-callout: default;
+    }
+  }
+
+  .subtask-text {
+    font-size: 14px;
+    /* 移动端允许文本选择 */
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .completed-header {
+    padding: 16px 12px;
+    /* 移动端触摸优化 */
+    touch-action: manipulation;
+  }
+
+  .empty-todo-state {
+    margin: 16px;
+    padding: 32px 16px;
+  }
+
+  /* 移动端输入框优化 */
+  .add-subtask-input {
+    font-size: 16px; /* 防止移动端缩放 */
+    padding: 12px 0;
+  }
+
+
+
+  /* 移动端删除确认对话框优化 */
+  .ant-modal {
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+  }
+}
+
+/* 移动端滚动优化 */
+@media only screen and (max-width: 768px) {
+  body {
+    /* 启用平滑滚动 */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* 优化移动端滚动性能 */
+  .google-todo-list,
+  .TodoContainer,
+  .OpLogContainer {
+    transform: translateZ(0); /* 启用硬件加速 */
+    -webkit-transform: translateZ(0);
+  }
+
+  /* 移动端防止水平滚动 */
+  .todo-main-row,
+  .subtask-row,
+  .add-subtask-row {
+    overflow-x: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+/* 移动端适配 - 增强细节 */
+@media only screen and (max-width: 480px) {
+  .TodoContainer, 
+  .OpLogContainer {
+    margin: 0.5rem;
+    padding: 1rem 0.75rem;
+    border-radius: 12px;
+  }
+  
+  .OpLogContainer h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .oplog_filter {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .oplog_filter .filter-label {
+    font-size: 0.9rem;
+  }
+
+  .oplog_filter .filter-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .oplog_filter .filter-buttons a {
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
+    min-width: auto;
+  }
+
+  .oplog_list {
+    height: 350px;
+  }
+
+  .oplog_list .ant-list-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+
+
+  /* 响应式Todo过滤器 - 小屏幕时两行布局 */
+  .todo-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .filter-label {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  
+  .filter-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .filter-buttons .ant-btn {
+    flex: none;
+    min-width: 70px;
+  }
+}
+
+/* 中等屏幕优化 */
+@media only screen and (max-width: 640px) and (min-width: 481px) {
+  .todo-filter {
+    gap: 0.5rem;
+  }
+  
+  .filter-buttons .ant-btn {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+/* ===== 统一的 Ant Design Checkbox 样式 ===== */
+
+/* 所有checkbox的基础样式 */
+.todo-checkbox .ant-checkbox-inner,
+.subtask-checkbox .ant-checkbox-inner,
+.sub_todo .ant-checkbox .ant-checkbox-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+/* 所有checkbox的选中状态 */
+.todo-checkbox .ant-checkbox-checked .ant-checkbox-inner,
+.subtask-checkbox .ant-checkbox-checked .ant-checkbox-inner,
+.sub_todo .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+}
+
+/* 所有checkbox的checkmark样式 */
+.todo-checkbox .ant-checkbox-inner::after,
+.subtask-checkbox .ant-checkbox-inner::after,
+.sub_todo .ant-checkbox-inner::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5.71428571px;
+  height: 9.14285714px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  transform: rotate(45deg) scale(0) translate(-90%, -30%);
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+}
+
+/* 所有checkbox的选中状态checkmark */
+.todo-checkbox .ant-checkbox-checked .ant-checkbox-inner::after,
+.subtask-checkbox .ant-checkbox-checked .ant-checkbox-inner::after,
+.sub_todo .ant-checkbox-checked .ant-checkbox-inner::after {
+  opacity: 1;
+  transform: rotate(45deg) scale(1) translate(-90%, -30%);
+}
+
+/* 移动端优化 - 保持Ant Design标准 */
+@media only screen and (max-width: 768px) {
+  .todo-checkbox .ant-checkbox-inner,
+  .subtask-checkbox .ant-checkbox-inner,
+  .sub_todo .ant-checkbox .ant-checkbox-inner {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .todo-checkbox .ant-checkbox-inner::after,
+  .subtask-checkbox .ant-checkbox-inner::after,
+  .sub_todo .ant-checkbox-inner::after {
+    width: 7.14285714px;  /* 按比例放大 */
+    height: 11.42857143px; /* 按比例放大 */
+  }
+}
+
+/* 子任务标题 + 详情容器 */
+.subtask-texts {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* 子任务详情（第二行灰色小字） */
+.subtask-detail {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #9aa0a6;
+  line-height: 16px;
+  white-space: pre-wrap;
+}
+
+/* Subtask focus icon before checkbox */
+.subtask-focus-icon {
+  margin: 0 8px 0 0px; /* 对齐到 indent 后面 */
+  color: #dadce0;
+  font-size: 14px;
+}
+
+.subtask-focus-icon.focused {
+  color: #1a73e8;
+}
+
+/* Focus button style */
+.subtask-focus-button {
+  color: #5f6368;
+  margin-left: 4px;
+}
+
+.subtask-focus-button:hover {
+  color: #1a73e8;
+  background-color: rgba(26, 115, 232, 0.04);
+}
+
+/* Main todo focus icon/button */
+.todo-focus-icon {
+  margin-right: 8px;
+  color: #dadce0;
+  font-size: 16px;
+}
+.todo-focus-icon.focused { color: #1a73e8; }
+
+.todo-focus-button { color: #5f6368; margin-left: 4px; }
+.todo-focus-button:hover { color: #1a73e8; background-color: rgba(26,115,232,0.04); }
